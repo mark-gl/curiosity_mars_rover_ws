@@ -51,7 +51,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${arm_01_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${arm_01_Mass}"
 				x="${arm_01_X*scale_XYZ}"
 				y="${arm_01_Y*scale_XYZ}"
@@ -129,7 +129,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${arm_02_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${arm_02_Mass}"
 				x="${arm_02_X*scale_XYZ}"
 				y="${arm_02_Y*scale_XYZ}"
@@ -207,7 +207,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${arm_03_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${arm_03_Mass}"
 				x="${arm_03_X*scale_XYZ}"
 				y="${arm_03_Y*scale_XYZ}"
@@ -286,7 +286,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${arm_04_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${arm_04_Mass}"
 				x="${arm_04_X*scale_XYZ}"
 				y="${arm_04_Y*scale_XYZ}"
@@ -365,7 +365,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${arm_tools_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${arm_tools_Mass}"
 				x="${arm_tools_X*scale_XYZ}"
 				y="${arm_tools_Y*scale_XYZ}"

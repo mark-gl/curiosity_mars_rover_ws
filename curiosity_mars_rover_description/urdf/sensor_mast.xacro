@@ -51,7 +51,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${mast_p_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${mast_p_Mass}"
 				x="${mast_p_X*scale_XYZ}"
 				y="${mast_p_Y*scale_XYZ}"
@@ -129,7 +129,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${mast_02_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${mast_02_Mass}"
 				x="${mast_02_X*scale_XYZ}"
 				y="${mast_02_Y*scale_XYZ}"
@@ -208,7 +208,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${mast_cameras_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${mast_cameras_Mass}"
 				x="${mast_cameras_X*scale_XYZ}"
 				y="${mast_cameras_Y*scale_XYZ}"

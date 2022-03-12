@@ -25,7 +25,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${axisMass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${axisMass}"
 				x="${axisWidth*scale_XYZ}"
 				y="${axisLength*scale_XYZ}"
@@ -62,7 +62,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${suspension_arm_F_L_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${suspension_arm_F_L_Mass}"
 				x="${suspension_arm_F_L_X*scale_XYZ}"
 				y="${suspension_arm_F_L_Y*scale_XYZ}"
@@ -111,7 +111,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${suspension_arm_B_L_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${suspension_arm_B_L_Mass}"
 				x="${suspension_arm_B_L_X*scale_XYZ}"
 				y="${suspension_arm_B_L_Y*scale_XYZ}"
@@ -188,7 +188,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${suspension_arm_B2_L_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${suspension_arm_B2_L_Mass}"
 				x="${suspension_arm_B2_L_X*scale_XYZ}"
 				y="${suspension_arm_B2_L_Y*scale_XYZ}"
@@ -266,7 +266,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${suspension_steer_F_L_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${suspension_steer_F_L_Mass}"
 				x="${suspension_steer_F_L_X*scale_XYZ}"
 				y="${suspension_steer_F_L_Y*scale_XYZ}"
@@ -319,7 +319,7 @@
 		<origin xyz="0 0 -0.3996" rpy="0 0 0"/>
 	</joint>
 
-  	<wheel
+  	<xacro:wheel
 		wheel_name="front_wheel_L"
 		wheel_conector_name="suspension_steer_F_L_to_front_wheel_L"
 		tY="0"/>
@@ -357,7 +357,7 @@
 		<origin xyz="0.39423 -0.44859 -0.41098" rpy="0 0 0"/>
 	</joint>
 
-  	<wheel
+  	<xacro:wheel
 		wheel_name="middle_wheel_L"
 		wheel_conector_name="suspension_arm_B2_L_to_middle_wheel_L"
 		tY="0"/>
@@ -414,7 +414,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${suspension_steer_B_L_Mass}"/>
-			<box_inertia
+			<xacro:box_inertia
 				m="${suspension_steer_B_L_Mass}"
 				x="${suspension_steer_B_L_X*scale_XYZ}"
 				y="${suspension_steer_B_L_Y*scale_XYZ}"
@@ -468,7 +468,7 @@
 		<origin xyz="0 0 -0.410523" rpy="0 0 0"/>
 	</joint>
 
-  	<wheel
+  	<xacro:wheel
 		wheel_name="back_wheel_L"
 		wheel_conector_name="suspension_steer_B_L_to_back_wheel_L"
 		tY="0"/>

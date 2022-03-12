@@ -18,12 +18,12 @@
 	<!-- Sensor Mast -->
 	<xacro:include filename="$(find curiosity_mars_rover_description)/urdf/sensor_mast.xacro" />
 
-	<chassis_body/>
-	<left_wheel_tree/>
-	<right_wheel_tree/>
+	<xacro:chassis_body/>
+	<xacro:left_wheel_tree/>
+	<xacro:right_wheel_tree/>
 
-	<arm/>
-	<sensor_mast/>
+	<xacro:arm/>
+	<xacro:sensor_mast/>
 
 
 </robot>

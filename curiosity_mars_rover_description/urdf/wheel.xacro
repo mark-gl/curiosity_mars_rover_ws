@@ -24,7 +24,7 @@
 			<origin xyz="0 0 0"
 					rpy="0 0 0"/>
 			<mass value="${wheelMass}"/>
-			<cylinder_inertia
+			<xacro:cylinder_inertia
 				m="${wheelMass}"
 				r="${wheelRadius*scale_XYZ}"
 				h="${wheelWidth*scale_XYZ}"/>
