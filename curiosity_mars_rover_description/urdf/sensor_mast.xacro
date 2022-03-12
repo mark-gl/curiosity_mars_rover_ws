@@ -242,8 +242,7 @@
         <color rgba="0 0.8 0 1"/>
     </material>
 
-  	<link name="camera_link">
-        <!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+  	<!-- <link name="camera_link">
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <mass value="0.001" />
@@ -266,7 +265,104 @@
         <parent link="mast_cameras"/>
         <child link="camera_link"/>
         <origin xyz="0.13642 -0.218683 0.222314" rpy="0 0 ${PI}"/>
-    </joint>
+    </joint> -->
+
+	<link name="camera_link_mastcam_left">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.001"/>
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="green"/>
+		</visual>
+  	</link>
+	<gazebo reference="camera_link_mastcam_left">
+		<material>Gazebo/Green</material>
+	</gazebo>
+	<joint name="left_mastcam_joint" type="fixed">
+		<parent link="mast_cameras"/>
+		<child link="camera_link_mastcam_left"/>
+		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="0.145434 -0.218683 0.069"/>
+	</joint>
+
+    <link name="camera_link_mastcam_right">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.001"/>
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="green"/>
+		</visual>
+  	</link>
+	<gazebo reference="camera_link_mastcam_right">
+		<material>Gazebo/Green</material>
+	</gazebo>
+	<joint name="right_mastcam_joint" type="fixed">
+		<parent link="mast_cameras"/>
+		<child link="camera_link_mastcam_right"/>
+		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="-0.099257 -0.218683 0.069"/>
+	</joint>
+
+
+	<link name="camera_link_navcam_left">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.001"/>
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="green"/>
+		</visual>
+  	</link>
+	<gazebo reference="camera_link_navcam_left">
+		<material>Gazebo/Green</material>
+	</gazebo>
+	<joint name="left_navcam_joint" type="fixed">
+		<parent link="mast_cameras"/>
+		<child link="camera_link_navcam_left"/>
+		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="0.232895 -0.218683 0.08503"/>
+	</joint>
+
+    <link name="camera_link_navcam_right">
+		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+		<inertial>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<mass value="0.001"/>
+			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+		</inertial>
+		<visual>
+			<origin rpy="0.0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.0005 0.0005 0.0005"/>
+			</geometry>
+			<material name="green"/>
+		</visual>
+  	</link>
+	<gazebo reference="camera_link_navcam_right">
+		<material>Gazebo/Green</material>
+	</gazebo>
+	<joint name="right_navcam_joint" type="fixed">
+		<parent link="mast_cameras"/>
+		<child link="camera_link_navcam_right"/>
+		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="-0.186414 -0.218683 0.08503"/>
+	</joint>
 
   </xacro:macro>
 

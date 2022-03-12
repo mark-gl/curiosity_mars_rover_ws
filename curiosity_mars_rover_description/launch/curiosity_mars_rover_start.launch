@@ -19,5 +19,24 @@
 	<!-- <include file="$(find curiosity_mars_rover_description)/launch/curiosity_mars_rover_control.launch"/>
 	<include file="$(find curiosity_mars_rover_description)/launch/curiosity_mars_rover_systems.launch"/> -->
 	<include file="$(find curiosity_mars_rover_control)/launch/curiosity_mars_rover_control.launch"/>
+
+
+	<node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_backhazcam/" >
+		<param name="queue_size" value="2000" />
+		<param name="approximate_sync" value="True" />
+	</node>
+	<node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_fronthazcam/" >
+		<param name="queue_size" value="2000" />
+		<param name="approximate_sync" value="True" />
+	</node>
+	<node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_mastcam/" >
+		<param name="queue_size" value="2000" />
+		<param name="approximate_sync" value="True" />
+	</node>
+	<node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_navcam/" >
+		<param name="queue_size" value="2000" />
+		<param name="approximate_sync" value="True" />
+	</node>
+
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_description)/rviz/curiosity_mars_rover.rviz" />
 </launch>
