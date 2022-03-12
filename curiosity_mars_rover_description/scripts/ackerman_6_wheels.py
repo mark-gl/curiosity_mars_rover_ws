@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import time
 import rospy
 from std_msgs.msg import Float64
@@ -58,7 +58,7 @@ class CuriosityMarsRoverAckerMan(object):
     def wait_publishers_to_be_ready(self):
 
         rate_wait = rospy.Rate(10)
-        for controller_name, publisher_obj in self.publishers_curiosity_d.iteritems():
+        for controller_name, publisher_obj in self.publishers_curiosity_d.items():
             publisher_ready = False
             while not publisher_ready:
                 rospy.logwarn("Checking Publisher for ==>"+str(controller_name))
