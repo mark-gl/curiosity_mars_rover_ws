@@ -285,7 +285,7 @@
 	<transmission name="suspension_steer_F_L_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="suspension_steer_F_L_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       </joint>
       <actuator name="suspension_steer_F_LMotor">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -433,7 +433,7 @@
 	<transmission name="suspension_steer_B_L_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="suspension_steer_B_L_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       </joint>
       <actuator name="suspension_steer_B_LMotor">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>

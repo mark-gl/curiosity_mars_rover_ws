@@ -286,7 +286,7 @@
 	<transmission name="suspension_steer_F_R_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="suspension_steer_F_R_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       </joint>
       <actuator name="suspension_steer_F_RMotor">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -324,7 +324,7 @@
   	<xacro:wheel
 		wheel_name="front_wheel_R"
 		wheel_conector_name="suspension_steer_F_R_to_front_wheel_R"
-		tY="-1"/>
+		tY="0"/>
 
 
   	<!-- FRONT WHEEL RIGHT END -->
@@ -358,7 +358,7 @@
   	<xacro:wheel
 		wheel_name="middle_wheel_R"
 		wheel_conector_name="suspension_arm_B2_R_to_middle_wheel_R"
-		tY="-1"/>
+		tY="0"/>
 
 
   	<!-- RIGHT BACK WHEEL -->
@@ -429,7 +429,7 @@
   	<transmission name="suspension_steer_B_R_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="suspension_steer_B_R_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
       </joint>
       <actuator name="suspension_steer_B_RMotor">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -466,7 +466,7 @@
   	<xacro:wheel
 		wheel_name="back_wheel_R"
 		wheel_conector_name="suspension_steer_B_R_to_back_wheel_R"
-		tY="-1"/>
+		tY="0"/>
 
   	<!-- END BACK WHEEL RIGHT -->
 

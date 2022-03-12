@@ -3,13 +3,12 @@ import time
 import rospy
 from std_msgs.msg import Float64
 from geometry_msgs.msg import Twist
-
+from gazebo_msgs.srv import DeleteModel, DeleteModelResponse
 
 class CuriosityMarsRoverAckerMan(object):
     def __init__(self):
         rospy.loginfo("CuriosityRoverAckerMan Initialising...")
 
-        # TODO: Ackerman stuff
         self.distance_axis = 0.3
         self.distance_front_center = 0.5
         self.distance_back_center = 0.5
@@ -17,24 +16,13 @@ class CuriosityMarsRoverAckerMan(object):
         self.publishers_curiosity_d = {}
         self.controller_ns = "curiosity_mars_rover"
         self.controller_command = "command"
-        self.controllers_list = [   "back_wheel_L_joint_velocity_controller",
-                                    "back_wheel_R_joint_velocity_controller",
-                                    "front_wheel_L_joint_velocity_controller",
-                                    "front_wheel_R_joint_velocity_controller",
-                                    "middle_wheel_L_joint_velocity_controller",
-                                    "middle_wheel_R_joint_velocity_controller",
-                                    "suspension_arm_B2_L_joint_position_controller",
+        self.controllers_list = [   "suspension_arm_B2_L_joint_position_controller",
                                     "suspension_arm_B2_R_joint_position_controller",
                                     "suspension_arm_B_L_joint_position_controller",
                                     "suspension_arm_B_R_joint_position_controller",
                                     "suspension_arm_F_L_joint_position_controller",
-                                    "suspension_arm_F_R_joint_position_controller",
-                                    "suspension_steer_B_L_joint_position_controller",
-                                    "suspension_steer_B_R_joint_position_controller",
-                                    "suspension_steer_F_L_joint_position_controller",
-                                    "suspension_steer_F_R_joint_position_controller"
+                                    "suspension_arm_F_R_joint_position_controller"
                                 ]
-
         for controller_name in self.controllers_list:
             topic_name = "/"+self.controller_ns+"/"+controller_name+"/"+self.controller_command
             self.publishers_curiosity_d[controller_name] = rospy.Publisher(
@@ -46,11 +34,51 @@ class CuriosityMarsRoverAckerMan(object):
         self.init_publisher_variables()
         self.init_state()
 
-        self.cmd_vel_msg = Twist()
-        cmd_vel_topic = "/cmd_vel"
-        rospy.Subscriber(cmd_vel_topic, Twist, self.cmd_vel_callback)
+        # self.cmd_vel_msg = Twist()
+        # cmd_vel_topic = "/cmd_vel"
+        # rospy.Subscriber(cmd_vel_topic, Twist, self.cmd_vel_callback)
 
-        rospy.logwarn("CuriosityMarsRoverAckerMan...READY")
+        suspension_service_name = "/"+self.controller_ns+"/suspension_service"
+        self.suspension_service = rospy.Service(suspension_service_name, DeleteModel, self.suspension_service_cb)
+
+        rospy.loginfo("CuriosityMarsRoverAckerMan...READY")
+
+    def suspension_service_cb(self, req):
+        mode_name = req.model_name
+        if mode_name == "standard":
+            self.suspension_arm_B2_L_pos_msg.data = -0.2
+            self.suspension_arm_B2_R_pos_msg.data = -0.2
+            self.suspension_arm_B_L_pos_msg.data = -0.2
+            self.suspension_arm_B_R_pos_msg.data = -0.2
+            self.suspension_arm_F_L_pos_msg.data = 0.2
+            self.suspension_arm_F_R_pos_msg.data = 0.2
+
+            self.suspension_arm_B2_L.publish(self.suspension_arm_B2_L_pos_msg)
+            self.suspension_arm_B2_R.publish(self.suspension_arm_B2_R_pos_msg)
+            self.suspension_arm_B_L.publish(self.suspension_arm_B_L_pos_msg)
+            self.suspension_arm_B_R.publish(self.suspension_arm_B_R_pos_msg)
+            self.suspension_arm_F_L.publish(self.suspension_arm_F_L_pos_msg)
+            self.suspension_arm_F_R.publish(self.suspension_arm_F_R_pos_msg)
+        else:
+            self.suspension_arm_B2_L_pos_msg.data = -1 * float(mode_name)
+            self.suspension_arm_B2_R_pos_msg.data = -1 * float(mode_name)
+            self.suspension_arm_B_L_pos_msg.data = -1 * float(mode_name)
+            self.suspension_arm_B_R_pos_msg.data = -1 * float(mode_name)
+            self.suspension_arm_F_L_pos_msg.data = 1 * float(mode_name)
+            self.suspension_arm_F_R_pos_msg.data = 1 * float(mode_name)
+
+            self.suspension_arm_B2_L.publish(self.suspension_arm_B2_L_pos_msg)
+            self.suspension_arm_B2_R.publish(self.suspension_arm_B2_R_pos_msg)
+            self.suspension_arm_B_L.publish(self.suspension_arm_B_L_pos_msg)
+            self.suspension_arm_B_R.publish(self.suspension_arm_B_R_pos_msg)
+            self.suspension_arm_F_L.publish(self.suspension_arm_F_L_pos_msg)
+            self.suspension_arm_F_R.publish(self.suspension_arm_F_R_pos_msg)
+
+        response = DeleteModelResponse()
+        response.success = True
+        response.status_message = "Executed Suspension Mode="+str(mode_name)
+        return response
+
 
     def cmd_vel_callback(self, msg):
         self.cmd_vel_msg = msg
@@ -61,7 +89,7 @@ class CuriosityMarsRoverAckerMan(object):
         for controller_name, publisher_obj in self.publishers_curiosity_d.items():
             publisher_ready = False
             while not publisher_ready:
-                rospy.logwarn("Checking Publisher for ==>"+str(controller_name))
+                rospy.loginfo("Checking Publisher for ==>"+str(controller_name))
                 pub_num = publisher_obj.get_num_connections()
                 publisher_ready = (pub_num > 0)
                 rate_wait.sleep()
@@ -74,32 +102,32 @@ class CuriosityMarsRoverAckerMan(object):
         :return:
         """
         # Get the publishers for wheel speed
-        self.back_wheel_L = self.publishers_curiosity_d[self.controllers_list[0]]
-        self.back_wheel_R = self.publishers_curiosity_d[self.controllers_list[1]]
-        self.front_wheel_L = self.publishers_curiosity_d[self.controllers_list[2]]
-        self.front_wheel_R = self.publishers_curiosity_d[self.controllers_list[3]]
-        self.middle_wheel_L = self.publishers_curiosity_d[self.controllers_list[4]]
-        self.middle_wheel_R = self.publishers_curiosity_d[self.controllers_list[5]]
+        # self.back_wheel_L = self.publishers_curiosity_d[self.controllers_list[0]]
+        # self.back_wheel_R = self.publishers_curiosity_d[self.controllers_list[1]]
+        # self.front_wheel_L = self.publishers_curiosity_d[self.controllers_list[2]]
+        # self.front_wheel_R = self.publishers_curiosity_d[self.controllers_list[3]]
+        # self.middle_wheel_L = self.publishers_curiosity_d[self.controllers_list[4]]
+        # self.middle_wheel_R = self.publishers_curiosity_d[self.controllers_list[5]]
         # Get the publishers for suspension
-        self.suspension_arm_B2_L = self.publishers_curiosity_d[self.controllers_list[6]]
-        self.suspension_arm_B2_R = self.publishers_curiosity_d[self.controllers_list[7]]
-        self.suspension_arm_B_L = self.publishers_curiosity_d[self.controllers_list[8]]
-        self.suspension_arm_B_R = self.publishers_curiosity_d[self.controllers_list[9]]
-        self.suspension_arm_F_L = self.publishers_curiosity_d[self.controllers_list[10]]
-        self.suspension_arm_F_R = self.publishers_curiosity_d[self.controllers_list[11]]
+        self.suspension_arm_B2_L = self.publishers_curiosity_d[self.controllers_list[0]]
+        self.suspension_arm_B2_R = self.publishers_curiosity_d[self.controllers_list[1]]
+        self.suspension_arm_B_L = self.publishers_curiosity_d[self.controllers_list[2]]
+        self.suspension_arm_B_R = self.publishers_curiosity_d[self.controllers_list[3]]
+        self.suspension_arm_F_L = self.publishers_curiosity_d[self.controllers_list[4]]
+        self.suspension_arm_F_R = self.publishers_curiosity_d[self.controllers_list[5]]
         # Get the publishers for steering
-        self.suspension_steer_B_L = self.publishers_curiosity_d[self.controllers_list[12]]
-        self.suspension_steer_B_R = self.publishers_curiosity_d[self.controllers_list[13]]
-        self.suspension_steer_F_L = self.publishers_curiosity_d[self.controllers_list[14]]
-        self.suspension_steer_F_R = self.publishers_curiosity_d[self.controllers_list[15]]
+        # self.suspension_steer_B_L = self.publishers_curiosity_d[self.controllers_list[12]]
+        # self.suspension_steer_B_R = self.publishers_curiosity_d[self.controllers_list[13]]
+        # self.suspension_steer_F_L = self.publishers_curiosity_d[self.controllers_list[14]]
+        # self.suspension_steer_F_R = self.publishers_curiosity_d[self.controllers_list[15]]
 
         # Init Messages
-        self.back_wheel_L_velocity_msg = Float64()
-        self.back_wheel_R_velocity_msg = Float64()
-        self.front_wheel_L_velocity_msg = Float64()
-        self.front_wheel_R_velocity_msg = Float64()
-        self.middle_wheel_L_velocity_msg = Float64()
-        self.middle_wheel_R_velocity_msg = Float64()
+        # self.back_wheel_L_velocity_msg = Float64()
+        # self.back_wheel_R_velocity_msg = Float64()
+        # self.front_wheel_L_velocity_msg = Float64()
+        # self.front_wheel_R_velocity_msg = Float64()
+        # self.middle_wheel_L_velocity_msg = Float64()
+        # self.middle_wheel_R_velocity_msg = Float64()
 
         self.suspension_arm_B2_L_pos_msg = Float64()
         self.suspension_arm_B2_R_pos_msg = Float64()
@@ -108,28 +136,41 @@ class CuriosityMarsRoverAckerMan(object):
         self.suspension_arm_F_L_pos_msg = Float64()
         self.suspension_arm_F_R_pos_msg = Float64()
 
-        self.suspension_steer_B_L_pos_msg = Float64()
-        self.suspension_steer_B_R_pos_msg = Float64()
-        self.suspension_steer_F_L_pos_msg = Float64()
-        self.suspension_steer_F_R_pos_msg = Float64()
+        # self.suspension_steer_B_L_pos_msg = Float64()
+        # self.suspension_steer_B_R_pos_msg = Float64()
+        # self.suspension_steer_F_L_pos_msg = Float64()
+        # self.suspension_steer_F_R_pos_msg = Float64()
 
 
 
     def init_state(self):
         self.set_suspension_mode("standard")
-        self.set_turning_radius(None)
-        self.set_wheels_speed(0.0)
+        #self.set_turning_radius(None)
+        #self.set_wheels_speed(0.0)
 
     def set_suspension_mode(self, mode_name):
 
         if mode_name == "standard":
-
             self.suspension_arm_B2_L_pos_msg.data = -0.2
             self.suspension_arm_B2_R_pos_msg.data = -0.2
             self.suspension_arm_B_L_pos_msg.data = -0.2
             self.suspension_arm_B_R_pos_msg.data = -0.2
             self.suspension_arm_F_L_pos_msg.data = 0.2
             self.suspension_arm_F_R_pos_msg.data = 0.2
+
+            self.suspension_arm_B2_L.publish(self.suspension_arm_B2_L_pos_msg)
+            self.suspension_arm_B2_R.publish(self.suspension_arm_B2_R_pos_msg)
+            self.suspension_arm_B_L.publish(self.suspension_arm_B_L_pos_msg)
+            self.suspension_arm_B_R.publish(self.suspension_arm_B_R_pos_msg)
+            self.suspension_arm_F_L.publish(self.suspension_arm_F_L_pos_msg)
+            self.suspension_arm_F_R.publish(self.suspension_arm_F_R_pos_msg)
+        else:
+            self.suspension_arm_B2_L_pos_msg.data = 0
+            self.suspension_arm_B2_R_pos_msg.data = 0
+            self.suspension_arm_B_L_pos_msg.data = 0
+            self.suspension_arm_B_R_pos_msg.data = 0
+            self.suspension_arm_F_L_pos_msg.data = 0
+            self.suspension_arm_F_R_pos_msg.data = 0
 
             self.suspension_arm_B2_L.publish(self.suspension_arm_B2_L_pos_msg)
             self.suspension_arm_B2_R.publish(self.suspension_arm_B2_R_pos_msg)
@@ -224,7 +265,7 @@ if __name__ == "__main__":
     curiosity_mars_rover_ackerman_object = CuriosityMarsRoverAckerMan()
     rate = rospy.Rate(10.0)
     while not rospy.is_shutdown():
-        curiosity_mars_rover_ackerman_object.move_with_cmd_vel()
+        # curiosity_mars_rover_ackerman_object.move_with_cmd_vel()
         rate.sleep()
 
 

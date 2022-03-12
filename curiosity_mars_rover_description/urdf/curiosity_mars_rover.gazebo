@@ -20,7 +20,7 @@
     <plugin name="ground_truth"
             filename="libgazebo_ros_p3d.so">
       <frameName>world</frameName>
-      <bodyName>chassis</bodyName>
+      <bodyName>base_link</bodyName>
       <topicName>/curiosity_mars_rover/odom</topicName>
       <updateRate>30.0</updateRate>
     </plugin>

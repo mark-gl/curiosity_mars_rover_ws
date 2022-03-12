@@ -55,7 +55,7 @@
     <transmission name="${wheel_name}_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${wheel_name}_joint">
-        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
       <actuator name="${wheel_name}Motor">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>

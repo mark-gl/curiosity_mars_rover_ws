@@ -4,11 +4,13 @@
   <xacro:macro name="chassis_body" params="">
 
     <!-- Used for fixing robot to Gazebo 'chassis' -->
-	<link name="base_footprint" />
+	<link name="base_link" />
 
 	<joint name="base_joint" type="fixed">
-		<parent link="base_footprint"/>
+		<parent link="base_link"/>
 		<child link="chassis"/>
+		<!-- ROS conventions specify thgt robots should face the X axis-->
+		<origin xyz="0 0 0" rpy="0 0 1.57079632679"/>
 	</joint>
 
 

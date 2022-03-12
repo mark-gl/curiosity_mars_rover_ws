@@ -38,7 +38,7 @@ class CuriosityMarsRoverArmAndMast(object):
         self.arm_service = rospy.Service(arm_service_name, DeleteModel, self.arm_service_cb)
         mast_service_name = "/" + self.controller_ns + "/mast_service"
         self.mast_service = rospy.Service(mast_service_name, DeleteModel, self.mast_service_cb)
-        rospy.logwarn("CuriosityRover Arm And Mast...READY")
+        rospy.loginfo("CuriosityRover Arm And Mast...READY")
 
     def arm_service_cb(self, req):
         arm_mode_requested = req.model_name
@@ -68,7 +68,7 @@ class CuriosityMarsRoverArmAndMast(object):
         for controller_name, publisher_obj in self.publishers_curiosity_d.items():
             publisher_ready = False
             while not publisher_ready:
-                rospy.logwarn("Checking Publisher for ==>"+str(controller_name))
+                rospy.loginfo("Checking Publisher for ==>"+str(controller_name))
                 pub_num = publisher_obj.get_num_connections()
                 publisher_ready = (pub_num > 0)
                 rate_wait.sleep()
@@ -160,5 +160,3 @@ if __name__ == "__main__":
     rospy.init_node("CuriosityRoverArmMast_node")
     curiosity_mars_rover_arm_mast_object = CuriosityMarsRoverArmAndMast()
     rospy.spin()
-
-
