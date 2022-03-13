@@ -1,0 +1,30 @@
+<sdf version="1.5">
+  <world name="default">
+
+    <!-- Martian Gravity-->
+    <gravity>0 0 -3.711</gravity>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://curiosity_path</uri>
+      <name>curiosity_path</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+    
+    <gui fullscreen='1'>
+      <camera name='user_camera'>
+        <pose frame=''>-0.881981 22.2426 4.23255 0 0.529035 -1.52059</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+    
+    <scene>
+		<grid>false</grid>
+		<origin_visual>false</origin_visual>
+    </scene>
+  </world>
+</sdf>

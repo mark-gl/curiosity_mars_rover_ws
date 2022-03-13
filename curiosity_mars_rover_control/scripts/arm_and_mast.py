@@ -7,7 +7,7 @@ from gazebo_msgs.srv import DeleteModel, DeleteModelResponse
 
 class CuriosityMarsRoverArmAndMast(object):
     def __init__(self):
-        rospy.loginfo("CuriosityRover Arm And Mast Initialising...")
+        rospy.loginfo("Curiosity Arm And Mast Initialising...")
 
         # TODO: MoveIt for Arm
         self.publishers_curiosity_d = {}
@@ -38,7 +38,7 @@ class CuriosityMarsRoverArmAndMast(object):
         self.arm_service = rospy.Service(arm_service_name, DeleteModel, self.arm_service_cb)
         mast_service_name = "/" + self.controller_ns + "/mast_service"
         self.mast_service = rospy.Service(mast_service_name, DeleteModel, self.mast_service_cb)
-        rospy.loginfo("CuriosityRover Arm And Mast...READY")
+        rospy.loginfo("Curiosity Arm And Mast...READY")
 
     def arm_service_cb(self, req):
         arm_mode_requested = req.model_name

@@ -1,0 +1,13 @@
+<launch>
+  <arg name="gui" default="true"/>
+  <arg name="INITIAL_POSE_X" default="59" />
+  <arg name="INITIAL_POSE_Y" default="20" />
+  <arg name="INITIAL_POSE_Z" default="1" />
+  <include file="$(find curiosity_mars_rover_description)/launch/include/gazebo.launch.xml" >
+        <arg name="world_name" default="$(find curiosity_mars_rover_description)/worlds/apollo15_landing_site.world"/>
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="INITIAL_POSE_X" value="$(arg INITIAL_POSE_X)" />
+    <arg name="INITIAL_POSE_Y" value="$(arg INITIAL_POSE_Y)" />
+    <arg name="INITIAL_POSE_Z" value="$(arg INITIAL_POSE_Z)" />
+  </include>
+</launch>

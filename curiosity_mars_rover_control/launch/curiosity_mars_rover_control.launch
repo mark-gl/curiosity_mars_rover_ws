@@ -45,18 +45,5 @@
             <remap from="/joint_states" to="/curiosity_mars_rover/joint_states" />
     </node>
     
-	<node name="curiosity_rover_arms_and_mast_node"
-		 pkg="curiosity_mars_rover_control"
-		 type="arm_and_mast.py"
-		 respawn="false"
-		 output="screen"
-    	 args=""/>
-    
-    <node name="curiosity_rover_suspension_node"
-        pkg="curiosity_mars_rover_control"
-        type="suspension.py"
-        respawn="false"
-        output="screen"
-        args=""/>
-
+    <!-- <include file="$(find curiosity_mars_rover_control)/launch/curiosity_mars_rover_systems.launch"/> -->
 </launch>
