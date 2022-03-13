@@ -22,14 +22,14 @@
       <frameName>world</frameName>
       <bodyName>base_link</bodyName>
       <topicName>/curiosity_mars_rover/odom</topicName>
-      <updateRate>30.0</updateRate>
+      <updateRate>60.0</updateRate>
     </plugin>
   </gazebo>
 
 
   <!-- <gazebo reference="camera_link">
     <sensor type="camera" name="camera1">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <pose>0 0 0 0 0 1.57</pose>
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -66,7 +66,7 @@
 
   <gazebo reference="camera_link_mastcam_left">
     <sensor type="camera" name="camera_mastcam_left">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <pose>0 0 0 0 -1.57 1.57</pose>
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -103,7 +103,7 @@
 
   <gazebo reference="camera_link_mastcam_right">
     <sensor type="camera" name="camera_mastcam_right">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <pose>0 0 0 0 -1.57 1.57</pose>
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -140,7 +140,7 @@
 
   <gazebo reference="camera_link_navcam_left">
     <sensor type="camera" name="camera_navcam_left">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <pose>0 0 0 0 -1.57 1.57</pose>
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -177,7 +177,7 @@
 
   <gazebo reference="camera_link_navcam_right">
     <sensor type="camera" name="camera_navcam_right">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <pose>0 0 0 0 -1.57 1.57</pose>
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -214,7 +214,7 @@
 
   <gazebo reference="camera_link_fronthazcam_left">
     <sensor type="camera" name="camera_fronthazcam_left">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <!-- Possibly needs changing to account for new axis-->
           <pose>0 0 0 0 -1.57 1.57</pose>
@@ -252,7 +252,7 @@
 
   <gazebo reference="camera_link_fronthazcam_right">
     <sensor type="camera" name="camera_fronthazcam_right">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <pose>0 0 0 0 -1.57 1.57</pose>
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -289,7 +289,7 @@
 
     <gazebo reference="camera_link_backhazcam_left">
     <sensor type="camera" name="camera_backhazcam_left">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <pose>0 0 0 0 -1.57 1.57</pose>
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -326,7 +326,7 @@
 
   <gazebo reference="camera_link_backhazcam_right">
     <sensor type="camera" name="camera_backhazcam_right">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <pose>0 0 0 0 -1.57 1.57</pose>
         <horizontal_fov>1.3962634</horizontal_fov>
@@ -363,7 +363,7 @@
 
   <gazebo reference="camera_link_armcam">
     <sensor type="camera" name="camera_armcam">
-      <update_rate>10.0</update_rate>
+      <update_rate>60.0</update_rate>
       <camera name="head">
           <pose>0 0 0 0 -1.57 1.57</pose>
         <horizontal_fov>0.593412</horizontal_fov>
