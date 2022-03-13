@@ -19,8 +19,7 @@
 	<!-- <include file="$(find curiosity_mars_rover_description)/launch/curiosity_mars_rover_control.launch"/>
 	<include file="$(find curiosity_mars_rover_description)/launch/curiosity_mars_rover_systems.launch"/> -->
 	<include file="$(find curiosity_mars_rover_control)/launch/curiosity_mars_rover_control.launch"/>
-
-
+	
 	<node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_backhazcam/" >
 		<param name="queue_size" value="2000" />
 		<param name="approximate_sync" value="True" />
