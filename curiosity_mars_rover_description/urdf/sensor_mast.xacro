@@ -288,7 +288,7 @@
 	<joint name="left_mastcam_joint" type="fixed">
 		<parent link="mast_cameras"/>
 		<child link="camera_link_mastcam_left"/>
-		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="0.145434 -0.218683 0.069"/>
+		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="0.145434 -0.138683 0.069"/> <!-- -0.218683 + 0.08 -->
 	</joint>
 
     <link name="camera_link_mastcam_right">
@@ -312,7 +312,7 @@
 	<joint name="right_mastcam_joint" type="fixed">
 		<parent link="mast_cameras"/>
 		<child link="camera_link_mastcam_right"/>
-		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="-0.099257 -0.218683 0.069"/>
+		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="-0.099257 -0.138683 0.069"/>
 	</joint>
 
 
@@ -337,7 +337,7 @@
 	<joint name="left_navcam_joint" type="fixed">
 		<parent link="mast_cameras"/>
 		<child link="camera_link_navcam_left"/>
-		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="0.232895 -0.218683 0.08503"/>
+		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="0.232895 -0.138683 0.08503"/>
 	</joint>
 
     <link name="camera_link_navcam_right">
@@ -361,7 +361,7 @@
 	<joint name="right_navcam_joint" type="fixed">
 		<parent link="mast_cameras"/>
 		<child link="camera_link_navcam_right"/>
-		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="-0.186414 -0.218683 0.08503"/>
+		<origin rpy="-1.57079632679 0 3.141592653589793" xyz="-0.186414 -0.138683 0.08503"/>
 	</joint>
 
   </xacro:macro>

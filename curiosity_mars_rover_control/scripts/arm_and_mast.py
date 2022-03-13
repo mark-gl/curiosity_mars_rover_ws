@@ -138,8 +138,8 @@ class CuriosityMarsRoverArmAndMast(object):
 
         if mode_name == "close" or mode_name == "open":
             if mode_name == "close":
-                self.mast_p_pos_msg.data = 1.57
-                self.mast_02_pos_msg.data = -1.57
+                self.mast_p_pos_msg.data = 1.35 # not quite 90 degrees
+                self.mast_02_pos_msg.data = 1.57
                 self.mast_cameras_pos_msg.data = 0.0
 
             if mode_name == "open":

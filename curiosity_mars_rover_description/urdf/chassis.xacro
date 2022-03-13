@@ -66,7 +66,7 @@
 	<joint name="left_fronthazcam_joint" type="fixed">
 		<parent link="chassis"/>
 		<child link="camera_link_fronthazcam_left"/>
-		<origin rpy="-2.35619449018 0 3.141592653589793" xyz="0.086741 -0.997548 -0.233353"/>
+		<origin rpy="-2.35619449018 0 3.141592653589793" xyz="0.086741 -0.940979 -0.176784"/>
 	</joint>
 
     <link name="camera_link_fronthazcam_right">
@@ -90,7 +90,7 @@
 	<joint name="right_fronthazcam_joint" type="fixed">
 		<parent link="chassis"/>
 		<child link="camera_link_fronthazcam_right"/>
-		<origin rpy="-2.35619449018 0 3.141592653589793" xyz="-0.072925 -0.997548 -0.233353"/>
+		<origin rpy="-2.35619449018 0 3.141592653589793" xyz="-0.072925 -0.940979 -0.176784"/>
 	</joint>
 
 	<link name="camera_link_backhazcam_left">
@@ -115,7 +115,7 @@
 		<parent link="chassis"/>
 		<child link="camera_link_backhazcam_left"/>
 		<!-- -0.78539816339 - 1.57079632679 = -2.35619449018-->
-		<origin rpy="-2.35619449018 0 0" xyz="0.452052 1.12613 -0.17138"/>
+		<origin rpy="-2.35619449018 0 0" xyz="0.452052 1.06956 -0.114811"/>
 	</joint>
 
     <link name="camera_link_backhazcam_right">
@@ -139,7 +139,7 @@
 	<joint name="right_backhazcam_joint" type="fixed">
 		<parent link="chassis"/>
 		<child link="camera_link_backhazcam_right"/>
-		<origin rpy="-2.35619449018 0 0" xyz="0.550881 1.12613 -0.17138"/>
+		<origin rpy="-2.35619449018 0 0" xyz="0.550881 1.06956 -0.114811"/>
 	</joint>
 
   </xacro:macro>
