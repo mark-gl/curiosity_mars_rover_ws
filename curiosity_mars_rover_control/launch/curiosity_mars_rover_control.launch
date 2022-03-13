@@ -45,5 +45,7 @@
             <remap from="/joint_states" to="/curiosity_mars_rover/joint_states" />
     </node>
     
-    <!-- <include file="$(find curiosity_mars_rover_control)/launch/curiosity_mars_rover_systems.launch"/> -->
+    <include file="$(find curiosity_mars_rover_control)/launch/curiosity_mars_rover_systems.launch"/>
+    
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_control)/rviz/curiosity_mars_rover.rviz" />
 </launch>
