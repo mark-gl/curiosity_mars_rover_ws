@@ -96,6 +96,15 @@
 			parent="chassis"
 			resolution="1024"
 			fov="1.3962634"/>
+		
+		<xacro:camera 
+			camera_name="mardi"
+			topic_name="mardi"
+			rot="-3.141592653589793 0 0"
+			pos="0.647759 -0.673666 -0.225013"
+			parent="chassis"
+			resolution="1024"
+			fov="1.22173"/>
 
 	</xacro:macro>
 
