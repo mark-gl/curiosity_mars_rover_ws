@@ -1,147 +1,102 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="chassis_body" params="">
+	<xacro:macro name="chassis_body" params="">
 
-    <!-- Used for fixing robot to Gazebo 'chassis' -->
-	<link name="base_link" />
+		<!-- Used for fixing robot to Gazebo 'chassis' -->
+		<link name="base_link"/>
 
-	<joint name="base_joint" type="fixed">
-		<parent link="base_link"/>
-		<child link="chassis"/>
-		<!-- ROS conventions specify thgt robots should face the X axis-->
-		<origin xyz="0 0 0" rpy="0 0 1.57079632679"/>
-	</joint>
+		<joint name="base_joint" type="fixed">
+			<parent link="base_link"/>
+			<child link="chassis"/>
+			<!-- ROS conventions specify thgt robots should face the X axis-->
+			<origin xyz="0 0 0" rpy="0 0 1.57079632679"/>
+		</joint>
 
 
-	<link name='chassis'>
+		<link name='chassis'>
 
-		<collision>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="package://curiosity_mars_rover_description/meshes/chassis_full_fixed_glitch_v2.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
-			</geometry>
-		</collision>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<mesh filename="package://curiosity_mars_rover_description/meshes/chassis_full_fixed_glitch_v2.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+				</geometry>
+			</collision>
 
-		<visual>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
-			<geometry>
-				<mesh filename="package://curiosity_mars_rover_description/meshes/chassis_full_fixed_glitch_v2.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
-			</geometry>
-		</visual>
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<mesh filename="package://curiosity_mars_rover_description/meshes/chassis_full_fixed_glitch_v2.dae" scale="${scale_XYZ} ${scale_XYZ} ${scale_XYZ}"/>
+				</geometry>
+			</visual>
 
-		<inertial>
-			<origin xyz="0 0 0"
-					rpy="0 0 0"/>
-			<mass value="${chassisMass}"/>
-			<xacro:box_inertia
-				m="${chassisMass}"
-				x="${chassisWidth*scale_XYZ}"
-				y="${chassisLength*scale_XYZ}"
-				z="${chassisHeight*scale_XYZ}"/>
-		</inertial>
+			<inertial>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<mass value="${chassisMass}"/>
+				<xacro:box_inertia
+                    m="${chassisMass}"
+                    x="${chassisWidth*scale_XYZ}"
+                    y="${chassisLength*scale_XYZ}"
+                    z="${chassisHeight*scale_XYZ}"/>
+			</inertial>
 
-	</link>
+		</link>
 
-	<link name="camera_link_fronthazcam_left">
-		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
-		<inertial>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<mass value="0.001"/>
-			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
-		</inertial>
-		<visual>
-			<origin rpy="0.0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<box size="0.0005 0.0005 0.0005"/>
-			</geometry>
-			<material name="green"/>
-		</visual>
-  	</link>
-	<gazebo reference="camera_link_fronthazcam_left">
-		<material>Gazebo/Green</material>
-	</gazebo>
-	<joint name="left_fronthazcam_joint" type="fixed">
-		<parent link="chassis"/>
-		<child link="camera_link_fronthazcam_left"/>
-		<origin rpy="-2.35619449018 0 3.141592653589793" xyz="0.086741 -0.940979 -0.176784"/>
-	</joint>
+        <!-- These definitions are borrowed from the Jackal. -->
+        <link name="imu_link">
+            <inertial>
+            <mass value="0.001"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="1e-09" ixy="0.0" ixz="0.0" iyy="1e-09" iyz="0.0" izz="1e-09"/>
+            </inertial>
+        </link>
+        <joint name="imu_joint" type="fixed">
+            <parent link="chassis"/>
+            <child link="imu_link"/>
+        </joint>
 
-    <link name="camera_link_fronthazcam_right">
-		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
-		<inertial>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<mass value="0.001"/>
-			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
-		</inertial>
-		<visual>
-			<origin rpy="0.0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<box size="0.0005 0.0005 0.0005"/>
-			</geometry>
-			<material name="green"/>
-		</visual>
-  	</link>
-	<gazebo reference="camera_link_fronthazcam_right">
-		<material>Gazebo/Green</material>
-	</gazebo>
-	<joint name="right_fronthazcam_joint" type="fixed">
-		<parent link="chassis"/>
-		<child link="camera_link_fronthazcam_right"/>
-		<origin rpy="-2.35619449018 0 3.141592653589793" xyz="-0.072925 -0.940979 -0.176784"/>
-	</joint>
+        <link name="navsat_link">
+            <visual>
+            <geometry>
+                <cylinder radius="0.026" length="0.016"/>
+            </geometry>
+            <origin xyz="0 0 0"/>
+            <material name="green"/>
+            </visual>
+        </link>
+        <joint name="navsat_joint" type="fixed">
+            <parent link="chassis"/>
+            <child link="navsat_link"/>
+            <origin xyz="0 0 0"/>
+        </joint>
 
-	<link name="camera_link_backhazcam_left">
-		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
-		<inertial>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<mass value="0.001"/>
-			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
-		</inertial>
-		<visual>
-			<origin rpy="0.0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<box size="0.0005 0.0005 0.0005"/>
-			</geometry>
-			<material name="green"/>
-		</visual>
-  	</link>
-	<gazebo reference="camera_link_backhazcam_left">
-		<material>Gazebo/Green</material>
-	</gazebo>
-	<joint name="left_backhazcam_joint" type="fixed">
-		<parent link="chassis"/>
-		<child link="camera_link_backhazcam_left"/>
-		<!-- -0.78539816339 - 1.57079632679 = -2.35619449018-->
-		<origin rpy="-2.35619449018 0 0" xyz="0.452052 1.06956 -0.114811"/>
-	</joint>
+		<xacro:camera 
+			camera_name="fronthazcam_left"
+			topic_name="fronthazcam/left"
+			rot="-2.35619449018 0 3.141592653589793"
+			pos="0.086741 -0.940979 -0.176784"
+			parent="chassis"
+			resolution="1024"
+			fov="1.3962634"/>
+		
+		<xacro:camera 
+			camera_name="fronthazcam_right"
+			topic_name="fronthazcam/right"
+			rot="-2.35619449018 0 3.141592653589793"
+			pos="-0.072925 -0.940979 -0.176784"
+			parent="chassis"
+			resolution="1024"
+			fov="1.3962634"/>
 
-    <link name="camera_link_backhazcam_right">
-		<!-- Inertial for gazebo to take it into account, Put 1gr weight -->
-		<inertial>
-			<origin rpy="0 0 0" xyz="0 0 0"/>
-			<mass value="0.001"/>
-			<inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
-		</inertial>
-		<visual>
-			<origin rpy="0.0 0 0" xyz="0 0 0"/>
-			<geometry>
-				<box size="0.0005 0.0005 0.0005"/>
-			</geometry>
-			<material name="green"/>
-		</visual>
-  	</link>
-	<gazebo reference="camera_link_backhazcam_right">
-		<material>Gazebo/Green</material>
-	</gazebo>
-	<joint name="right_backhazcam_joint" type="fixed">
-		<parent link="chassis"/>
-		<child link="camera_link_backhazcam_right"/>
-		<origin rpy="-2.35619449018 0 0" xyz="0.550881 1.06956 -0.114811"/>
-	</joint>
+		<xacro:camera 
+			camera_name="backhazcam_left"
+			topic_name="backhazcam/left"
+			rot="-2.35619449018 0 0"
+			pos="0.452052 1.06956 -0.114811"
+			parent="chassis"
+			resolution="1024"
+			fov="1.3962634"/>
 
-  </xacro:macro>
+	</xacro:macro>
 
 </robot>

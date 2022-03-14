@@ -80,15 +80,15 @@ Visualization Manager:
           Value: true
         base_link:
           Value: true
-        camera_link_armcam:
-          Value: true
         camera_link_backhazcam_left:
-          Value: true
-        camera_link_backhazcam_right:
           Value: true
         camera_link_fronthazcam_left:
           Value: true
         camera_link_fronthazcam_right:
+          Value: true
+        camera_link_mahli:
+          Value: true
+        camera_link_mardi:
           Value: true
         camera_link_mastcam_left:
           Value: true
@@ -108,9 +108,9 @@ Visualization Manager:
           Value: true
         front_wheel_R:
           Value: true
-        left_axis:
+        imu_link:
           Value: true
-        map:
+        left_axis:
           Value: true
         mast_02:
           Value: true
@@ -125,6 +125,8 @@ Visualization Manager:
         middle_wheel_L:
           Value: true
         middle_wheel_R:
+          Value: true
+        navsat_link:
           Value: true
         odom:
           Value: true
@@ -181,80 +183,83 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        map:
-          odom:
-            base_link:
-              chassis:
-                camera_link_backhazcam_left:
-                  {}
-                camera_link_backhazcam_right:
-                  {}
-                camera_link_fronthazcam_left:
-                  {}
-                camera_link_fronthazcam_right:
-                  {}
-                chassis_to_arm_01:
-                  arm_01:
-                    arm_01_to_arm_02:
-                      arm_02:
-                        arm_02_to_arm_03:
-                          arm_03:
-                            arm_03_to_arm_04:
-                              arm_04:
-                                arm_04_to_arm_tools:
-                                  arm_tools:
-                                    camera_link_armcam:
-                                      {}
-                chassis_to_mast_p:
-                  mast_p:
-                    mast_p_to_mast_02:
-                      mast_02:
-                        mast_02_to_mast_cameras:
-                          mast_cameras:
-                            camera_link_mastcam_left:
-                              {}
-                            camera_link_mastcam_right:
-                              {}
-                            camera_link_navcam_left:
-                              {}
-                            camera_link_navcam_right:
-                              {}
-                left_axis:
-                  suspension_arm_B_L:
-                    suspension_arm_B_L_to_B2_L:
-                      suspension_arm_B2_L:
-                        suspension_arm_B2_L_to_middle_wheel_L:
-                          middle_wheel_L:
+        odom:
+          base_link:
+            chassis:
+              camera_link_backhazcam_left:
+                {}
+              camera_link_fronthazcam_left:
+                {}
+              camera_link_fronthazcam_right:
+                {}
+              camera_link_mardi:
+                {}
+              chassis_to_arm_01:
+                arm_01:
+                  arm_01_to_arm_02:
+                    arm_02:
+                      arm_02_to_arm_03:
+                        arm_03:
+                          arm_03_to_arm_04:
+                            arm_04:
+                              arm_04_to_arm_tools:
+                                arm_tools:
+                                  camera_link_mahli:
+                                    {}
+              chassis_to_mast_p:
+                mast_p:
+                  mast_p_to_mast_02:
+                    mast_02:
+                      mast_02_to_mast_cameras:
+                        mast_cameras:
+                          camera_link_mastcam_left:
                             {}
-                        suspension_arm_B2_L_to_suspension_steer_B_L:
-                          suspension_steer_B_L:
-                            suspension_steer_B_L_to_back_wheel_L:
-                              back_wheel_L:
-                                {}
-                  suspension_arm_F_L:
-                    suspension_arm_F_L_to_suspension_steer_F_L:
-                      suspension_steer_F_L:
-                        suspension_steer_F_L_to_front_wheel_L:
-                          front_wheel_L:
+                          camera_link_mastcam_right:
                             {}
-                right_axis:
-                  suspension_arm_B_R:
-                    suspension_arm_B_R_to_B2_R:
-                      suspension_arm_B2_R:
-                        suspension_arm_B2_R_to_middle_wheel_R:
-                          middle_wheel_R:
+                          camera_link_navcam_left:
                             {}
-                        suspension_arm_B2_R_to_suspension_steer_B_R:
-                          suspension_steer_B_R:
-                            suspension_steer_B_R_to_back_wheel_R:
-                              back_wheel_R:
-                                {}
-                  suspension_arm_F_R:
-                    suspension_arm_F_R_to_suspension_steer_F_R:
-                      suspension_steer_F_R:
-                        suspension_steer_F_R_to_front_wheel_R:
-                          front_wheel_R:
+                          camera_link_navcam_right:
                             {}
+              imu_link:
+                {}
+              left_axis:
+                suspension_arm_B_L:
+                  suspension_arm_B_L_to_B2_L:
+                    suspension_arm_B2_L:
+                      suspension_arm_B2_L_to_middle_wheel_L:
+                        middle_wheel_L:
+                          {}
+                      suspension_arm_B2_L_to_suspension_steer_B_L:
+                        suspension_steer_B_L:
+                          suspension_steer_B_L_to_back_wheel_L:
+                            back_wheel_L:
+                              {}
+                suspension_arm_F_L:
+                  suspension_arm_F_L_to_suspension_steer_F_L:
+                    suspension_steer_F_L:
+                      suspension_steer_F_L_to_front_wheel_L:
+                        front_wheel_L:
+                          {}
+              navsat_link:
+                {}
+              right_axis:
+                suspension_arm_B_R:
+                  suspension_arm_B_R_to_B2_R:
+                    suspension_arm_B2_R:
+                      suspension_arm_B2_R_to_middle_wheel_R:
+                        middle_wheel_R:
+                          {}
+                      suspension_arm_B2_R_to_suspension_steer_B_R:
+                        suspension_steer_B_R:
+                          suspension_steer_B_R_to_back_wheel_R:
+                            back_wheel_R:
+                              {}
+                suspension_arm_F_R:
+                  suspension_arm_F_R_to_suspension_steer_F_R:
+                    suspension_steer_F_R:
+                      suspension_steer_F_R_to_front_wheel_R:
+                        front_wheel_R:
+                          {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -326,17 +331,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        camera_link_armcam:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
         camera_link_backhazcam_left:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera_link_backhazcam_right:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -347,6 +342,16 @@ Visualization Manager:
           Show Trail: false
           Value: true
         camera_link_fronthazcam_right:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_link_mahli:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_link_mardi:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -396,6 +401,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         left_axis:
           Alpha: 1
           Show Axes: false
@@ -432,6 +441,11 @@ Visualization Manager:
           Show Trail: false
           Value: true
         middle_wheel_R:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        navsat_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -682,7 +696,7 @@ Visualization Manager:
     - Class: rviz/Camera
       Enabled: true
       Image Rendering: background and overlay
-      Image Topic: /curiosity_mars_rover/camera_armcam/image_raw
+      Image Topic: /curiosity_mars_rover/camera_mahli/image_raw
       Name: Armcam
       Overlay Alpha: 1
       Queue Size: 2
@@ -767,7 +781,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 7.081752777099609
+      Distance: 7.48576545715332
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -775,9 +789,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.38912421464920044
-        Y: 0.6997838616371155
-        Z: -1.132269263267517
+        X: 0.29139572381973267
+        Y: 0.8183479309082031
+        Z: -0.8572765588760376
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -811,5 +825,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1676
-  X: 81
-  Y: -21
+  X: 108
+  Y: 0

@@ -3,43 +3,110 @@
 <!--
 	definitions of some macros for easier description of the robot
 -->
-
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  
-  <xacro:macro name="cylinder_inertia" params="m r h">
 
-    <inertia  
-          ixx="${m*(3*r*r+h*h)/12}" 
-    			ixy = "0" 
-    			ixz = "0"
-    			iyy="${m*(3*r*r+h*h)/12}" 
-    			iyz = "0"
-    			izz="${m*r*r/2}"
-    />
-  </xacro:macro>
+    <material name="green">
+        <color rgba="0 0.8 0 1"/>
+    </material>
 
-  <xacro:macro name="box_inertia" params="m x y z">
+    <xacro:macro name="cylinder_inertia" params="m r h">
 
-    <inertia  
-          ixx="${m*(y*y+z*z)/12}" 
-    			ixy = "0" 
-    			ixz = "0"
-    			iyy="${m*(x*x+z*z)/12}" 
-    			iyz = "0"
-    			izz="${m*(x*x+z*z)/12}"
-    />
-  </xacro:macro>
+        <inertia 
+            ixx="${m*(3*r*r+h*h)/12}" 
+    		ixy="0" 
+    		ixz="0"
+            iyy="${m*(3*r*r+h*h)/12}" 
+    		iyz="0"
+            izz="${m*r*r/2}"/>
 
-  <xacro:macro name="sphere_inertia" params="m r">
+    </xacro:macro>
 
-    <inertia  
-          ixx="${2*m*r*r/5}" 
-    			ixy = "0" 
-    			ixz = "0"
-    			iyy="${2*m*r*r/5}" 
-    			iyz = "0"
-    			izz="${2*m*r*r/5}"
-    />
-  </xacro:macro>
+    <xacro:macro name="box_inertia" params="m x y z">
+
+        <inertia 
+            ixx="${m*(y*y+z*z)/12}" 
+            ixy="0" 
+            ixz="0"
+            iyy="${m*(x*x+z*z)/12}" 
+            iyz="0"
+            izz="${m*(x*x+z*z)/12}"/>
+
+    </xacro:macro>
+
+    <xacro:macro name="sphere_inertia" params="m r">
+
+        <inertia 
+            ixx="${2*m*r*r/5}" 
+    		ixy="0" 
+    		ixz="0"
+            iyy="${2*m*r*r/5}" 
+    		iyz="0"
+            izz="${2*m*r*r/5}"/>
+
+    </xacro:macro>
+
+    <xacro:macro name="camera" params="camera_name topic_name rot pos resolution fov parent">
+
+        <link name="camera_link_${camera_name}">
+            <!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+            <inertial>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <mass value="0.001"/>
+                <inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+            </inertial>
+            <visual>
+                <origin rpy="0.0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <box size="0.0005 0.0005 0.0005"/>
+                </geometry>
+                <material name="green"/>
+            </visual>
+        </link>
+
+        <joint name="${camera_name}_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="camera_link_${camera_name}"/>
+            <origin rpy="${rot}" xyz="${pos}"/>
+        </joint>
+
+        <gazebo reference="camera_link_${camera_name}">
+            <material>Gazebo/Green</material>
+            <sensor type="camera" name="camera_${camera_name}">
+                <update_rate>60.0</update_rate>
+                <camera name="camera">
+                    <pose>0 0 0 0 -1.57 1.57</pose>
+                    <horizontal_fov>${fov}</horizontal_fov>
+                    <image>
+                        <width>${resolution}</width>
+                        <height>${resolution}</height>
+                        <format>R8G8B8</format>
+                    </image>
+                    <clip>
+                        <near>0.01</near>
+                        <far>100</far>
+                    </clip>
+                    <noise>
+                        <type>gaussian</type>
+                        <stddev>0.007</stddev>
+                    </noise>
+                </camera>
+                <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+                    <alwaysOn>true</alwaysOn>
+                    <updateRate>0.0</updateRate>
+                    <cameraName>curiosity_mars_rover/camera_${topic_name}</cameraName>
+                    <imageTopicName>image_raw</imageTopicName>
+                    <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+                    <frameName>camera_link_${camera_name}</frameName>
+                    <hackBaseline>0.07</hackBaseline>
+                    <distortionK1>0.0</distortionK1>
+                    <distortionK2>0.0</distortionK2>
+                    <distortionK3>0.0</distortionK3>
+                    <distortionT1>0.0</distortionT1>
+                    <distortionT2>0.0</distortionT2>
+                </plugin>
+            </sensor>
+        </gazebo>
+
+    </xacro:macro>
 
 </robot>

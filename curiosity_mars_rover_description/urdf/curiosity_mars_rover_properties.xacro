@@ -3,7 +3,7 @@
 
 	<!-- Constants -->
 	<xacro:property name="PI" value="3.1415926535897931"/>
-	
+
 	<!-- Scaling -->
 	<xacro:property name="scale_XYZ" value="1.0"/>
 
@@ -13,7 +13,6 @@
 	<xacro:property name="chassisHeight" value="0.76"/>
 	<xacro:property name="chassisLength" value="2.08157"/>
 	<xacro:property name="chassisWidth" value="1.53774"/>
-
 
 	<!-- Wheel Trees -->
 	<xacro:property name="TreeMass" value="${72.96/2.0}"/>
@@ -100,8 +99,6 @@
 	<xacro:property name="arm_tools_Y" value="0.467147"/>
 	<xacro:property name="arm_tools_Z" value="0.21915"/>
 
-
-
 	<!-- Mast -->
 	<xacro:property name="mastMass" value="50.0"/>
 	<xacro:property name="MastParts" value="3.0"/>
@@ -124,8 +121,4 @@
 	<xacro:property name="mast_cameras_Z" value="0.203994"/>
 	<xacro:property name="mast_cameras_limit" value="1.57"/>
 
-
-
-	
-	
 </robot>
