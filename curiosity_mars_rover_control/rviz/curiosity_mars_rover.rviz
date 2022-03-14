@@ -110,6 +110,8 @@ Visualization Manager:
           Value: true
         left_axis:
           Value: true
+        map:
+          Value: true
         mast_02:
           Value: true
         mast_02_to_mast_cameras:
@@ -179,79 +181,80 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        odom:
-          base_link:
-            chassis:
-              camera_link_backhazcam_left:
-                {}
-              camera_link_backhazcam_right:
-                {}
-              camera_link_fronthazcam_left:
-                {}
-              camera_link_fronthazcam_right:
-                {}
-              chassis_to_arm_01:
-                arm_01:
-                  arm_01_to_arm_02:
-                    arm_02:
-                      arm_02_to_arm_03:
-                        arm_03:
-                          arm_03_to_arm_04:
-                            arm_04:
-                              arm_04_to_arm_tools:
-                                arm_tools:
-                                  camera_link_armcam:
-                                    {}
-              chassis_to_mast_p:
-                mast_p:
-                  mast_p_to_mast_02:
-                    mast_02:
-                      mast_02_to_mast_cameras:
-                        mast_cameras:
-                          camera_link_mastcam_left:
-                            {}
-                          camera_link_mastcam_right:
-                            {}
-                          camera_link_navcam_left:
-                            {}
-                          camera_link_navcam_right:
-                            {}
-              left_axis:
-                suspension_arm_B_L:
-                  suspension_arm_B_L_to_B2_L:
-                    suspension_arm_B2_L:
-                      suspension_arm_B2_L_to_middle_wheel_L:
-                        middle_wheel_L:
-                          {}
-                      suspension_arm_B2_L_to_suspension_steer_B_L:
-                        suspension_steer_B_L:
-                          suspension_steer_B_L_to_back_wheel_L:
-                            back_wheel_L:
+        map:
+          odom:
+            base_link:
+              chassis:
+                camera_link_backhazcam_left:
+                  {}
+                camera_link_backhazcam_right:
+                  {}
+                camera_link_fronthazcam_left:
+                  {}
+                camera_link_fronthazcam_right:
+                  {}
+                chassis_to_arm_01:
+                  arm_01:
+                    arm_01_to_arm_02:
+                      arm_02:
+                        arm_02_to_arm_03:
+                          arm_03:
+                            arm_03_to_arm_04:
+                              arm_04:
+                                arm_04_to_arm_tools:
+                                  arm_tools:
+                                    camera_link_armcam:
+                                      {}
+                chassis_to_mast_p:
+                  mast_p:
+                    mast_p_to_mast_02:
+                      mast_02:
+                        mast_02_to_mast_cameras:
+                          mast_cameras:
+                            camera_link_mastcam_left:
                               {}
-                suspension_arm_F_L:
-                  suspension_arm_F_L_to_suspension_steer_F_L:
-                    suspension_steer_F_L:
-                      suspension_steer_F_L_to_front_wheel_L:
-                        front_wheel_L:
-                          {}
-              right_axis:
-                suspension_arm_B_R:
-                  suspension_arm_B_R_to_B2_R:
-                    suspension_arm_B2_R:
-                      suspension_arm_B2_R_to_middle_wheel_R:
-                        middle_wheel_R:
-                          {}
-                      suspension_arm_B2_R_to_suspension_steer_B_R:
-                        suspension_steer_B_R:
-                          suspension_steer_B_R_to_back_wheel_R:
-                            back_wheel_R:
+                            camera_link_mastcam_right:
                               {}
-                suspension_arm_F_R:
-                  suspension_arm_F_R_to_suspension_steer_F_R:
-                    suspension_steer_F_R:
-                      suspension_steer_F_R_to_front_wheel_R:
-                        front_wheel_R:
-                          {}
+                            camera_link_navcam_left:
+                              {}
+                            camera_link_navcam_right:
+                              {}
+                left_axis:
+                  suspension_arm_B_L:
+                    suspension_arm_B_L_to_B2_L:
+                      suspension_arm_B2_L:
+                        suspension_arm_B2_L_to_middle_wheel_L:
+                          middle_wheel_L:
+                            {}
+                        suspension_arm_B2_L_to_suspension_steer_B_L:
+                          suspension_steer_B_L:
+                            suspension_steer_B_L_to_back_wheel_L:
+                              back_wheel_L:
+                                {}
+                  suspension_arm_F_L:
+                    suspension_arm_F_L_to_suspension_steer_F_L:
+                      suspension_steer_F_L:
+                        suspension_steer_F_L_to_front_wheel_L:
+                          front_wheel_L:
+                            {}
+                right_axis:
+                  suspension_arm_B_R:
+                    suspension_arm_B_R_to_B2_R:
+                      suspension_arm_B2_R:
+                        suspension_arm_B2_R_to_middle_wheel_R:
+                          middle_wheel_R:
+                            {}
+                        suspension_arm_B2_R_to_suspension_steer_B_R:
+                          suspension_steer_B_R:
+                            suspension_steer_B_R_to_back_wheel_R:
+                              back_wheel_R:
+                                {}
+                  suspension_arm_F_R:
+                    suspension_arm_F_R_to_suspension_steer_F_R:
+                      suspension_steer_F_R:
+                        suspension_steer_F_R_to_front_wheel_R:
+                          front_wheel_R:
+                            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -568,6 +571,7 @@ Visualization Manager:
         Armcam: true
         Front Hazcam Depth: true
         Grid: true
+        MapCloud: true
         Mastcam: true
         Rear Hazcam: true
         Rear Hazcam Depth: true
@@ -618,6 +622,7 @@ Visualization Manager:
         Front Hazcam: true
         Front Hazcam Depth: true
         Grid: true
+        MapCloud: true
         Mastcam: true
         Rear Hazcam Depth: true
         RobotModel: true
@@ -667,6 +672,7 @@ Visualization Manager:
         Front Hazcam: true
         Front Hazcam Depth: true
         Grid: true
+        MapCloud: true
         Rear Hazcam: true
         Rear Hazcam Depth: true
         RobotModel: true
@@ -687,6 +693,7 @@ Visualization Manager:
         Front Hazcam: true
         Front Hazcam Depth: true
         Grid: true
+        MapCloud: true
         Mastcam: true
         Rear Hazcam: true
         Rear Hazcam Depth: true
@@ -694,6 +701,44 @@ Visualization Manager:
         TF: true
         Value: true
       Zoom Factor: 1
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rtabmap_ros/MapCloud
+      Cloud decimation: 4
+      Cloud from scan: false
+      Cloud max depth (m): 4
+      Cloud min depth (m): 1
+      Cloud voxel size (m): 0.009999999776482582
+      Color: 255; 255; 255
+      Color Transformer: ""
+      Download graph: false
+      Download map: false
+      Download namespace: rtabmap
+      Enabled: false
+      Filter ceiling (m): 0
+      Filter floor (m): 0
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: MapCloud
+      Node filtering angle (degrees): 30
+      Node filtering radius (m): 0
+      Position Transformer: ""
+      Queue Size: 10
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /rtabmap/mapData
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -730,17 +775,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.5758954286575317
-        Y: 1.5918679237365723
-        Z: -0.4113125801086426
+        X: 0.38912421464920044
+        Y: 0.6997838616371155
+        Z: -1.132269263267517
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.400398313999176
+      Pitch: 0.4103983938694
       Target Frame: <Fixed Frame>
-      Yaw: 4.708584308624268
+      Yaw: 4.7235846519470215
     Saved: ~
 Window Geometry:
   Armcam:
@@ -766,5 +811,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1676
-  X: 113
-  Y: 11
+  X: 81
+  Y: -21

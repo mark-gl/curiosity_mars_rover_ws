@@ -44,7 +44,7 @@ curiosity_mars_rover:
         base_frame_id: 'base_link'
 
         # Transform from odom -> base_link: Enable if NOT using ekf_localization. 
-        enable_odom_tf: true
+        enable_odom_tf: true # Change back to false if disable Gazebo GPS
         odom_frame_id: '/odom'
 
         # Disable transform from odom -> base_link: Disable if USING ekf_localization. 

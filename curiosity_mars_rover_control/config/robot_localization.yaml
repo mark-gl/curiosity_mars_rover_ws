@@ -1,0 +1,28 @@
+#Configuation for robot odometry EKF
+#
+frequency: 60
+
+# Odom frame assuming we know the exact position of the rover (told to us by Gazebo)
+# This is for testing purposes - realistically, we cannot ask the 'world' to tell us the exact location of the rover
+# In a real world scenario, some kind of GPS system would be used.
+odom0: /curiosity_mars_rover/odom
+odom0_config: [true, true, true,
+               true, true, true,
+               true, true, true,
+               true, true, true,
+               true, true, true]
+odom0_differential: false
+
+imu0: /curiosity_mars_rover/imu/data
+imu0_config: [false, false, false,
+               false, false, false,
+               false, false, false,
+               false, false, false,
+               false, false, false]
+odom0_differential: false
+
+odom_frame: odom
+base_link_frame: base_link
+world_frame: odom
+
+predict_to_current_time: true
