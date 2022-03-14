@@ -72,7 +72,7 @@
         <gazebo reference="camera_link_${camera_name}">
             <material>Gazebo/Green</material>
             <sensor type="camera" name="camera_${camera_name}">
-                <update_rate>60.0</update_rate>
+                <update_rate>10.0</update_rate>
                 <camera name="camera">
                     <pose>0 0 0 0 -1.57 1.57</pose>
                     <horizontal_fov>${fov}</horizontal_fov>
