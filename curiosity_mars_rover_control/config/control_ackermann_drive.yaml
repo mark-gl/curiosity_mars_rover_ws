@@ -64,16 +64,16 @@ curiosity_mars_rover:
         # Velocity and acceleration limits for the robot
         linear:
             x:
-                has_velocity_limits    : false
-                max_velocity           : 0.37   # m/s
-                has_acceleration_limits: false
-                max_acceleration       : 2.0    # m/s^2
+                has_velocity_limits    : true
+                max_velocity           : 2   # m/s
+                has_acceleration_limits: true
+                max_acceleration       : 2.5    # m/s^2
         angular:
             z:
-                has_velocity_limits    : false
-                max_velocity           : 1.45   # rad/s
-                has_acceleration_limits: false
-                max_acceleration       : 3.0    # rad/s^2
+                has_velocity_limits    : true
+                max_velocity           : 2   # rad/s
+                has_acceleration_limits: true
+                max_acceleration       : 2.5    # rad/s^2
 
         # Other (undocumented but in source code)
         # velocity_rolling_window_size: 10
