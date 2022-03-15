@@ -98,6 +98,15 @@
 			fov="1.3962634"/>
 		
 		<xacro:camera 
+			camera_name="backhazcam_right"
+			topic_name="backhazcam/right"
+			rot="-2.35619449018 0 0"
+			pos="0.550881 1.06956 -0.114811"
+			parent="chassis"
+			resolution="1024"
+			fov="1.3962634"/>
+
+		<xacro:camera 
 			camera_name="mardi"
 			topic_name="mardi"
 			rot="-3.141592653589793 0 0"
