@@ -59,7 +59,7 @@ curiosity_mars_rover:
 
         # Commands
         publish_cmd: true
-        allow_multiple_cmd_vel_publishers: false
+        allow_multiple_cmd_vel_publishers: true # allow teleoperation for correction during autonomous navigation
 
         # Velocity and acceleration limits for the robot
         linear:
