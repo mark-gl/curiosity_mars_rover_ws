@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+	<include file="$(find curiosity_mars_rover_gazebo)/launch/main_simple.launch">
+		<arg name="world" value="$(find curiosity_mars_rover_gazebo)/worlds/shapes.world"/>
+	</include>
+</launch>

@@ -40,12 +40,12 @@ class CuriosityMarsRoverSuspension(object):
     def suspension_service_cb(self, req):
         mode_name = req.model_name
         if mode_name == "standard":
-            self.suspension_arm_B2_L_pos_msg.data = -0.2
-            self.suspension_arm_B2_R_pos_msg.data = -0.2
-            self.suspension_arm_B_L_pos_msg.data = -0.2
-            self.suspension_arm_B_R_pos_msg.data = -0.2
-            self.suspension_arm_F_L_pos_msg.data = 0.2
-            self.suspension_arm_F_R_pos_msg.data = 0.2
+            self.suspension_arm_B2_L_pos_msg.data = 1
+            self.suspension_arm_B2_R_pos_msg.data = 1
+            self.suspension_arm_B_L_pos_msg.data = -0.3
+            self.suspension_arm_B_R_pos_msg.data = -0.3
+            self.suspension_arm_F_L_pos_msg.data = 1
+            self.suspension_arm_F_R_pos_msg.data = 1
 
             self.suspension_arm_B2_L.publish(self.suspension_arm_B2_L_pos_msg)
             self.suspension_arm_B2_R.publish(self.suspension_arm_B2_R_pos_msg)
@@ -54,12 +54,12 @@ class CuriosityMarsRoverSuspension(object):
             self.suspension_arm_F_L.publish(self.suspension_arm_F_L_pos_msg)
             self.suspension_arm_F_R.publish(self.suspension_arm_F_R_pos_msg)
         else:
-            self.suspension_arm_B2_L_pos_msg.data = -1 * float(mode_name)
-            self.suspension_arm_B2_R_pos_msg.data = -1 * float(mode_name)
-            self.suspension_arm_B_L_pos_msg.data = -1 * float(mode_name)
-            self.suspension_arm_B_R_pos_msg.data = -1 * float(mode_name)
-            self.suspension_arm_F_L_pos_msg.data = 1 * float(mode_name)
-            self.suspension_arm_F_R_pos_msg.data = 1 * float(mode_name)
+            self.suspension_arm_B2_L_pos_msg.data = float(mode_name.split(' ')[0])
+            self.suspension_arm_B2_R_pos_msg.data = float(mode_name.split(' ')[1])
+            self.suspension_arm_B_L_pos_msg.data = float(mode_name.split(' ')[2])
+            self.suspension_arm_B_R_pos_msg.data = float(mode_name.split(' ')[3])
+            self.suspension_arm_F_L_pos_msg.data = float(mode_name.split(' ')[4])
+            self.suspension_arm_F_R_pos_msg.data = float(mode_name.split(' ')[5])
 
             self.suspension_arm_B2_L.publish(self.suspension_arm_B2_L_pos_msg)
             self.suspension_arm_B2_R.publish(self.suspension_arm_B2_R_pos_msg)
@@ -115,12 +115,12 @@ class CuriosityMarsRoverSuspension(object):
 
     def set_suspension_mode(self, mode_name):
         if mode_name == "standard":
-            self.suspension_arm_B2_L_pos_msg.data = -0.2
-            self.suspension_arm_B2_R_pos_msg.data = -0.2
-            self.suspension_arm_B_L_pos_msg.data = -0.2
-            self.suspension_arm_B_R_pos_msg.data = -0.2
-            self.suspension_arm_F_L_pos_msg.data = 0.2
-            self.suspension_arm_F_R_pos_msg.data = 0.2
+            self.suspension_arm_B2_L_pos_msg.data = 1
+            self.suspension_arm_B2_R_pos_msg.data = 1
+            self.suspension_arm_B_L_pos_msg.data = -0.3
+            self.suspension_arm_B_R_pos_msg.data = -0.3
+            self.suspension_arm_F_L_pos_msg.data = 1
+            self.suspension_arm_F_R_pos_msg.data = 1
 
             self.suspension_arm_B2_L.publish(self.suspension_arm_B2_L_pos_msg)
             self.suspension_arm_B2_R.publish(self.suspension_arm_B2_R_pos_msg)
