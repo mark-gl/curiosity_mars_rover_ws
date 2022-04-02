@@ -35,6 +35,21 @@
         <param name="range_max" value="20" />
         <param name="use_inf" value="true" />
     </node>
+    <!-- <node name="stereo_image_proc_navcam" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_navcam/" >
+		<param name="queue_size" value="2000" />
+		<param name="approximate_sync" value="True" />
+	</node>
+        <node name="pointcloud_to_laserscan_navcam" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" output="screen" ns="/curiosity_mars_rover/camera_navcam/">
+        <remap from="cloud_in" to="/curiosity_mars_rover/camera_navcam/points2" />
+        <remap from="scan" to="/curiosity_mars_rover/camera_navcam/scan" />
+        <param name="target_frame" value="base_link" />
+        <param name="min_height" value="-0.3" />
+        <param name="max_height" value="5" />
+        <param name="range_min" value="0.1" />
+        <param name="range_max" value="20" />
+        <param name="use_inf" value="true" />
+    </node> -->
+
     <!--
 	<node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_mastcam/" >
 		<param name="queue_size" value="2000" />
