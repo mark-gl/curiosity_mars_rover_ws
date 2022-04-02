@@ -103,7 +103,7 @@ class CuriosityMarsRoverArmAndMast(object):
 
     def init_state(self):
         self.set_arm_pose("close")
-        self.set_mast_pose("close")
+        self.set_mast_pose("open")
 
     def set_arm_pose(self, mode_name):
 

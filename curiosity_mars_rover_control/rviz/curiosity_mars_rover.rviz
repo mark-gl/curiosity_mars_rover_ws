@@ -9,6 +9,7 @@ Panels:
         - /LaserScan2
         - /Map1
         - /Path1
+        - /Polygon1
       Splitter Ratio: 0.5235294103622437
     Tree Height: 442
   - Class: rviz/Selection
@@ -603,6 +604,7 @@ Visualization Manager:
         MapCloud: true
         Mastcam: true
         Path: true
+        Polygon: true
         Rear Hazcam: true
         Rear Hazcam Depth: true
         RobotModel: true
@@ -685,6 +687,7 @@ Visualization Manager:
         MapCloud: true
         Mastcam: true
         Path: true
+        Polygon: true
         Rear Hazcam Depth: true
         RobotModel: true
         TF: true
@@ -765,6 +768,7 @@ Visualization Manager:
         Map: true
         MapCloud: true
         Path: true
+        Polygon: true
         Rear Hazcam: true
         Rear Hazcam Depth: true
         RobotModel: true
@@ -790,6 +794,7 @@ Visualization Manager:
         MapCloud: true
         Mastcam: true
         Path: true
+        Polygon: true
         Rear Hazcam: true
         Rear Hazcam Depth: true
         RobotModel: true
@@ -836,7 +841,7 @@ Visualization Manager:
       Value: false
     - Alpha: 0.699999988079071
       Class: rviz/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: Map
@@ -868,6 +873,15 @@ Visualization Manager:
       Topic: /move_base/TrajectoryPlannerROS/global_plan
       Unreliable: false
       Value: true
+    - Alpha: 1
+      Class: rviz/Polygon
+      Color: 25; 255; 0
+      Enabled: true
+      Name: Polygon
+      Queue Size: 10
+      Topic: /move_base/local_costmap/footprint
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -896,7 +910,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 9.819601058959961
+      Distance: 12.662988662719727
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -904,17 +918,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.4160722494125366
-        Y: -2.3366920948028564
-        Z: -2.347622871398926
+        X: -2.004659414291382
+        Y: -1.1844407320022583
+        Z: -2.539405584335327
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9203985333442688
+      Pitch: 1.1053985357284546
       Target Frame: <Fixed Frame>
-      Yaw: 5.723583221435547
+      Yaw: 0.4503977596759796
     Saved: ~
 Window Geometry:
   Armcam:
@@ -940,5 +954,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1676
-  X: 100
-  Y: 0
+  X: 1968
+  Y: 24

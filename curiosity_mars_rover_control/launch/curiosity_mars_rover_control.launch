@@ -2,7 +2,6 @@
 <launch>
     <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/control_ackermann_drive.yaml" />
     <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/control_joint_state.yaml" />
-    <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/gazebo_pid.yaml" />
     
     <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
         <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/robot_localization.yaml" />

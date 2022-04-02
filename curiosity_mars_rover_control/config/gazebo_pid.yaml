@@ -4,43 +4,43 @@ curiosity_mars_rover:
     gazebo_ros_control:
         pid_gains:
             suspension_steer_F_L_joint:
-                p: 1000.0
-                i: 10.0
-                d: 100.0
+                p: 100.0
+                i: 0.0
+                d: 0.0
             suspension_steer_B_L_joint:
-                p: 1000.0
-                i: 10.0
-                d: 100.0
+                p: 100.0
+                i: 0.0
+                d: 0.0
             suspension_steer_F_R_joint:
-                p: 1000.0
-                i: 10.0
-                d: 100.0
+                p: 100.0
+                i: 0.0
+                d: 0.0
             suspension_steer_B_R_joint:
-                p: 1000.0
-                i: 10.0
-                d: 100.0
+                p: 100.0
+                i: 0.0
+                d: 0.0
 
             front_wheel_L_joint:
-                p: 10.0
+                p: 100.0
                 i: 0.0
                 d: 0.0
             middle_wheel_L_joint:
-                p: 10.0
+                p: 100.0
                 i: 0.0
                 d: 0.0
             back_wheel_L_joint:
-                p: 10.0
+                p: 100.0
                 i: 0.0
                 d: 0.0
             front_wheel_R_joint:
-                p: 10.0
+                p: 100.0
                 i: 0.0
                 d: 0.0
             middle_wheel_R_joint:
-                p: 10.0
+                p: 100.0
                 i: 0.0
                 d: 0.0
             back_wheel_R_joint:
-                p: 10.0
+                p: 100.0
                 i: 0.0
                 d: 0.0
