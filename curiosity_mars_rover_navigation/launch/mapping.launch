@@ -17,7 +17,7 @@
 	</node>
 
 	<include file="$(find rtabmap_ros)/launch/stereo_mapping.launch">
-		<arg name="stereo_namespace" value="/curiosity_mars_rover/camera_backhazcam"/>
+		<arg name="stereo_namespace" value="/curiosity_mars_rover/camera_navcam"/>
 		<arg name="rtabmap_args" value="--delete_db_on_start" />
 		<arg name="rviz" value="false" />
 		<arg name="rtabmapviz" value="false" />

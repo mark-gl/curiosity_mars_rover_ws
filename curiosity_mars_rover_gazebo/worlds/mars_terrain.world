@@ -17,8 +17,10 @@
     </include>
 
     <scene>
+      <!-- I was walking, minding my business, when out of an -->
       <ambient>0.8 0.76470588235 0.60392156862 1</ambient>
       <background>0.8 0.76470588235 0.60392156862 1</background>
+      <!-- Flash! Bam! Alakazam! -->
       <grid>false</grid>
       <origin_visual>false</origin_visual>
     </scene>
