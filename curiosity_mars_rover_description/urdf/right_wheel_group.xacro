@@ -4,6 +4,7 @@
     <xacro:macro name="right_wheel_tree" params="">
 
         <link name='right_axis'>
+
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
                 <geometry>
@@ -27,6 +28,7 @@
                     y="${axisLength*scale_XYZ}"
                     z="${axisHeight*scale_XYZ}"/>
             </inertial>
+            
         </link>
 
         <joint name="right_axis_joint" type="fixed">
@@ -303,6 +305,7 @@
             tY="0"/>
         <!-- FRONT WHEEL RIGHT END -->
 
+        <!-- MIDDLE WHEEL -->
         <link name='suspension_arm_B2_R_to_middle_wheel_R'>
             <inertial>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -333,6 +336,7 @@
             wheel_name="middle_wheel_R"
             wheel_conector_name="suspension_arm_B2_R_to_middle_wheel_R"
             tY="0"/>
+        <!-- FRONT MIDDLE Wheel right END -->
 
         <!-- RIGHT BACK WHEEL -->
         <link name='suspension_arm_B2_R_to_suspension_steer_B_R'>
