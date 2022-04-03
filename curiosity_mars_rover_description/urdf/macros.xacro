@@ -117,7 +117,7 @@
     </xacro:macro>
 
     <xacro:macro name="fake_depth_camera" params="camera_name rot pos resolution fov parent baseline">
-        <link name="camera_link_${camera_name}">
+        <link name="camera_link_${camera_name}_left">
             <!-- Inertial for gazebo to take it into account, Put 1gr weight -->
             <inertial>
                 <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -142,11 +142,11 @@
 
         <joint name="${camera_name}_joint" type="fixed">
             <parent link="${parent}"/>
-            <child link="camera_link_${camera_name}"/>
+            <child link="camera_link_${camera_name}_left"/>
             <origin rpy="${rot}" xyz="${pos}"/>
         </joint>
 
-        <gazebo reference="camera_link_${camera_name}">
+        <gazebo reference="camera_link_${camera_name}_left">
             <material>Gazebo/Green</material>
             <sensor name="camera_${camera_name}" type="depth">
                 <update_rate>30</update_rate>
@@ -173,7 +173,7 @@
                     <depthImageTopicName>depth/image_raw</depthImageTopicName>
                     <depthImageInfoTopicName>depth/camera_info</depthImageInfoTopicName>
                     <pointCloudTopicName>depth/points</pointCloudTopicName>
-                    <frameName>camera_link_${camera_name}</frameName>
+                    <frameName>camera_link_${camera_name}_left</frameName>
                     <pointCloudCutoff>0.5</pointCloudCutoff>
                     <pointCloudCutoffMax>30.0</pointCloudCutoffMax>
                     <distortionK1>0.00000001</distortionK1>
