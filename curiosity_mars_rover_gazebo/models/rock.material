@@ -1,4 +1,4 @@
-material MarsFlat/Image
+material RockFlat/Image
 {
   technique
   {
@@ -11,7 +11,7 @@ material MarsFlat/Image
 
       texture_unit
       {
-        texture mars.jpg
+        texture rock.png
         scale 1 1
       }
     }
