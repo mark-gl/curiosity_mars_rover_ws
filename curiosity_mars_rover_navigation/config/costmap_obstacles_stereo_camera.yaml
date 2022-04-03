@@ -1,0 +1,20 @@
+obstacles_layer:
+  observation_sources: scan1 # scan2 # disabled to prevent rover getting stuck between objects
+  scan1:
+    sensor_frame: camera_link_fronthazcam_left
+    data_type: LaserScan
+    topic: '/curiosity_mars_rover/camera_fronthazcam/scan'
+    marking: true
+    clearing: true
+    inf_is_valid: true
+  scan2:
+    sensor_frame: camera_link_backhazcam_left
+    data_type: LaserScan
+    topic: '/curiosity_mars_rover/camera_backhazcam/scan'
+    marking: true
+    clearing: true
+    inf_is_valid: true
+
+  # Stereo Camera PointCloud2 Sources
+  # scan1: {sensor_frame: camera_link_backhazcam_left, data_type: PointCloud2, topic: /curiosity_mars_rover/camera_backhazcam/points2, marking: true, clearing: true, min_obstacle_height: 0.2, max_obstacle_height: 4, obstacle_range: 4, raytrace_range: 3.0}
+  # scan2: {sensor_frame: camera_link_fronthazcam_left, data_type: PointCloud2, topic: /curiosity_mars_rover/camera_fronthazcam/points2, marking: true, clearing: true, min_obstacle_height: 0.2, max_obstacle_height: 4, obstacle_range: 4, raytrace_range: 3.0}

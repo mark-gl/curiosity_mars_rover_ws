@@ -1,40 +1,10 @@
 <launch>
 
-   <master auto="start"/>
- <!-- Run the map server --> 
+    <master auto="start"/>
+    <!-- Run the map server --> 
     <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(find my_map_package)/my_map.pgm my_map_resolution"/> -->
-
- <!--- Run AMCL --> 
+    <!--- Run AMCL --> 
     <!-- <include file="$(find amcl)/examples/amcl_omni.launch" /> -->
-
-    <!-- <node name="stereo_image_proc_back_hazcam" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_backhazcam/" >
-		<param name="queue_size" value="2000" />
-		<param name="approximate_sync" value="True" />
-	</node>
-    <node name="pointcloud_to_laserscan_back_hazcam" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" output="screen" ns="/curiosity_mars_rover/camera_backhazcam/">
-        <remap from="cloud_in" to="/curiosity_mars_rover/camera_backhazcam/points2" />
-        <remap from="scan" to="/curiosity_mars_rover/camera_backhazcam/scan" />
-        <param name="target_frame" value="base_link" />
-        <param name="min_height" value="-0.4" />
-        <param name="max_height" value="5" />
-        <param name="range_min" value="0.1" />
-        <param name="range_max" value="20" />
-        <param name="use_inf" value="true" />
-    </node>
-	<node name="stereo_image_proc_front_hazcam" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_fronthazcam/" >
-		<param name="queue_size" value="2000" />
-		<param name="approximate_sync" value="True" />
-	</node>
-        <node name="pointcloud_to_laserscan_front_hazcam" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" output="screen" ns="/curiosity_mars_rover/camera_fronthazcam/">
-        <remap from="cloud_in" to="/curiosity_mars_rover/camera_fronthazcam/points2" />
-        <remap from="scan" to="/curiosity_mars_rover/camera_fronthazcam/scan" />
-        <param name="target_frame" value="base_link" />
-        <param name="min_height" value="-0.3" />
-        <param name="max_height" value="5" />
-        <param name="range_min" value="0.1" />
-        <param name="range_max" value="20" />
-        <param name="use_inf" value="true" />
-    </node> -->
 
     <node name="pointcloud_to_laserscan_back_hazcam" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" output="screen" ns="/curiosity_mars_rover/camera_backhazcam/">
         <remap from="cloud_in" to="/curiosity_mars_rover/camera_backhazcam/depth/points" />
@@ -56,46 +26,30 @@
         <param name="range_max" value="20" />
         <param name="use_inf" value="true" />
     </node>
-
-
-    <!-- <node name="stereo_image_proc_navcam" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_navcam/" >
-		<param name="queue_size" value="2000" />
-		<param name="approximate_sync" value="True" />
-	</node>
-        <node name="pointcloud_to_laserscan_navcam" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" output="screen" ns="/curiosity_mars_rover/camera_navcam/">
-        <remap from="cloud_in" to="/curiosity_mars_rover/camera_navcam/points2" />
+    <node name="pointcloud_to_laserscan_navcam" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" output="screen" ns="/curiosity_mars_rover/camera_navcam/">
+        <remap from="cloud_in" to="/curiosity_mars_rover/camera_navcam/depth/points" />
         <remap from="scan" to="/curiosity_mars_rover/camera_navcam/scan" />
         <param name="target_frame" value="base_link" />
-        <param name="min_height" value="-0.3" />
+        <param name="min_height" value="-0.4" />
         <param name="max_height" value="5" />
         <param name="range_min" value="0.1" />
         <param name="range_max" value="20" />
         <param name="use_inf" value="true" />
-    </node> -->
+    </node>
 
-    <!--
-	<node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_mastcam/" >
-		<param name="queue_size" value="2000" />
-		<param name="approximate_sync" value="True" />
-	</node>
-	<node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_navcam/" >
-		<param name="queue_size" value="2000" />
-		<param name="approximate_sync" value="True" />
-	</node>
-    <node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_backhazcam/" >
-		<param name="queue_size" value="2000" />
-		<param name="approximate_sync" value="True" />
-	</node> -->
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
 
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/obstacles_fake_depth_params.yaml" command="load" ns="global_costmap" /> 
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/obstacles_fake_depth_params.yaml" command="load" ns="local_costmap" />
 
-   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
-    <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find curiosity_mars_rover_navigation)/config/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find curiosity_mars_rover_navigation)/config/global_costmap_params.yaml" command="load" /> 
-    <rosparam file="$(find curiosity_mars_rover_navigation)/config/base_local_planner_params.yaml" command="load" />
-    <remap from="cmd_vel" to="/curiosity_mars_rover/ackermann_drive_controller/cmd_vel"/>
-    <remap from="odom" to="/curiosity_mars_rover/odom" />
- </node>
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/global_costmap_params.yaml" command="load" /> 
+
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/base_local_planner_params.yaml" command="load" />
+        
+        <remap from="cmd_vel" to="/curiosity_mars_rover/ackermann_drive_controller/cmd_vel"/>
+    </node>
 
 </launch> 
