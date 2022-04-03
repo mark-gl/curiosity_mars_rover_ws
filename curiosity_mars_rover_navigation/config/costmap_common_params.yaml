@@ -14,7 +14,7 @@ footprint: [[-1.6, -1.6], [-1.6, 1.6], [1.6, 1.6], [1.6, -1.6]] # Todo: correct 
 footprint_padding: 0.01
 
 plugins:
-# - {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
+- {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
 # - {name: voxel_layer, type: "costmap_2d::VoxelLayer"}
 - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
 
