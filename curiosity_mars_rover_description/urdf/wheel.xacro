@@ -43,7 +43,7 @@
         <joint name="${wheel_name}_joint" type="continuous">
             <parent link="${wheel_conector_name}"/>
             <child link="${wheel_name}"/>
-            <origin xyz="0 0 0" rpy="0 0 0"/> <!-- Wallace ${tY*PI}-->
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <limit effort="10000.0" velocity="100.0"/>
             <axis xyz="1 0 0"/>
             <joint_properties damping="0.0" friction="0.0"/>
