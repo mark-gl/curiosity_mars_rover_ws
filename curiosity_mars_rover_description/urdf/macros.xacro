@@ -116,4 +116,80 @@
 
     </xacro:macro>
 
+    <xacro:macro name="fake_depth_camera" params="camera_name rot pos resolution fov parent baseline">
+        <link name="camera_link_${camera_name}">
+            <!-- Inertial for gazebo to take it into account, Put 1gr weight -->
+            <inertial>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <mass value="0.001"/>
+                <inertia ixx="9.1875e-09" ixy="0.0" ixz="0.0" iyy="9.1875e-09" iyz="0.0" izz="1.378125e-08"/>
+            </inertial>
+            <visual>
+                <origin rpy="0.0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <box size="0.0005 0.0005 0.0005"/>
+                </geometry>
+                <material name="green"/>
+            </visual>
+            <collision>
+                <origin rpy="0.0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <box size="0.0005 0.0005 0.0005"/>
+                </geometry>
+                <material name="green"/>
+            </collision>
+        </link>
+
+        <joint name="${camera_name}_joint" type="fixed">
+            <parent link="${parent}"/>
+            <child link="camera_link_${camera_name}"/>
+            <origin rpy="${rot}" xyz="${pos}"/>
+        </joint>
+
+        <gazebo reference="camera_link_${camera_name}">
+            <material>Gazebo/Green</material>
+            <sensor name="camera_${camera_name}" type="depth">
+                <update_rate>30</update_rate>
+                <camera>
+                <pose>0 0 0 0 -1.57 1.57</pose>
+                <horizontal_fov>${fov}</horizontal_fov>
+                <image>
+                    <width>${resolution}</width>
+                    <height>${resolution}</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>30</far>
+                </clip>
+                </camera>
+                <plugin name="fake_depth_camera_controller" filename="libgazebo_ros_openni_kinect.so">
+                    <baseline>${baseline}</baseline>
+                    <alwaysOn>true</alwaysOn>
+                    <updateRate>1.0</updateRate>
+                    <cameraName>curiosity_mars_rover/camera_${camera_name}</cameraName>
+                    <imageTopicName>color/image_raw</imageTopicName>
+                    <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
+                    <depthImageTopicName>depth/image_raw</depthImageTopicName>
+                    <depthImageInfoTopicName>depth/camera_info</depthImageInfoTopicName>
+                    <pointCloudTopicName>depth/points</pointCloudTopicName>
+                    <frameName>camera_link_${camera_name}</frameName>
+                    <pointCloudCutoff>0.5</pointCloudCutoff>
+                    <pointCloudCutoffMax>30.0</pointCloudCutoffMax>
+                    <distortionK1>0.00000001</distortionK1>
+                    <distortionK2>0.00000001</distortionK2>
+                    <distortionK3>0.00000001</distortionK3>
+                    <distortionT1>0.00000001</distortionT1>
+                    <distortionT2>0.00000001</distortionT2>
+                    <CxPrime>0</CxPrime>
+                    <Cx>0</Cx>
+                    <Cy>0</Cy>
+                    <focalLength>0</focalLength>
+                    <hackBaseline>0</hackBaseline>
+                </plugin>
+            </sensor>
+        </gazebo>
+    </xacro:macro>
+
+
 </robot>

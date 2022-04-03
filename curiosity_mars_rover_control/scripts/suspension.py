@@ -111,7 +111,7 @@ class CuriosityMarsRoverSuspension(object):
         self.suspension_arm_F_R_pos_msg = Float64()
 
     def init_state(self):
-        self.set_suspension_mode("standard")
+        self.set_suspension_mode("zero")
 
     def set_suspension_mode(self, mode_name):
         if mode_name == "standard":

@@ -113,6 +113,24 @@
 			resolution="1024"
 			fov="1.3962634"/>
 
+        <!-- <xacro:fake_depth_camera 
+			camera_name="fronthazcam"
+			rot="-2.35619449018 0 3.141592653589793"
+			pos="0.086741 -0.940979 -0.176784"
+			parent="chassis"
+			resolution="1024"
+			fov="1.3962634"
+            baseline="0.1596"/>
+
+        <xacro:fake_depth_camera
+			camera_name="backhazcam"
+			rot="-2.35619449018 0 0"
+			pos="0.452052 1.06956 -0.114811"
+			parent="chassis"
+			resolution="1024"
+			fov="1.3962634"
+            baseline="0.0988"/> -->
+
 		<xacro:camera 
 			camera_name="mardi"
 			topic_name="mardi"

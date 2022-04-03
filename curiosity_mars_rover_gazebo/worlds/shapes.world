@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <sdf version="1.5">
   <world name="default">
-    <gravity>0 0 -9.8</gravity>  
+    <gravity>0 0 -3.711</gravity>
       <model name="ground">
     <static>true</static>
         <link name="link">

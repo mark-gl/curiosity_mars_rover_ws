@@ -1,0 +1,20 @@
+<launch>
+
+    <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" ns="/curiosity_mars_rover/camera_backhazcam/color/" >
+        <param name="queue_size" value="2000" />
+        <param name="approximate_sync" value="True" />
+    </node>
+
+  <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+        <arg name="rgb_topic"               default="/curiosity_mars_rover/camera_backhazcam/color/image_rect_color" />
+        <arg name="depth_topic"             default="/curiosity_mars_rover/camera_backhazcam/depth/image_raw" />
+        <arg name="camera_info_topic"       default="/curiosity_mars_rover/camera_backhazcam/color/camera_info" />
+        <arg name="depth_camera_info_topic" default="/curiosity_mars_rover/camera_backhazcam/depth/camera_info/" />
+		<arg name="rtabmap_args" value="--delete_db_on_start" />
+		<arg name="rviz" value="false" />
+		<arg name="rtabmapviz" value="false" />
+		<arg name="approx_sync" value="true" />
+        <arg name="frame_id" value="base_link" />
+    </include>
+
+</launch>
