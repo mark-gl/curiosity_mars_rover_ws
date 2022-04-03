@@ -225,23 +225,38 @@
             resolution="1024"
             fov="1.3962634"/>
 
-        <xacro:camera
-            camera_name="navcam_left"
-            topic_name="navcam/left"
-            rot="-1.57079632679 0 3.141592653589793"
-            pos="0.232895 -0.138683 0.08503"
-            parent="mast_cameras"
-            resolution="1024"
-            fov="1.3962634"/>
+        <xacro:if value="$(arg fake_depth_cameras)">
+           <xacro:fake_depth_camera 
+                camera_name="navcam"
+                rot="-1.57079632679 0 3.141592653589793"
+                pos="0.232895 -0.138683 0.08503"
+                parent="mast_cameras"
+                resolution="1024"
+                fov="1.3962634"
+                baseline="0.419309"/>
+        </xacro:if>
 
-        <xacro:camera
-            camera_name="navcam_right"
-            topic_name="navcam/right"
-            rot="-1.57079632679 0 3.141592653589793"
-            pos="-0.186414 -0.138683 0.08503"
-            parent="mast_cameras"
-            resolution="1024"
-            fov="1.3962634"/>
+        <xacro:unless value="$(arg fake_depth_cameras)">
+            <xacro:camera
+                camera_name="navcam_left"
+                topic_name="navcam/left"
+                rot="-1.57079632679 0 3.141592653589793"
+                pos="0.232895 -0.138683 0.08503"
+                parent="mast_cameras"
+                resolution="1024"
+                fov="1.3962634"/>
+
+            <xacro:camera
+                camera_name="navcam_right"
+                topic_name="navcam/right"
+                rot="-1.57079632679 0 3.141592653589793"
+                pos="-0.186414 -0.138683 0.08503"
+                parent="mast_cameras"
+                resolution="1024"
+                fov="1.3962634"/>
+        </xacro:unless>
+
+
 
     </xacro:macro>
 
