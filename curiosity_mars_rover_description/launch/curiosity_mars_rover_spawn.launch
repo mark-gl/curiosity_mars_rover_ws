@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
+    <arg name="fake_depth_cameras" default="false" />
 	<arg name="x" default="0.0" />
     <arg name="y" default="0.0" />
     <arg name="z" default="1.0" />
@@ -10,7 +11,7 @@
 	<arg name="model" default="$(find curiosity_mars_rover_description)/urdf/curiosity_mars_rover.xacro"/>
 	
 	<!--  Converts the xacro robot information to UDRF and use it as a robot_description parameter -->
-	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+	<param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model) fake_depth_cameras:=$(arg fake_depth_cameras)" />
 
 	<!-- push robot_description to factory and spawn robot in gazebo -->
    	<node name="urdf_spawner"

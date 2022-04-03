@@ -14,7 +14,7 @@ obstacles_layer:
     marking: true
     clearing: true
     inf_is_valid: true
-  scan2:
+  scan3:
     sensor_frame: camera_link_navcam_left
     data_type: LaserScan
     topic: '/curiosity_mars_rover/camera_navcam/scan'
