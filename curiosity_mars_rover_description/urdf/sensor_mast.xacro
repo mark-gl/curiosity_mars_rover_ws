@@ -213,8 +213,10 @@
             rot="-1.57079632679 0 3.141592653589793"
             pos="0.145434 -0.138683 0.069"
             parent="mast_cameras"
-            resolution="1024"
-            fov="1.3962634"/>
+			resolution_x="1600"
+            resolution_y="1200"
+            fov="0.261799"
+            format="R8G8B8"/>
 
         <xacro:camera
             camera_name="mastcam_right"
@@ -222,8 +224,10 @@
             rot="-1.57079632679 0 3.141592653589793"
             pos="-0.099257 -0.138683 0.069"
             parent="mast_cameras"
-            resolution="1024"
-            fov="1.3962634"/>
+			resolution_x="1600"
+            resolution_y="1200"
+            fov="0.0890118"
+            format="R8G8B8"/>
 
         <xacro:if value="$(arg fake_depth_cameras)">
            <xacro:fake_depth_camera 
@@ -243,8 +247,10 @@
                 rot="-1.57079632679 0 3.141592653589793"
                 pos="0.232895 -0.138683 0.08503"
                 parent="mast_cameras"
-                resolution="1024"
-                fov="1.3962634"/>
+                resolution_x="1024"
+                resolution_y="1024"
+                fov="1.3962634"
+                format="L8"/>
 
             <xacro:camera
                 camera_name="navcam_right"
@@ -252,8 +258,10 @@
                 rot="-1.57079632679 0 3.141592653589793"
                 pos="-0.186414 -0.138683 0.08503"
                 parent="mast_cameras"
-                resolution="1024"
-                fov="1.3962634"/>
+                resolution_x="1024"
+                resolution_y="1024"
+                fov="1.3962634"
+                format="L8"/>
         </xacro:unless>
 
 

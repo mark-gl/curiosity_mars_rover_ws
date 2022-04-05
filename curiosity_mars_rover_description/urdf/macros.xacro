@@ -45,7 +45,7 @@
 
     </xacro:macro>
 
-    <xacro:macro name="camera" params="camera_name topic_name rot pos resolution fov parent">
+    <xacro:macro name="camera" params="camera_name topic_name rot pos resolution_x resolution_y fov parent format">
 
         <link name="camera_link_${camera_name}">
             <!-- Inertial for gazebo to take it into account, Put 1gr weight -->
@@ -84,9 +84,9 @@
                     <pose>0 0 0 0 -1.57 1.57</pose>
                     <horizontal_fov>${fov}</horizontal_fov>
                     <image>
-                        <width>${resolution}</width>
-                        <height>${resolution}</height>
-                        <format>R8G8B8</format>
+                        <width>${resolution_x}</width>
+                        <height>${resolution_y}</height>
+                        <format>${format}</format>
                     </image>
                     <clip>
                         <near>0.01</near>
