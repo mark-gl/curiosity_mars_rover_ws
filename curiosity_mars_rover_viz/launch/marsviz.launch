@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <node name="curiosity_rover_fake_gps_node"
-        pkg="curiosity_mars_rover_viz"
-        type="gps_publish.py"
-        respawn="false"
-        output="screen"
-        args=""/>
-
     <node name="tf2_web_republisher" pkg="tf2_web_republisher" type="tf2_web_republisher"
         respawn="false" output="screen">
     </node>

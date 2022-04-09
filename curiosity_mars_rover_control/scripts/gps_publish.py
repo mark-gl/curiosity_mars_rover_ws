@@ -15,10 +15,14 @@ def handle_turtle_pose(msg, turtlename):
     t.child_frame_id = turtlename
 
     t.transform.translation.x = msg.pose.pose.position.x
-    t.transform.translation.y = msg.pose.pose.position.z
-    t.transform.translation.z = -msg.pose.pose.position.y
+    t.transform.translation.y = msg.pose.pose.position.y
+    t.transform.translation.z = msg.pose.pose.position.z
+    # t.transform.translation.x = msg.pose.pose.position.x
+    # t.transform.translation.y = msg.pose.pose.position.z
+    # t.transform.translation.z = -msg.pose.pose.position.y
     q_orig =[msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w]
-    q_rot = quaternion_from_euler(-1.57, 0, 0)
+    q_rot = quaternion_from_euler(0, 0, 0)
+    #q_rot = quaternion_from_euler(-1.57, 0, 0)
     q_new = quaternion_multiply(q_rot, q_orig)
     t.transform.rotation.x = q_new[0]
     t.transform.rotation.y = q_new[1]

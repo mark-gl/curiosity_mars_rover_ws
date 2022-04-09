@@ -7,6 +7,12 @@
     <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/control_ackermann_drive.yaml" />
     <group if="$(arg fake_marsviz_gps)">
         <param name="curiosity_mars_rover/ackermann_drive_controller/enable_odom_tf" value="false" />
+        <node name="curiosity_rover_fake_gps_node"
+        pkg="curiosity_mars_rover_control"
+        type="gps_publish.py"
+        respawn="false"
+        output="screen"
+        args=""/>
     </group>
 
     <!-- Spawn the controllers  -->
