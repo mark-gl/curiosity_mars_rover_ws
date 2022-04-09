@@ -28,8 +28,6 @@ var mappings = {
       'abutton.up': 'teleportend',
       'bbutton.down' : 'changeMode',
       'xbutton.up': 'openMenu',
-        'grip.down': 'rescalegrip',
-      'grip.up': 'endrescalegrip',
 
     },
     'windows-motion-controls': {
@@ -41,14 +39,13 @@ var mappings = {
       'c_up': 'changeTask',
       'm_up': 'openMenu',
       'o_down': 'logtask1',
-      'r_down':'changeMode'
-
+      'r_down':'changeMode',
+      'q_down':'speedUp',
+      'z_down':'slowDown',
     }
   },
   roboControls:{ // sadly this needs to be duplicated TODO: add it dynamically with sth like mappings.robocontrols = x and mappings.default= x
     'vive-controls': {      
-      'grip.down': 'rescalegrip',
-      'grip.up': 'endrescalegrip',
       'menu.down': { right:  'changeMode'},
       'trackpad.up': 'teleportend',
       'trackpad.down': 'teleportstart',
@@ -64,9 +61,7 @@ var mappings = {
       'abutton.up': 'teleportend',
       'bbutton.down' : 'changeMode',
       'xbutton.up': 'openMenu',
-      'grip.down': 'rescalegrip',
-      'grip.up': 'endrescalegrip',
-      'thumbstickchanged':'moveRobo'
+      'thumbstickmoved':'moveRobo'
 
     },
     keyboard: {
@@ -130,10 +125,10 @@ var inputActions = {
 // we need to always register mappings and the actions
 AFRAME.registerInputMappings(mappings);
 // to change the mode, we register other input mappings 
-AFRAME.registerInputActions(inputActions, 'default'); 
+AFRAME.registerInputActions(inputActions, 'roboControls'); 
 
 var modes = [{'name': 'default',color:'#FF0000'},{'name':'roboControls',color:'#0000FF'}]
-var currentMode = 0
+var currentMode = 1
 /**
  * changes the effect of the mappings
  * the possible modes are:

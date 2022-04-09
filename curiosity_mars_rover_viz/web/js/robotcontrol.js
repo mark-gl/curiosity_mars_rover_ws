@@ -18,13 +18,11 @@ function colormap(x){
 }
 
 function moveRobo(click){
-    // console.log(click)
-    controls = [click.detail.y,0,0,0,0,click.detail.x]
+    controls = [-click.detail.y,0,0,0,0,-click.detail.x]
           
     moveRobot(controls)
           
 }
-
 
 async function init_env_2(){
     var scene = document.querySelector('a-scene');
@@ -39,7 +37,7 @@ async function init_env_2(){
         ros: ros,
         angularThres: 0.01,
         transThres: 0.01,
-        rate: 20.0,
+        rate: 60.0,
         fixedFrame: 'odom'
     });
 
@@ -82,9 +80,6 @@ function setupEventListeners(scene){
     scene.addEventListener('changeMode',changeMode)
     scene.addEventListener('moveRobo',moveRobo)
 
-    scene.addEventListener('rescalegrip',rescalegrip)
-    scene.addEventListener('endrescalegrip',endrescalegrip)
-
 
     scene.addEventListener('openMenu', openMenu);
 
@@ -93,7 +88,8 @@ function setupEventListeners(scene){
             var type = event.type;
             var currentMappingActions = AFRAME.inputActions[AFRAME.currentInputMapping];
             var parameters = currentMappingActions[type] ? currentMappingActions[type].params : [0,0,0,0,0,0];
-            moveRobot(parameters)
+            //moveRobot(event);
+            moveRobot( parameters)
         });
     }
 
@@ -136,7 +132,7 @@ async function init_env() {
         ros: ros,
         angularThres: 0.01,
         transThres: 0.01,
-        rate: 20.0,
+        rate: 60.0,
         fixedFrame: 'odom'
     });
 
