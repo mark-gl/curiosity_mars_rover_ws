@@ -129,7 +129,6 @@ class CuriosityMarsRoverArmAndMast(object):
             self.arm_tools.publish(self.arm_tools_pos_msg)
             return True
         else:
-            rospy.loginfo("Requested a non-existent arm pose.")
             return False
 
     def set_mast_pose(self, mode_name):
@@ -150,7 +149,6 @@ class CuriosityMarsRoverArmAndMast(object):
             self.mast_cameras.publish(self.mast_cameras_pos_msg)
             return True
         else:
-            rospy.loginfo("Requested a non-existent mast pose.")
             return False
 
 if __name__ == "__main__":

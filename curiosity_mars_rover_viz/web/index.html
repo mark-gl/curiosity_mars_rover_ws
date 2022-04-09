@@ -12,6 +12,7 @@
   <script src="js/ros3d.js"></script>
 
   <script src="js/aframe-teleport-controls.js"></script>
+  <script src="js/aframe-movebase-controls.js"></script>
   <script src="js/aframeros.js"></script>
 
   <script src="js/mappings.js"></script>
@@ -40,11 +41,15 @@
         <!-- hand controls abstract 6dof controllers-->
         <a-entity thumbstick-logging id="leftHand" teleport-controls="cameraRig: #rig;
         startEvents: teleportstart; endEvents: teleportend; collisionEntities: #worldterrain; maxLength: 50;
+        " navigation-controls="type: line; cameraRig: #rig;
+        startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;
         " raycaster="objects: [gui-interactable]" laser-controls="hand: left;">
         </a-entity>
         <!-- right hand contains our indicator for the mode -->
         <a-entity id="rightHand" teleport-controls="type: line; cameraRig: #rig;
         startEvents: teleportstart; endEvents: teleportend; collisionEntities: #worldterrain; maxLength: 50;
+        " navigation-controls="type: line; cameraRig: #rig;
+        startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;
         " raycaster="objects: [gui-interactable]" laser-controls="hand: right;">
         <!-- <a-entity id="mode-text" scale="1 1 1" position="0.3 0 0.1"  text="color:#FF0000; zOffset:-0.178; xOffset:0.08; value: roboControls;"></a-entity> -->
         </a-entity>
@@ -61,6 +66,7 @@
       <!-- <a-entity light="type: directional; color: #EEE; intensity: 2; castShadow: true;" position="-1 1 0"></a-entity> -->
     <a-entity id="worldterrain" gltf-model="#terrain" position="0 0 0" rotation="0 0 0" scale="1 1 1" shadow="receive: false"></a-entity>
      <a-sky color="#CCC299" scale="1 1 1"></a-sky>
+     
   </a-scene>
 </body>
 

@@ -25,8 +25,6 @@ var mappings = {
     'oculus-touch-controls': {
       'abutton.down': 'teleportstart',
       'abutton.up': 'teleportend',
-      'bbutton.down' : 'changeMode',
-
     },
     'windows-motion-controls': {
       'grip.down': 'changeTask'
@@ -37,8 +35,6 @@ var mappings = {
       'c_up': 'changeTask',
       'o_down': 'logtask1',
       'r_down':'changeMode',
-      'q_down':'speedUp',
-      'z_down':'slowDown',
     }
   },
   roboControls:{ // sadly this needs to be duplicated TODO: add it dynamically with sth like mappings.robocontrols = x and mappings.default= x
@@ -53,9 +49,12 @@ var mappings = {
       'trackpaddpadright.longpress': 'dpadrightlong'
     },
     'oculus-touch-controls': {
+      'trigger.up': 'navigationend',
+      'trigger.down': 'navigationstart',
       'abutton.down': 'teleportstart',
       'abutton.up': 'teleportend',
-      'bbutton.down' : 'changeMode',
+      'ybutton.down': 'mastToggle',
+      'bbutton.down' : 'armToggle',
       'thumbstickmoved':'moveRobo'
 
     },
@@ -72,8 +71,13 @@ var mappings = {
       'l_down': 'turnRight',
       'l_up' : 'stopRobot',
 
-      'o_down':'logtask1'
+      'o_down':'logtask1',
 
+      'q_down':'speedUp',
+      'z_down':'slowDown',
+
+      'm_down':'mastToggle',
+      'n_down':'armToggle',
 
     }
   }
@@ -105,8 +109,10 @@ var inputActions = {
     moveRobo:{ params: 'keine'},
     changeMode: { currentMode: 'roboControls' },
     logtask1: { label: 'Test Log RoboMode' }, 
-    rescalegrip : { start: 'no parameter needed?'},
-    endrescalegrip : { start: 'no parameter needed?'}
+    speedUp: {params: ''},
+    slowDown: {params: ''},
+    mastToggle: {params: ''},
+    armToggle: {params: ''},
   }
 }
 

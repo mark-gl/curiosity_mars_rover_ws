@@ -58,6 +58,18 @@ async function init_env_2(){
         messageType : 'geometry_msgs/Twist'
     });
 
+    var armClient = new ROSLIB.Service({
+        ros : ros,
+        name : '/curiosity_mars_rover/arm_service',
+        serviceType : 'gazebo_msgs/DeleteModel'
+    });
+    
+    var mastClient = new ROSLIB.Service({
+        ros : ros,
+        name : '/curiosity_mars_rover/mast_service',
+        serviceType : 'gazebo_msgs/DeleteModel'
+    });
+
     var  cloudClient = addVisualization(rootObjectNode,'cloudClient', ROS3D.PointCloud2,{
         ros: ros,
         tfClient: tfClient,
@@ -70,11 +82,52 @@ async function init_env_2(){
 
 }
 
+function speedUp() {
+    console.error("Speed not configured yet")
+}
+
+function slowDown() {
+    console.error("Speed not configured yet")
+}
+
+function mastToggle() {
+    
+    var mastClient = new ROSLIB.Service({
+        ros : ros,
+        name : '/curiosity_mars_rover/mast_service',
+        serviceType : 'gazebo_msgs/DeleteModel'
+    });
+    
+    mastClient.callService(requestToggle, function(result) {
+        document.getElementById("mast_state").innerHTML = result.status_message.slice(17);
+    });
+}
+
+function armToggle() {
+
+    var armClient = new ROSLIB.Service({
+        ros : ros,
+        name : '/curiosity_mars_rover/arm_service',
+        serviceType : 'gazebo_msgs/DeleteModel'
+    });
+
+    armClient.callService(requestToggle, function(result) {
+        document.getElementById("arm_state").innerHTML = result.status_message.slice(16);
+    });
+}
+
+
+
 function setupEventListeners(scene){
     var robotMovementEvents = ['moveForward','moveBackward','turnLeft','turnRight','stopRobot']
 
     scene.addEventListener('changeMode',changeMode)
     scene.addEventListener('moveRobo',moveRobo)
+
+    scene.addEventListener('speedUp',speedUp)
+    scene.addEventListener('slowDown',slowDown)
+    scene.addEventListener('mastToggle',mastToggle)
+    scene.addEventListener('armToggle',armToggle)
 
     for (var i = 0; i < robotMovementEvents.length; i++) {
         scene.addEventListener(robotMovementEvents[i], function (event) {
@@ -119,6 +172,18 @@ async function init_env() {
         name : '/curiosity_mars_rover/ackermann_drive_controller/cmd_vel',
         messageType : 'geometry_msgs/Twist'
       });
+
+    var armClient = new ROSLIB.Service({
+        ros : ros,
+        name : '/curiosity_mars_rover/arm_service',
+        serviceType : 'gazebo_msgs/DeleteModel'
+    });
+    
+    var mastClient = new ROSLIB.Service({
+        ros : ros,
+        name : '/curiosity_mars_rover/mast_service',
+        serviceType : 'gazebo_msgs/DeleteModel'
+    });
 
     // Setup a client to listen to TFs.
     var tfClient = new ROSLIB.TFClient({
@@ -176,6 +241,8 @@ async function init_env() {
     used_visualisations["gridClient"] = gridClient;
     // used_visualisations["markerClient"] = markerClient;
     used_controls["cmd_vel"]  = cmdVel;
+    used_controls["mast"]  = armClient;
+    used_controls["arm"]  = mastClient;
 }
 
 async function init_env_after_seconds(seconds) {
