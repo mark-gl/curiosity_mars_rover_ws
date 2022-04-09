@@ -68,6 +68,7 @@ async function init_env_2(){
         decay:5
     })
 
+    
 
     var menu = generateMenuOfVisualizations();
     scene.appendChild(menu)

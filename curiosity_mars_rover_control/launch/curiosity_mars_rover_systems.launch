@@ -6,12 +6,5 @@
 		 respawn="false"
 		 output="screen"
     	 args=""/>
-    
-    <node name="curiosity_rover_suspension_node"
-        pkg="curiosity_mars_rover_control"
-        type="suspension.py"
-        respawn="false"
-        output="screen"
-        args=""/>
 
 </launch>

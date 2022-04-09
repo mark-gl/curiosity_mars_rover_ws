@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-import time
 import rospy
 from std_msgs.msg import Float64
+from std_msgs.msg import String
 from gazebo_msgs.srv import DeleteModel, DeleteModelResponse
-
 
 class CuriosityMarsRoverArmAndMast(object):
     def __init__(self):
         rospy.loginfo("Curiosity Arm And Mast Initialising...")
-
-        # TODO: MoveIt for Arm
+        self.arm_state = 'Closed'
+        self.mast_state = 'Raised'
         self.publishers_curiosity_d = {}
         self.controller_ns = "curiosity_mars_rover"
         self.controller_command = "command"
@@ -22,7 +21,6 @@ class CuriosityMarsRoverArmAndMast(object):
                                     "arm_04_joint_position_controller",
                                     "arm_tools_joint_position_controller"
                                 ]
-
         for controller_name in self.controllers_list:
             topic_name = "/"+self.controller_ns+"/"+controller_name+"/"+self.controller_command
             self.publishers_curiosity_d[controller_name] = rospy.Publisher(
@@ -36,8 +34,10 @@ class CuriosityMarsRoverArmAndMast(object):
 
         arm_service_name = "/"+self.controller_ns+"/arm_service"
         self.arm_service = rospy.Service(arm_service_name, DeleteModel, self.arm_service_cb)
+        self.arm_pub = rospy.Publisher("/" + self.controller_ns + "/arm_state", String, queue_size=10)
         mast_service_name = "/" + self.controller_ns + "/mast_service"
         self.mast_service = rospy.Service(mast_service_name, DeleteModel, self.mast_service_cb)
+        self.mast_pub = rospy.Publisher("/" + self.controller_ns + "/mast_state", String, queue_size=10)
         rospy.loginfo("Curiosity Arm And Mast...READY")
 
     def arm_service_cb(self, req):
@@ -45,10 +45,10 @@ class CuriosityMarsRoverArmAndMast(object):
         response = DeleteModelResponse()
         response.success = self.set_arm_pose(arm_mode_requested)
         if response.success:
-            response.status_message = "Executed Arm Mode="+str(arm_mode_requested)
+            response.status_message = "Done! Arm Mode: " + self.arm_state
+            self.arm_pub.publish(self.arm_state)
         else:
-            response.status_message = "Couldnt Execute Arm Mode=" + str(arm_mode_requested)
-
+            response.status_message = "Fail! Arm Mode: " + self.arm_state
         return response
 
     def mast_service_cb(self, req):
@@ -56,10 +56,10 @@ class CuriosityMarsRoverArmAndMast(object):
         response = DeleteModelResponse()
         response.success = self.set_mast_pose(mast_mode_requested)
         if response.success:
-            response.status_message = "Executed Mast Mode=" + str(mast_mode_requested)
+            response.status_message = "Done! Mast Mode: " + self.mast_state
+            self.mast_pub.publish(self.mast_state)
         else:
-            response.status_message = "Couldnt Execute Mast Mode=" + str(mast_mode_requested)
-
+            response.status_message = "Fail! Mast Mode: " + self.mast_state
         return response
 
     def wait_publishers_to_be_ready(self):
@@ -106,43 +106,41 @@ class CuriosityMarsRoverArmAndMast(object):
         self.set_mast_pose("open")
 
     def set_arm_pose(self, mode_name):
-
-        if mode_name == "close" or mode_name == "open":
-            if mode_name == "close":
+        if mode_name == "close" or mode_name == "open" or mode_name == "toggle":
+            if mode_name == "close" or (mode_name == "toggle" and self.arm_state == "Open"):
+                self.arm_state = "Closed"
                 self.arm_01_pos_msg.data = -1.57
                 self.arm_02_pos_msg.data = -0.4
                 self.arm_03_pos_msg.data = -1.1
                 self.arm_04_pos_msg.data = -1.57
                 self.arm_tools_pos_msg.data = -1.57
-
-            if mode_name == "open":
+            elif mode_name == "open" or (mode_name == "toggle" and self.arm_state == "Closed"):
+                self.arm_state = "Open"
                 self.arm_01_pos_msg.data = 0.0
                 self.arm_02_pos_msg.data = 0.0
                 self.arm_03_pos_msg.data = 0.0
                 self.arm_04_pos_msg.data = 0.0
                 self.arm_tools_pos_msg.data = 0.0
 
-
             self.arm_01.publish(self.arm_01_pos_msg)
             self.arm_02.publish(self.arm_02_pos_msg)
             self.arm_03.publish(self.arm_03_pos_msg)
             self.arm_04.publish(self.arm_04_pos_msg)
             self.arm_tools.publish(self.arm_tools_pos_msg)
-
             return True
         else:
-            rospy.logerr("Requested a Not supported ARM POSE")
+            rospy.logerr("Invalid arm pose specified")
             return False
 
     def set_mast_pose(self, mode_name):
-
-        if mode_name == "close" or mode_name == "open":
-            if mode_name == "close":
+        if mode_name == "close" or mode_name == "open" or mode_name == "toggle":
+            if mode_name == "close" or (mode_name == "toggle" and self.mast_state == "Raised"):
+                self.mast_state = "Lowered"
                 self.mast_p_pos_msg.data = 1.35 # not quite 90 degrees
                 self.mast_02_pos_msg.data = 1.57
                 self.mast_cameras_pos_msg.data = 0.0
-
-            if mode_name == "open":
+            elif mode_name == "open" or (mode_name == "toggle" and self.mast_state == "Lowered"):
+                self.mast_state = "Raised"
                 self.mast_p_pos_msg.data = 0.0
                 self.mast_02_pos_msg.data = -0.5
                 self.mast_cameras_pos_msg.data = 0.0
@@ -152,9 +150,8 @@ class CuriosityMarsRoverArmAndMast(object):
             self.mast_cameras.publish(self.mast_cameras_pos_msg)
             return True
         else:
-            rospy.logerr("Requested a Not supported MAST POSE")
+            rospy.logerr("Invalid mast post specified")
             return False
-
 
 if __name__ == "__main__":
     rospy.init_node("CuriosityRoverArmMast_node")
