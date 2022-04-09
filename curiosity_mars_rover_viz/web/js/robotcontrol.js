@@ -18,7 +18,7 @@ function colormap(x){
 }
 
 function moveRobo(click){
-    console.log(click)
+    // console.log(click)
     controls = [click.detail.y,0,0,0,0,click.detail.x]
           
     moveRobot(controls)
@@ -30,34 +30,36 @@ async function init_env_2(){
     var scene = document.querySelector('a-scene');
     setupEventListeners(scene);
     rootObjectNode = document.getElementById('robot-element-parent')
-  // Connect to ROS.
-  var ros = new ROSLIB.Ros({
-    url: 'wss://127.0.0.1:9090'
-});
-   // Setup a client to listen to TFs.
-   var tfClient = new ROSLIB.TFClient({
-    ros: ros,
-    angularThres: 0.01,
-    transThres: 0.01,
-    rate: 20.0,
-    fixedFrame: 'odom'
-});
+    // Connect to ROS.
+    var ros = new ROSLIB.Ros({
+        url: 'wss://127.0.0.1:9090'
+    });
+    // Setup a client to listen to TFs.
+    var tfClient = new ROSLIB.TFClient({
+        ros: ros,
+        angularThres: 0.01,
+        transThres: 0.01,
+        rate: 20.0,
+        fixedFrame: 'odom'
+    });
 
     var gridClient =  addVisualization(rootObjectNode,'gridClient',ROS3D.OccupancyGridClient,{
         ros: ros,
         topic: '/map',
     });
 
-  var urdfClient =   addVisualization(rootObjectNode,'urdfClient',ROS3D.UrdfClient, {
+    var urdfClient =   addVisualization(rootObjectNode,'urdfClient',ROS3D.UrdfClient, {
         ros: ros,
         tfClient: tfClient,
         path: 'https://127.0.0.1:8080/',
     });
-    var cmdVel = addControls('cmdVel', ROSLIB.Topic,{
+    
+    var cmdVel = addControls('cmd_vel', ROSLIB.Topic,{
         ros : ros,
         name : '/curiosity_mars_rover/ackermann_drive_controller/cmd_vel',
         messageType : 'geometry_msgs/Twist'
-      });
+    });
+
     var  cloudClient = addVisualization(rootObjectNode,'cloudClient', ROS3D.PointCloud2,{
         ros: ros,
         tfClient: tfClient,
@@ -66,11 +68,11 @@ async function init_env_2(){
         colormap: colormap,
         max_pts: 30000000,
         decay:5
-      })
+    })
 
 
-      var menu = generateMenuOfVisualizations();
-      scene.appendChild(menu)
+    var menu = generateMenuOfVisualizations();
+    scene.appendChild(menu)
 
 }
 

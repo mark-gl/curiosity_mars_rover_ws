@@ -2,56 +2,23 @@
 <html>
 
 <head>
-  <!-- <script src="https://static.robotwebtools.org/threejs/current/three.js"></script> -->
-
-  <!-- <script src="https://unpkg.com/three@0.119.0/build/three.js"></script> -->
-  <!-- <script src="common/STLLoader.js"></script> -->
-
-  <!--<script src="common/ColladaLoader.js"></script>
-<script src="common/ColladaLoader.js"></script> -->
   <script src="https://aframe.io/releases/1.0.4/aframe.js"></script>
+  <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.js"></script>
+  <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
 
   <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.js"></script>
   <script src="https://static.robotwebtools.org/roslibjs/current/roslib.js"></script>
-  <script src="common/ros3d.js"></script>
-  <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
-  <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.js"></script>
 
+  <script src="js/ros3d.js"></script>
 
+  <script src="js/aframe-controls.js"></script>
+  <script src="js/aframe-teleport-controls.js"></script>
+  <script src="js/aframeros.js"></script>
 
-  <script src="aframe-teleport-controls.js"></script>
-  <script src="common/mappings.js"></script>
-  <script src="common/aframeros.js"></script>
+  <script src="js/mappings.js"></script>
 
-  <script src="robotcontrol.js"></script>
-  <script src="robotcontrol-debug.js"></script>
-  <script src="common/aframe-controls.js"></script>
-
-  <script>
-    //    window.postMessage('INJECT_AFRAME_INSPECTOR','*');
-
-
-// AFRAME.registerComponent('thumbstick-logging',{
-//         init: function () {
-//           this.el.addEventListener('trackpadmoved', this.logThumbstick);
-//           console.log(this)
-//           console.log("inited")
-//         },
-//         logThumbstick: function (evt) {
-//             console.log(AFRAME.currentInputMapping)
-//             if(AFRAME.currentInputMapping==='roboControls') {         
-//                  controls = [evt.detail.y,0,0,0,0,evt.detail.x]
-          
-//                 moveRobot(controls)
-          
-//                 if (evt.detail.y > 0.95) { console.log("DOWN"); }
-//                 if (evt.detail.y < -0.95) { console.log("UP"); }
-//                 if (evt.detail.x < -0.95) { console.log("LEFT"); }
-//                 if (evt.detail.x > 0.95) { console.log("RIGHT"); }
-//                 }
-//             }
-//       });
-  </script>
+  <script src="js/robotcontrol.js"></script>
+  <script src="js/robotcontrol-debug.js"></script>
 </head>
 
 <body onload="init_env_after_seconds(1)">

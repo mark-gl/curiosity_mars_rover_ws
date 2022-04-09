@@ -13,7 +13,6 @@ let used_controls  = {} // a dictionary for the controls we use with the robot
 
 
 
-
 function generateMenuOfVisualizations(){
 
     var container = document.createElement("a-gui-flex-container")
