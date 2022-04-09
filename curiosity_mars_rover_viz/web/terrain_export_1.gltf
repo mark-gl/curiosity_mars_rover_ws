@@ -1,0 +1,146 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.8.19",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "M2E",
+            "translation" : [
+                184.64340209960938,
+                3928.959228515625,
+                -64.41458129882812
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "Material.001",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "M2E",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "materials" : [ {
+        "pbrMetallicRoughness" : {
+        "baseColorTexture" : {
+            "index" : 0
+        },
+        "metallicFactor" : 0.0,
+        "roughnessFactor" : 1.0
+        }
+    } ],
+
+    "textures" : [ {
+        "sampler" : 0,
+        "source" : 0
+    } ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "Texture",
+            "uri" : "terrain_export_1.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 96233,
+            "max" : [
+                -0.3634527027606964,
+                -3872.849853515625,
+                298.8135986328125
+            ],
+            "min" : [
+                -361.6720886230469,
+                -3949.059814453125,
+                -31.42051887512207
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 96233,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 96233,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5125,
+            "count" : 573834,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 1154796,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1154796,
+            "byteOffset" : 1154796
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 769864,
+            "byteOffset" : 2309592
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2295336,
+            "byteOffset" : 3079456
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 5374792,
+            "uri" : "untitled.bin"
+        }
+    ]
+}
