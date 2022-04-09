@@ -17,7 +17,6 @@ var mappings = {
       'menu.down': { right:  'changeMode'},
       'trackpad.up': 'teleportend',
       'trackpad.down': 'teleportstart',
-      'trackpad.doubletouch': 'openMenu',
       'trackpad.doublepress': 'doublepress',
       // Activators for down, up, touchstart and touchend are optionals you can just write the event without the .
       'trackpaddpadleftdown': 'dpadleft',
@@ -27,7 +26,6 @@ var mappings = {
       'abutton.down': 'teleportstart',
       'abutton.up': 'teleportend',
       'bbutton.down' : 'changeMode',
-      'xbutton.up': 'openMenu',
 
     },
     'windows-motion-controls': {
@@ -37,7 +35,6 @@ var mappings = {
       't_down': 'teleportstart',
       't_up': 'teleportend',
       'c_up': 'changeTask',
-      'm_up': 'openMenu',
       'o_down': 'logtask1',
       'r_down':'changeMode',
       'q_down':'speedUp',
@@ -49,7 +46,6 @@ var mappings = {
       'menu.down': { right:  'changeMode'},
       'trackpad.up': 'teleportend',
       'trackpad.down': 'teleportstart',
-      'trackpad.doubletouch': 'openMenu',
       'trackpad.doublepress': 'doublepress',
       'trackpadmoved' : 'moveRobo',
       // Activators for down, up, touchstart and touchend are optionals you can just write the event without the .
@@ -60,13 +56,10 @@ var mappings = {
       'abutton.down': 'teleportstart',
       'abutton.up': 'teleportend',
       'bbutton.down' : 'changeMode',
-      'xbutton.up': 'openMenu',
       'thumbstickmoved':'moveRobo'
 
     },
     keyboard: {
-      'm_up': 'openMenu',
-
       'i_down': 'moveForward',      
       'i_up' : 'stopRobot',
 
@@ -94,7 +87,6 @@ var mappings = {
  */
 var inputActions = {
   default: {
-    openMenu: { label : 'Open Menu'},
     changeMode: { currentMode: 'default' },
     scaleSmall : { percent : 20},
     rescalegrip : { start: 'no parameter needed?'},
@@ -102,11 +94,9 @@ var inputActions = {
 
   },
   controls: {
-    openMenu: { label : 'openMenu'},
     logtask2: { label: 'Test Log Task 2' }
   },
   roboControls:{ // eg. mode 2 - control the robot
-    openMenu: { label : 'Open Menu'},
     moveForward: { params: [1,0,0,0,0,0]},
     moveBackward: { params: [-1,0,0,0,0,0] }, 
     turnLeft:{ params: [0,0,0,0,0,1]},

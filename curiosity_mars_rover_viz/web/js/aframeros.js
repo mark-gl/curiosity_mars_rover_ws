@@ -3,7 +3,6 @@
  * we use this file for our ros3djs/roslibjs code
  */
 
-var menuOpen = false;
 var rootObjectNode // the Aframe node to which we will add children nodes to add visualizations to
 // we need to add child nodes for the visualization because otherwise some things will only be partially loaded
 let ip = "127.0.0.1" 
@@ -12,63 +11,6 @@ let used_controls  = {} // a dictionary for the controls we use with the robot
 
 
 
-
-function generateMenuOfVisualizations(){
-
-    var container = document.createElement("a-gui-flex-container")
-    
-
-    container.setAttribute("id","menu-gui")
-    container.setAttribute("flex-direction","column" )
-    container.setAttribute("visible","false" )
-    container.setAttribute("justify-content","center")
-    container.setAttribute("align-items","normal")
-    container.setAttribute("component-padding","0.1")
-    container.setAttribute("opacity","0.7")
-    container.setAttribute("width","3.5" )
-    container.setAttribute("height", "4.5")
-    container.setAttribute("position","0 5 -3") 
-    container.setAttribute("rotation","0 0 0")
-    console.log("container done")
-
-    var button = document.createElement("a-gui-button") 
-    
-    button.setAttribute("width","2.5")
-    button.setAttribute("height","0.75") 
-    button.setAttribute("onclick","teleportToRobot" )
-    button.setAttribute("key-code","32") 
-    button.setAttribute("value","teleport to robot") 
-    button.setAttribute("margin","0 0 0.05 0")
-    container.appendChild(button)
-
-    // for each visualization in used_visualizations
-    // create a gui toggle
-    for ( visualization in used_visualisations){
-        console.log(visualization)
-         // check if the property/key is defined in the object itself, not in parent
-        if (used_visualisations.hasOwnProperty(visualization)) {  
-            var toggle = document.createElement("a-gui-toggle") 
-            toggle.setAttribute("width","2.5") 
-            toggle.setAttribute("height","0.75") 
-            toggle.setAttribute("onclick","toggleTopic" )
-            toggle.setAttribute("value", visualization)
-            toggle.setAttribute("margin","0 0 0.05 0")
-            toggle.setAttribute("toggle",true )
-            toggle.setAttribute("checked",true)// or false  depending on whether it's on by default)
-            container.appendChild(toggle)
-        }
-    }
-    // <a-gui-toggle width="2.5" height="0.75" onclick="toggleTopic" value="cloudClient" margin="0 0 0.05 0">
-    // </a-gui-toggle>
-    // <a-gui-toggle width="2.5" height="0.75" onclick="toggleTopic" value="markerClient" margin="0 0 0.05 0">
-    // </a-gui-toggle>
-    // <a-gui-toggle width="2.5" height="0.75" onclick="toggleTopic" value="gridClient" margin="0 0 0.05 0">
-    // </a-gui-toggle>
-    // <!-- <a-gui-toggle width="2.5" height="0.75" onclick="toggleTopic" value="urdf" margin="0 0 0.05 0">
-    // </a-gui-toggle> -->
-
-    return container
-}
 /**
  * this reads a json config to add ros3djs functions 
  * @param {} json 

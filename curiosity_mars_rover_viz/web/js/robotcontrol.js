@@ -68,11 +68,6 @@ async function init_env_2(){
         decay:5
     })
 
-    
-
-    var menu = generateMenuOfVisualizations();
-    scene.appendChild(menu)
-
 }
 
 function setupEventListeners(scene){
@@ -80,9 +75,6 @@ function setupEventListeners(scene){
 
     scene.addEventListener('changeMode',changeMode)
     scene.addEventListener('moveRobo',moveRobo)
-
-
-    scene.addEventListener('openMenu', openMenu);
 
     for (var i = 0; i < robotMovementEvents.length; i++) {
         scene.addEventListener(robotMovementEvents[i], function (event) {
@@ -206,33 +198,4 @@ function teleportToRobot(){
     position.z *=scale.z
 
     rig.setAttribute("position",position)
-}
-
-
-/**
- * opening the toggle menu
- */
-function openMenu() {
-    menuOpen = !menuOpen
-
-    var menugui = document.getElementById('menu-gui')
-    
-    position = document.getElementById("camera").object3D.getWorldPosition()
-    position.x -= document.getElementById("camera").object3D.getWorldDirection().x * 4
-    position.z -= document.getElementById("camera").object3D.getWorldDirection().z * 4
-    position.y = document.getElementById("camera").object3D.getWorldPosition().y 
-    console.log(position)
-    menugui.object3D.position = position
-    var menuguirotation = new THREE.Vector3( );
-
-    menuguirotation.copy(menugui.object3D.rotation)
-    menugui.setAttribute('position',position)
-
-    menugui.object3D.lookAt(document.getElementById('rig').object3D.position)
-    // menugui.object3D.rotation.x = menuguirotation.x;
-    // menugui.object3D.rotation.z = menuguirotation.z;
-
-    console.log(menugui.object3D.position)
-    menugui.setAttribute("visible", menuOpen);
-
 }
