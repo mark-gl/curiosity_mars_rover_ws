@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
     <arg name="fake_depth_cameras" default="false" />
-    <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/control_ackermann_drive.yaml" />
+    <arg name="fake_marsviz_gps" default="false" />
+
     <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/control_joint_state.yaml" />
-    
-    <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
-        <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/robot_localization.yaml" />
-    </node> -->
-    
+    <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/control_ackermann_drive.yaml" />
+    <group if="$(arg fake_marsviz_gps)">
+        <param name="curiosity_mars_rover/ackermann_drive_controller/enable_odom_tf" value="false" />
+    </group>
+
     <!-- Spawn the controllers  -->
     <node name="controller_manager" pkg="controller_manager" type="spawner" respawn="false"
             output="screen" args="--namespace=/curiosity_mars_rover
@@ -29,19 +30,6 @@
                                 arm_tools_joint_position_controller">
     </node>
 
-    <!-- 
-    front_wheel_L_joint_velocity_controller
-    middle_wheel_L_joint_velocity_controller
-    back_wheel_L_joint_velocity_controller
-    front_wheel_R_joint_velocity_controller
-    middle_wheel_R_joint_velocity_controller
-    back_wheel_R_joint_velocity_controller
-    suspension_steer_F_L_joint_position_controller
-    suspension_steer_B_L_joint_position_controller
-    suspension_steer_F_R_joint_position_controller
-    suspension_steer_B_R_joint_position_controller
-    -->
-
     <!-- Launch the robot state publisher -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
         respawn="false" output="screen">
@@ -52,7 +40,9 @@
     <include file="$(find curiosity_mars_rover_control)/launch/curiosity_mars_rover_systems.launch"/>
     
     <group unless="$(arg fake_depth_cameras)">
-        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_control)/rviz/curiosity_mars_rover.rviz" />   
+        <group unless="$(arg fake_marsviz_gps)">
+            <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_control)/rviz/curiosity_mars_rover.rviz" />  
+        </group>
     </group>
     
     <group if="$(arg fake_depth_cameras)">

@@ -10,50 +10,16 @@
         </plugin>
     </gazebo>
 
-    <!-- IMU/GPS instrument definitons from Jackal 
-         Curiosity doesn't have GPS because it's on Mars, but this is used when we assume that
-         the exact location of the rover is known. -->
-    <gazebo>
-        <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
-            <robotNamespace>/curiosity_mars_rover</robotNamespace>
-            <updateRate>50.0</updateRate>
-            <bodyName>imu_link</bodyName>
-            <topicName>imu/data</topicName>
-            <accelDrift>0.005 0.005 0.005</accelDrift>
-            <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
-            <rateDrift>0.005 0.005 0.005 </rateDrift>
-            <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
-            <headingDrift>0.005</headingDrift>
-            <headingGaussianNoise>0.005</headingGaussianNoise>
-        </plugin>
-    </gazebo>
-
-    <gazebo>
-        <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
-            <updateRate>50</updateRate>
-            <robotNamespace>/curiosity_mars_rover</robotNamespace>
-            <bodyName>navsat_link</bodyName>
-            <frameId>base_link</frameId>
-            <topicName>/navsat/fix</topicName>
-            <velocityTopicName>/navsat/vel</velocityTopicName>
-            <referenceLatitude>49.9</referenceLatitude>
-            <referenceLongitude>8.9</referenceLongitude>
-            <referenceHeading>0</referenceHeading>
-            <referenceAltitude>0</referenceAltitude>
-            <drift>0.0001 0.0001 0.0001</drift>
-        </plugin>
-    </gazebo>
-
     <!--
       The plugin broadcasts a body's pose and rates through ROS nav_msgs::Odometry message.
       The plugin broadcasts pose and rate of a body named "chassis" over ROS topic name "curiosity_mars_rover/odom".
     -->
     <gazebo>
         <plugin name="ground_truth" filename="libgazebo_ros_p3d.so">
+            <updateRate>60.0</updateRate>
             <frameName>world</frameName>
             <bodyName>base_link</bodyName>
             <topicName>/curiosity_mars_rover/odom</topicName>
-            <updateRate>50.0</updateRate>
         </plugin>
     </gazebo>
 

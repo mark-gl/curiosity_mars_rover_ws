@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <node name="curiosity_rover_fake_gps_node"
+        pkg="curiosity_mars_rover_viz"
+        type="gps_publish.py"
+        respawn="false"
+        output="screen"
+        args=""/>
+
+    <node name="tf2_web_republisher" pkg="tf2_web_republisher" type="tf2_web_republisher"
+        respawn="false" output="screen">
+    </node>
+
+	<include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+		<arg name="ssl" value="true"/>
+		<arg name="port" value="9090" />
+		<arg name="certfile" value="/etc/ssl/certs/localcerts/server1.example.com.pem" /> <!-- Change! -->
+		<arg name="keyfile" value="/etc/ssl/certs/localcerts/server1.example.com.key"/> <!-- Change! -->
+	</include>
+
+    <node name="curiosity_rover_web_server"
+        pkg="curiosity_mars_rover_viz"
+        type="run_server.py"
+        respawn="false"
+        output="screen"
+        args=""
+        cwd="node"
+        />
+</launch>
