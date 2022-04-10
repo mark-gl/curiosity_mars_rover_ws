@@ -67,59 +67,65 @@
         </visual>
       </link>
     </model>
-    <model name="cylinder">
-      <static>true</static>
-      <pose>-5 -1.5 0.5 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <cylinder>
-              <radius>0.5</radius>
-              <length>1.0</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <cylinder>
-              <radius>0.5</radius>
-              <length>1.0</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <script>
-                <uri>model://rock.material</uri>
-                <name>RockFlat/Image</name>
-            </script>
-          </material>
-        </visual>
-      </link>
+    <model name='cylinder'>
+        <static>true</static>
+        <pose>0.6893 6.33695 0.5 0 -0 0</pose>
+        <scale>1.45738 1.45738 1</scale>
+        <static>true</static>
+        <link name="link">
+            <collision name="collision">
+            <geometry>
+                <cylinder>
+                <radius>0.5</radius>
+                <length>1.0</length>
+                </cylinder>
+            </geometry>
+            </collision>
+            <visual name="visual">
+            <geometry>
+                <cylinder>
+                <radius>0.5</radius>
+                <length>1.0</length>
+                </cylinder>
+            </geometry>
+            <material>
+                <script>
+                    <uri>model://rock.material</uri>
+                    <name>RockFlat/Image</name>
+                </script>
+            </material>
+            </visual>
+        </link>
     </model>
-    <model name="sphere">
-      <static>true</static>
-      <pose>0 6.5 0.5 0 0 0</pose>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <sphere>
-              <radius>0.5</radius>
-            </sphere>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <sphere>
-              <radius>0.5</radius>
-            </sphere>
-          </geometry>
-          <material>
-            <script>
-                <uri>model://rock.material</uri>
-                <name>RockFlat/Image</name>
-            </script>
-          </material>
-        </visual>
-      </link>
+    <model name='cylinder2'>
+        <static>true</static>
+        <pose>5.073040 5.073040 0.5 0 -0 0</pose>
+        <scale>1.45738 1.45738 1</scale>
+        <static>true</static>
+        <link name="link">
+            <collision name="collision">
+            <geometry>
+                <cylinder>
+                <radius>0.5</radius>
+                <length>1.0</length>
+                </cylinder>
+            </geometry>
+            </collision>
+            <visual name="visual">
+            <geometry>
+                <cylinder>
+                <radius>0.5</radius>
+                <length>1.0</length>
+                </cylinder>
+            </geometry>
+            <material>
+                <script>
+                    <uri>model://rock.material</uri>
+                    <name>RockFlat/Image</name>
+                </script>
+            </material>
+            </visual>
+        </link>
     </model>
     <model name="box2">
       <static>true</static>
@@ -146,6 +152,141 @@
           </material>
         </visual>
       </link>
+    </model>
+    <model name='box3'>
+        <static>true</static>
+        <pose>-6.44847 3.31816 0.5 0 -0 0</pose>
+        <scale>1 0.424181 0.601928</scale>
+        <link name="link">
+            <collision name="collision">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            </collision>
+            <visual name="visual">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            <material>
+                <script>
+                    <uri>model://rock.material</uri>
+                    <name>RockFlat/Image</name>
+                </script>
+            </material>
+            </visual>
+        </link>
+    </model>
+    <model name='box4'>
+        <static>true</static>
+        <pose>-3.54315 -3.14319 -0.456862 0 -0 0</pose>
+        <scale>1 0.461551 1</scale>
+        <link name="link">
+            <collision name="collision">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            </collision>
+            <visual name="visual">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            <material>
+                <script>
+                    <uri>model://rock.material</uri>
+                    <name>RockFlat/Image</name>
+                </script>
+            </material>
+            </visual>
+        </link>
+    </model>
+    <model name='box5'>
+        <static>true</static>
+        <pose>1.92795 -7.12328 -0.456862 0 -0 0</pose>
+        <scale>1 1.88988 1</scale>
+        <link name="link">
+            <collision name="collision">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            </collision>
+            <visual name="visual">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            <material>
+                <script>
+                    <uri>model://rock.material</uri>
+                    <name>RockFlat/Image</name>
+                </script>
+            </material>
+            </visual>
+        </link>
+    </model>
+    <model name='box6'>
+        <static>true</static>
+        <pose>-3.527180 -3.527180 -0.456862 0 -0 0</pose>
+        <scale>1 1.88988 1</scale>
+        <link name="link">
+            <collision name="collision">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            </collision>
+            <visual name="visual">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            <material>
+                <script>
+                    <uri>model://rock.material</uri>
+                    <name>RockFlat/Image</name>
+                </script>
+            </material>
+            </visual>
+        </link>
+    </model>
+    <model name='box7'>
+        <static>true</static>
+        <pose>-2.673782 12 -0.456862 0 -0 0</pose>
+        <scale>1 1.88988 1</scale>
+        <link name="link">
+            <collision name="collision">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            </collision>
+            <visual name="visual">
+            <geometry>
+                <box>
+                <size>1 2 3</size>
+                </box>
+            </geometry>
+            <material>
+                <script>
+                    <uri>model://rock.material</uri>
+                    <name>RockFlat/Image</name>
+                </script>
+            </material>
+            </visual>
+        </link>
     </model>
   </world>
 </sdf>
