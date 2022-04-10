@@ -1,5 +1,5 @@
 global_costmap:
-  global_frame: odom
+  global_frame: map
   robot_base_frame: base_link
   update_frequency: 20
   publish_frequency: 5
@@ -11,3 +11,7 @@ global_costmap:
   static_map: true
   rolling_window: false
   
+  plugins:
+  - {name: static_layer, type: "costmap_2d::StaticLayer"}
+  - {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
+  - {name: inflater_layer, type: "costmap_2d::InflationLayer"}
