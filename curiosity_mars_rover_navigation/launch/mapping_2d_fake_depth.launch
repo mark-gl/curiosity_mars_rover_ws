@@ -1,0 +1,19 @@
+<launch>
+    <node name="pointcloud_to_laserscan_back_hazcam" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" output="screen" ns="/curiosity_mars_rover/camera_navcam/">
+        <remap from="cloud_in" to="/curiosity_mars_rover/camera_navcam/depth/points" />
+        <remap from="scan" to="/curiosity_mars_rover/camera_navcam/scan" />
+        <param name="target_frame" value="base_link" />
+        <param name="min_height" value="0.5" />
+        <param name="max_height" value="5" />
+        <param name="range_min" value="0.1" />
+        <param name="range_max" value="10" />
+        <param name="use_inf" value="true" />
+    </node>
+
+    <node pkg="gmapping" type="slam_gmapping" name="gmapping" output="screen">
+        <param name="odom_frame" value="odom" />
+        <param name="base_frame" value="base_link" />
+        <remap from="scan" to="/curiosity_mars_rover/camera_navcam/scan" />
+    </node>
+
+</launch>
