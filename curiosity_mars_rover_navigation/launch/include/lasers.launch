@@ -38,10 +38,10 @@
             <remap from="cloud_in" to="/curiosity_mars_rover/camera_backhazcam/depth/points" />
             <remap from="scan" to="/curiosity_mars_rover/camera_backhazcam/scan" />
             <param name="target_frame" value="base_link" />
-            <param name="min_height" value="-0.3" />
+            <param name="min_height" value="-0.5" />
             <param name="max_height" value="5" />
             <param name="range_min" value="0.1" />
-            <param name="range_max" value="20" />
+            <param name="range_max" value="40" />
             <param name="use_inf" value="true" />
         </node>
         <node name="pointcloud_to_laserscan_front_hazcam" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" output="screen" ns="/curiosity_mars_rover/camera_fronthazcam/">
@@ -51,17 +51,17 @@
             <param name="min_height" value="-0.3" />
             <param name="max_height" value="5" />
             <param name="range_min" value="0.1" />
-            <param name="range_max" value="20" />
+            <param name="range_max" value="40" />
             <param name="use_inf" value="true" />
         </node>
         <node name="pointcloud_to_laserscan_navcam" pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" output="screen" ns="/curiosity_mars_rover/camera_navcam/">
             <remap from="cloud_in" to="/curiosity_mars_rover/camera_navcam/depth/points" />
             <remap from="scan" to="/curiosity_mars_rover/camera_navcam/scan" />
             <param name="target_frame" value="base_link" />
-            <param name="min_height" value="-0.3" />
+            <param name="min_height" value="0.6" />
             <param name="max_height" value="5" />
             <param name="range_min" value="2" />
-            <param name="range_max" value="20" />
+            <param name="range_max" value="40" />
             <param name="use_inf" value="true" />
         </node>
     </group>

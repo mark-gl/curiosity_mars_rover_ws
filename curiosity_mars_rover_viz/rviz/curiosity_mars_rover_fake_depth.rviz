@@ -3,8 +3,7 @@ Panels:
     Help Height: 78
     Name: Displays
     Property Tree Widget:
-      Expanded:
-        - /TF1
+      Expanded: ~
       Splitter Ratio: 0.6882352828979492
     Tree Height: 481
   - Class: rviz/Selection
@@ -25,7 +24,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Armcam
+    SyncSource: MAHLI
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -176,7 +175,7 @@ Visualization Manager:
           Value: true
       Marker Alpha: 1
       Marker Scale: 1
-      Name: TF
+      Name: Transforms
       Show Arrows: true
       Show Axes: true
       Show Names: false
@@ -550,130 +549,202 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-      Name: RobotModel
+      Name: Rover Model
       Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
       Visual Enabled: true
     - Class: rviz/Camera
+      Enabled: false
+      Image Rendering: overlay
+      Image Topic: /curiosity_mars_rover/camera_mardi/image_raw
+      Name: MARDI
+      Overlay Alpha: 1
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: false
+      Visibility:
+        3D Mapping Cloud: true
+        Front HazCam: true
+        Front HazCam Depth: true
+        Grid: true
+        MAHLI: true
+        MastCam: true
+        NavCam: true
+        NavCam Depth: true
+        Navigation Footprint: true
+        Navigation Map Local: true
+        Navigation Map Server: true
+        Navigation Path: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
+        Rear HazCam: true
+        Rear HazCam Depth: true
+        Rover Model: true
+        Transforms: true
+        Value: true
+      Zoom Factor: 1
+    - Class: rviz/Camera
       Enabled: true
-      Image Rendering: background and overlay
+      Image Rendering: overlay
       Image Topic: /curiosity_mars_rover/camera_mahli/image_raw
-      Name: Armcam
+      Name: MAHLI
       Overlay Alpha: 1
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
       Value: true
       Visibility:
-        Front Hazcam: true
-        Front Hazcam Depth: true
-        Front Hazcam Obstacles: true
+        3D Mapping Cloud: true
+        Front HazCam: true
+        Front HazCam Depth: true
         Grid: true
-        Mastcam: true
-        Navcam Depth: true
-        Navcam Obstacles: true
+        MARDI: true
+        MastCam: true
+        NavCam: true
+        NavCam Depth: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
-        PoseArray: true
-        PoseWithCovariance: true
-        Rear Hazcam: true
-        Rear Hazcam Depth: true
-        Rear Hazcam Obstacles: true
-        RobotModel: true
-        TF: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
+        Rear HazCam: true
+        Rear HazCam Depth: true
+        Rover Model: true
+        Transforms: true
         Value: true
       Zoom Factor: 1
     - Class: rviz/Camera
       Enabled: true
-      Image Rendering: background and overlay
+      Image Rendering: overlay
       Image Topic: /curiosity_mars_rover/camera_mastcam/left/image_raw
-      Name: Mastcam
+      Name: MastCam
       Overlay Alpha: 1
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
       Value: true
       Visibility:
-        Armcam: true
-        Front Hazcam: true
-        Front Hazcam Depth: true
-        Front Hazcam Obstacles: true
+        3D Mapping Cloud: true
+        Front HazCam: true
+        Front HazCam Depth: true
         Grid: true
-        Navcam Depth: true
-        Navcam Obstacles: true
+        MAHLI: true
+        MARDI: true
+        NavCam: true
+        NavCam Depth: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
-        PoseArray: true
-        PoseWithCovariance: true
-        Rear Hazcam: true
-        Rear Hazcam Depth: true
-        Rear Hazcam Obstacles: true
-        RobotModel: true
-        TF: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
+        Rear HazCam: true
+        Rear HazCam Depth: true
+        Rover Model: true
+        Transforms: true
         Value: true
       Zoom Factor: 1
     - Class: rviz/Camera
       Enabled: true
-      Image Rendering: background and overlay
+      Image Rendering: overlay
+      Image Topic: /curiosity_mars_rover/camera_navcam/color/image_raw
+      Name: NavCam
+      Overlay Alpha: 1
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: true
+      Visibility:
+        3D Mapping Cloud: true
+        Front HazCam: true
+        Front HazCam Depth: true
+        Grid: true
+        MAHLI: true
+        MARDI: true
+        MastCam: true
+        NavCam Depth: true
+        Navigation Footprint: true
+        Navigation Map Local: true
+        Navigation Map Server: true
+        Navigation Path: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
+        Rear HazCam: true
+        Rear HazCam Depth: true
+        Rover Model: true
+        Transforms: true
+        Value: true
+      Zoom Factor: 1
+    - Class: rviz/Camera
+      Enabled: true
+      Image Rendering: overlay
       Image Topic: /curiosity_mars_rover/camera_fronthazcam/color/image_raw
-      Name: Front Hazcam
+      Name: Front HazCam
       Overlay Alpha: 1
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
       Value: true
       Visibility:
-        Armcam: true
-        Front Hazcam Depth: true
-        Front Hazcam Obstacles: true
+        3D Mapping Cloud: true
+        Front HazCam Depth: true
         Grid: true
-        Mastcam: true
-        Navcam Depth: true
-        Navcam Obstacles: true
+        MAHLI: true
+        MARDI: true
+        MastCam: true
+        NavCam: true
+        NavCam Depth: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
-        PoseArray: true
-        PoseWithCovariance: true
-        Rear Hazcam: true
-        Rear Hazcam Depth: true
-        Rear Hazcam Obstacles: true
-        RobotModel: true
-        TF: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
+        Rear HazCam: true
+        Rear HazCam Depth: true
+        Rover Model: true
+        Transforms: true
         Value: true
       Zoom Factor: 1
     - Class: rviz/Camera
       Enabled: true
-      Image Rendering: background and overlay
+      Image Rendering: overlay
       Image Topic: /curiosity_mars_rover/camera_backhazcam/color/image_raw
-      Name: Rear Hazcam
+      Name: Rear HazCam
       Overlay Alpha: 1
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
       Value: true
       Visibility:
-        Armcam: true
-        Front Hazcam: true
-        Front Hazcam Depth: true
-        Front Hazcam Obstacles: true
+        3D Mapping Cloud: true
+        Front HazCam: true
+        Front HazCam Depth: true
         Grid: true
-        Mastcam: true
-        Navcam Depth: true
-        Navcam Obstacles: true
+        MAHLI: true
+        MARDI: true
+        MastCam: true
+        NavCam: true
+        NavCam Depth: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
-        PoseArray: true
-        PoseWithCovariance: true
-        Rear Hazcam Depth: true
-        Rear Hazcam Obstacles: true
-        RobotModel: true
-        TF: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
+        Rear HazCam Depth: true
+        Rover Model: true
+        Transforms: true
         Value: true
       Zoom Factor: 1
     - Alpha: 1
@@ -692,7 +763,35 @@ Visualization Manager:
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
-      Name: Front Hazcam Depth
+      Name: NavCam Depth
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /curiosity_mars_rover/camera_navcam/depth/points
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Front HazCam Depth
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -720,7 +819,7 @@ Visualization Manager:
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
-      Name: Rear Hazcam Depth
+      Name: Rear HazCam Depth
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
@@ -740,109 +839,25 @@ Visualization Manager:
         Value: true
       Axis: Z
       Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: RGB8
+      Class: rviz/LaserScan
+      Color: 255; 0; 0
+      Color Transformer: FlatColor
       Decay Time: 0
-      Enabled: false
+      Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
-      Name: Navcam Depth
+      Name: Obstacles
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
+      Size (m): 0.05000000074505806
       Style: Flat Squares
-      Topic: /curiosity_mars_rover/camera_navcam/depth/points
+      Topic: /merged_scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: false
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/LaserScan
-      Color: 255; 0; 0
-      Color Transformer: FlatColor
-      Decay Time: 1
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 0; 0
-      Min Color: 255; 0; 0
-      Name: Front Hazcam Obstacles
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.10000000149011612
-      Style: Squares
-      Topic: /curiosity_mars_rover/camera_fronthazcam/scan
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: false
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/LaserScan
-      Color: 255; 0; 0
-      Color Transformer: FlatColor
-      Decay Time: 1
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 0; 0
-      Min Color: 255; 0; 0
-      Name: Rear Hazcam Obstacles
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.10000000149011612
-      Style: Squares
-      Topic: /curiosity_mars_rover/camera_backhazcam/scan
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: false
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/LaserScan
-      Color: 255; 0; 0
-      Color Transformer: FlatColor
-      Decay Time: 1
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 0; 0
-      Min Color: 255; 0; 0
-      Name: Navcam Obstacles
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.10000000149011612
-      Style: Squares
-      Topic: /curiosity_mars_rover/camera_navcam/scan
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: false
       Value: true
     - Alpha: 1
       Class: rviz/Polygon
@@ -882,27 +897,20 @@ Visualization Manager:
       Color Scheme: costmap
       Draw Behind: false
       Enabled: true
-      Name: Navigation Map
-      Topic: /map
+      Name: Navigation Map Local
+      Topic: /move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: true
-    - Alpha: 1
-      Arrow Length: 0.30000001192092896
-      Axes Length: 0.30000001192092896
-      Axes Radius: 0.009999999776482582
-      Class: rviz/PoseArray
-      Color: 30; 90; 0
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
       Enabled: true
-      Head Length: 0.07000000029802322
-      Head Radius: 0.029999999329447746
-      Name: PoseArray
-      Queue Size: 10
-      Shaft Length: 0.23000000417232513
-      Shaft Radius: 0.009999999776482582
-      Shape: Arrow (Flat)
-      Topic: /particlecloud
+      Name: Navigation Map Server
+      Topic: /map
       Unreliable: false
+      Use Timestamp: false
       Value: true
     - Alpha: 1
       Axes Length: 1
@@ -927,14 +935,69 @@ Visualization Manager:
       Enabled: true
       Head Length: 0.30000001192092896
       Head Radius: 0.30000001192092896
-      Name: PoseWithCovariance
+      Name: Position Estimate
       Queue Size: 10
       Shaft Length: 1
-      Shaft Radius: 0.20000000298023224
+      Shaft Radius: 0.15000000596046448
       Shape: Arrow
       Topic: /amcl_pose
       Unreliable: false
       Value: true
+    - Alpha: 1
+      Arrow Length: 0.30000001192092896
+      Axes Length: 0.30000001192092896
+      Axes Radius: 0.009999999776482582
+      Class: rviz/PoseArray
+      Color: 26; 111; 0
+      Enabled: true
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
+      Name: Position Candidates
+      Queue Size: 10
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
+      Shape: Arrow (Flat)
+      Topic: /particlecloud
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rtabmap_ros/MapCloud
+      Cloud decimation: 4
+      Cloud from scan: false
+      Cloud max depth (m): 4
+      Cloud min depth (m): 1
+      Cloud voxel size (m): 0.009999999776482582
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Download graph: false
+      Download map: false
+      Download namespace: rtabmap
+      Enabled: false
+      Filter ceiling (m): 0
+      Filter floor (m): 0
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: 3D Mapping Cloud
+      Node filtering angle (degrees): 30
+      Node filtering radius (m): 0
+      Position Transformer: XYZ
+      Queue Size: 10
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /rtabmap/mapData
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 30; 30; 30
@@ -963,7 +1026,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 10
+      Distance: 21.392154693603516
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -971,32 +1034,36 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: -1.1513727903366089
+        Y: -1.8416551351547241
+        Z: -1.1430851221084595
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7853981852531433
+      Pitch: 0.8853979706764221
       Target Frame: <Fixed Frame>
-      Yaw: 0.7853981852531433
+      Yaw: 3.9803991317749023
     Saved: ~
 Window Geometry:
-  Armcam:
-    collapsed: false
   Displays:
     collapsed: false
-  Front Hazcam:
+  Front HazCam:
     collapsed: false
   Height: 1007
   Hide Left Dock: false
   Hide Right Dock: true
-  Mastcam:
+  MAHLI:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001560000026afc020000000cfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b0000026a000000c700fffffffb0000000800540069006d00650000000245000000390000003700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d0065007200610000000187000001020000000000000000fb0000000a0049006d006100670065000000019f000000e70000000000000000fb0000000c00430061006d00650072006100000001f5000000b00000000000000000000000010000010f0000026afc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003b0000026a000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000077400000129fc0100000005fb000000160052006500610072002000480061007a00630061006d0100000000000001c70000008500fffffffb0000001800460072006f006e0074002000480061007a00630061006d01000001cd000001e40000008800fffffffb0000000e004d00610073007400630061006d01000003b7000001d30000006b00fffffffb0000000c00410072006d00630061006d0100000590000001e40000006700fffffffb0000000800540069006d00650100000000000004500000000000000000000006180000026a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
-  Rear Hazcam:
+  MARDI:
+    collapsed: false
+  MastCam:
+    collapsed: false
+  NavCam:
+    collapsed: false
+  QMainWindow State: 000000ff00000000fd0000000400000000000001560000026afc020000000cfb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b0000026a000000c700fffffffb0000000800540069006d00650000000245000000390000003700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d0065007200610000000187000001020000000000000000fb0000000a0049006d006100670065000000019f000000e70000000000000000fb0000000c00430061006d00650072006100000001f5000000b00000000000000000000000010000010f0000026afc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073000000003b0000026a000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000077400000129fc010000000bfb000000160052006500610072002000480061007a00430061006d01000000000000010d0000008600fffffffb0000001800460072006f006e0074002000480061007a00430061006d0100000113000001150000008a00fffffffb0000000c004e0061007600430061006d010000022e000001190000006700fffffffb0000000e004d00610073007400430061006d010000034d000002100000006d00fffffffb0000000a004d00410048004c00490100000563000002110000005a00fffffffb0000000a004d0041005200440049000000064c000001280000005c00fffffffb0000000800540069006d00650100000000000004500000000000000000fb0000001800460072006f006e0074002000480061007a00630061006d0000000583000000880000000000000000fb0000000e004d00610073007400630061006d00000006110000006b0000000000000000fb0000000c00410072006d00630061006d0000000682000000670000000000000000fb000000160052006500610072002000480061007a00630061006d00000006ef000000850000000000000000000006180000026a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Rear HazCam:
     collapsed: false
   Selection:
     collapsed: false
