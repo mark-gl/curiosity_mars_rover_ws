@@ -113,6 +113,8 @@ Visualization Manager:
           Value: true
         left_axis:
           Value: true
+        map:
+          Value: true
         mast_02:
           Value: true
         mast_02_to_mast_cameras:
@@ -182,87 +184,88 @@ Visualization Manager:
       Name: Transforms
       Show Arrows: true
       Show Axes: true
-      Show Names: true
+      Show Names: false
       Tree:
-        odom:
-          base_link:
-            chassis:
-              camera_link_backhazcam_left:
-                {}
-              camera_link_backhazcam_right:
-                {}
-              camera_link_fronthazcam_left:
-                {}
-              camera_link_fronthazcam_right:
-                {}
-              camera_link_mardi:
-                {}
-              chassis_to_arm_01:
-                arm_01:
-                  arm_01_to_arm_02:
-                    arm_02:
-                      arm_02_to_arm_03:
-                        arm_03:
-                          arm_03_to_arm_04:
-                            arm_04:
-                              arm_04_to_arm_tools:
-                                arm_tools:
-                                  camera_link_mahli:
-                                    {}
-              chassis_to_mast_p:
-                mast_p:
-                  mast_p_to_mast_02:
-                    mast_02:
-                      mast_02_to_mast_cameras:
-                        mast_cameras:
-                          camera_link_mastcam_left:
-                            {}
-                          camera_link_mastcam_right:
-                            {}
-                          camera_link_navcam_left:
-                            {}
-                          camera_link_navcam_right:
-                            {}
-              imu_link:
-                {}
-              left_axis:
-                suspension_arm_B_L:
-                  suspension_arm_B_L_to_B2_L:
-                    suspension_arm_B2_L:
-                      suspension_arm_B2_L_to_middle_wheel_L:
-                        middle_wheel_L:
-                          {}
-                      suspension_arm_B2_L_to_suspension_steer_B_L:
-                        suspension_steer_B_L:
-                          suspension_steer_B_L_to_back_wheel_L:
-                            back_wheel_L:
+        map:
+          odom:
+            base_link:
+              chassis:
+                camera_link_backhazcam_left:
+                  {}
+                camera_link_backhazcam_right:
+                  {}
+                camera_link_fronthazcam_left:
+                  {}
+                camera_link_fronthazcam_right:
+                  {}
+                camera_link_mardi:
+                  {}
+                chassis_to_arm_01:
+                  arm_01:
+                    arm_01_to_arm_02:
+                      arm_02:
+                        arm_02_to_arm_03:
+                          arm_03:
+                            arm_03_to_arm_04:
+                              arm_04:
+                                arm_04_to_arm_tools:
+                                  arm_tools:
+                                    camera_link_mahli:
+                                      {}
+                chassis_to_mast_p:
+                  mast_p:
+                    mast_p_to_mast_02:
+                      mast_02:
+                        mast_02_to_mast_cameras:
+                          mast_cameras:
+                            camera_link_mastcam_left:
                               {}
-                suspension_arm_F_L:
-                  suspension_arm_F_L_to_suspension_steer_F_L:
-                    suspension_steer_F_L:
-                      suspension_steer_F_L_to_front_wheel_L:
-                        front_wheel_L:
-                          {}
-              navsat_link:
-                {}
-              right_axis:
-                suspension_arm_B_R:
-                  suspension_arm_B_R_to_B2_R:
-                    suspension_arm_B2_R:
-                      suspension_arm_B2_R_to_middle_wheel_R:
-                        middle_wheel_R:
-                          {}
-                      suspension_arm_B2_R_to_suspension_steer_B_R:
-                        suspension_steer_B_R:
-                          suspension_steer_B_R_to_back_wheel_R:
-                            back_wheel_R:
+                            camera_link_mastcam_right:
                               {}
-                suspension_arm_F_R:
-                  suspension_arm_F_R_to_suspension_steer_F_R:
-                    suspension_steer_F_R:
-                      suspension_steer_F_R_to_front_wheel_R:
-                        front_wheel_R:
-                          {}
+                            camera_link_navcam_left:
+                              {}
+                            camera_link_navcam_right:
+                              {}
+                imu_link:
+                  {}
+                left_axis:
+                  suspension_arm_B_L:
+                    suspension_arm_B_L_to_B2_L:
+                      suspension_arm_B2_L:
+                        suspension_arm_B2_L_to_middle_wheel_L:
+                          middle_wheel_L:
+                            {}
+                        suspension_arm_B2_L_to_suspension_steer_B_L:
+                          suspension_steer_B_L:
+                            suspension_steer_B_L_to_back_wheel_L:
+                              back_wheel_L:
+                                {}
+                  suspension_arm_F_L:
+                    suspension_arm_F_L_to_suspension_steer_F_L:
+                      suspension_steer_F_L:
+                        suspension_steer_F_L_to_front_wheel_L:
+                          front_wheel_L:
+                            {}
+                navsat_link:
+                  {}
+                right_axis:
+                  suspension_arm_B_R:
+                    suspension_arm_B_R_to_B2_R:
+                      suspension_arm_B2_R:
+                        suspension_arm_B2_R_to_middle_wheel_R:
+                          middle_wheel_R:
+                            {}
+                        suspension_arm_B2_R_to_suspension_steer_B_R:
+                          suspension_steer_B_R:
+                            suspension_steer_B_R_to_back_wheel_R:
+                              back_wheel_R:
+                                {}
+                  suspension_arm_F_R:
+                    suspension_arm_F_R_to_suspension_steer_F_R:
+                      suspension_steer_F_R:
+                        suspension_steer_F_R_to_front_wheel_R:
+                          front_wheel_R:
+                            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -593,18 +596,19 @@ Visualization Manager:
         3D Mapping Cloud: true
         Front HazCam: true
         Front HazCam Depth: true
-        Front HazCam Obstacles: true
         Grid: true
         MAHLI: true
-        MARDI: true
+        Map: true
         MastCam: true
         NavCam: true
         Navigation Footprint: true
         Navigation Map: true
         Navigation Path: true
+        Obstacles: true
+        Position Estimate: true
+        Positional Estimates: true
         Rear HazCam: true
         Rear HazCam Depth: true
-        Rear HazCam Obstacles: true
         Rover Model: true
         Transforms: true
         Value: true
@@ -623,17 +627,19 @@ Visualization Manager:
         3D Mapping Cloud: true
         Front HazCam: true
         Front HazCam Depth: true
-        Front HazCam Obstacles: true
         Grid: true
         MARDI: true
         MastCam: true
         NavCam: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
         Rear HazCam: true
         Rear HazCam Depth: true
-        Rear HazCam Obstacles: true
         Rover Model: true
         Transforms: true
         Value: true
@@ -652,17 +658,19 @@ Visualization Manager:
         3D Mapping Cloud: true
         Front HazCam: true
         Front HazCam Depth: true
-        Front HazCam Obstacles: true
         Grid: true
         MAHLI: true
         MARDI: true
         NavCam: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
         Rear HazCam: true
         Rear HazCam Depth: true
-        Rear HazCam Obstacles: true
         Rover Model: true
         Transforms: true
         Value: true
@@ -681,18 +689,19 @@ Visualization Manager:
         3D Mapping Cloud: true
         Front HazCam: true
         Front HazCam Depth: true
-        Front HazCam Obstacles: true
         Grid: true
         MAHLI: true
         MARDI: true
         MastCam: true
-        NavCam: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
         Rear HazCam: true
         Rear HazCam Depth: true
-        Rear HazCam Obstacles: true
         Rover Model: true
         Transforms: true
         Value: true
@@ -710,18 +719,20 @@ Visualization Manager:
       Visibility:
         3D Mapping Cloud: true
         Front HazCam Depth: true
-        Front HazCam Obstacles: true
         Grid: true
         MAHLI: true
         MARDI: true
         MastCam: true
         NavCam: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
         Rear HazCam: true
         Rear HazCam Depth: true
-        Rear HazCam Obstacles: true
         Rover Model: true
         Transforms: true
         Value: true
@@ -740,17 +751,19 @@ Visualization Manager:
         3D Mapping Cloud: true
         Front HazCam: true
         Front HazCam Depth: true
-        Front HazCam Obstacles: true
         Grid: true
         MAHLI: true
         MARDI: true
         MastCam: true
         NavCam: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
+        Obstacles: true
+        Position Candidates: true
+        Position Estimate: true
         Rear HazCam Depth: true
-        Rear HazCam Obstacles: true
         Rover Model: true
         Transforms: true
         Value: true
@@ -822,50 +835,22 @@ Visualization Manager:
       Class: rviz/LaserScan
       Color: 255; 0; 0
       Color Transformer: FlatColor
-      Decay Time: 1
+      Decay Time: 0
       Enabled: true
       Invert Rainbow: false
-      Max Color: 255; 0; 0
-      Min Color: 255; 0; 0
-      Name: Front HazCam Obstacles
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: Obstacles
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Squares
-      Topic: /curiosity_mars_rover/camera_fronthazcam/scan
+      Size (m): 0.05000000074505806
+      Style: Flat Squares
+      Topic: /merged_scan
       Unreliable: false
       Use Fixed Frame: true
-      Use rainbow: false
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/LaserScan
-      Color: 255; 0; 0
-      Color Transformer: FlatColor
-      Decay Time: 1
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 0; 0
-      Min Color: 255; 0; 0
-      Name: Rear HazCam Obstacles
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Squares
-      Topic: /curiosity_mars_rover/camera_backhazcam/scan
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: false
+      Use rainbow: true
       Value: true
     - Alpha: 1
       Class: rviz/Polygon
@@ -905,10 +890,68 @@ Visualization Manager:
       Color Scheme: costmap
       Draw Behind: false
       Enabled: true
-      Name: Navigation Map
+      Name: Navigation Map Local
       Topic: /move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
+      Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Navigation Map Server
+      Topic: /map
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz/PoseWithCovariance
+      Color: 0; 255; 0
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.30000001192092896
+      Name: Position Estimate
+      Queue Size: 10
+      Shaft Length: 1
+      Shaft Radius: 0.15000000596046448
+      Shape: Arrow
+      Topic: /amcl_pose
+      Unreliable: false
+      Value: true
+    - Alpha: 1
+      Arrow Length: 0.30000001192092896
+      Axes Length: 0.30000001192092896
+      Axes Radius: 0.009999999776482582
+      Class: rviz/PoseArray
+      Color: 26; 111; 0
+      Enabled: true
+      Head Length: 0.07000000029802322
+      Head Radius: 0.029999999329447746
+      Name: Position Candidates
+      Queue Size: 10
+      Shaft Length: 0.23000000417232513
+      Shaft Radius: 0.009999999776482582
+      Shape: Arrow (Flat)
+      Topic: /particlecloud
+      Unreliable: false
       Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
