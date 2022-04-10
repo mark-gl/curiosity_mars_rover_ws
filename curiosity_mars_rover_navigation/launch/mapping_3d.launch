@@ -25,7 +25,7 @@
             <arg name="approx_sync" value="true" />
         </include>
     </group>
-    
+
     <group if="$(arg fake_depth_cameras)">
         <!-- For the depth cameras, the navcam is the best option since it's high up and the actual distances are measured -->
         <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" ns="/curiosity_mars_rover/camera_navcam/color/" >
