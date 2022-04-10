@@ -1,7 +1,7 @@
 obstacles_layer:
-  observation_sources: scan1 # scan2 # disabled to prevent rover getting stuck between objects
+  observation_sources: scan1 scan2
   scan1:
-    sensor_frame: camera_link_fronthazcam_left
+    sensor_frame: base_link
     data_type: LaserScan
     topic: '/curiosity_mars_rover/camera_fronthazcam/scan'
     marking: true

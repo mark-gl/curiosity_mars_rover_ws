@@ -598,15 +598,15 @@ Visualization Manager:
         Front HazCam Depth: true
         Grid: true
         MAHLI: true
-        Map: true
         MastCam: true
         NavCam: true
         Navigation Footprint: true
-        Navigation Map: true
+        Navigation Map Local: true
+        Navigation Map Server: true
         Navigation Path: true
         Obstacles: true
+        Position Candidates: true
         Position Estimate: true
-        Positional Estimates: true
         Rear HazCam: true
         Rear HazCam Depth: true
         Rover Model: true
@@ -780,7 +780,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: RGB8
       Decay Time: 0
-      Enabled: false
+      Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -795,7 +795,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: false
+      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -968,7 +968,7 @@ Visualization Manager:
       Cloud min depth (m): 1
       Cloud voxel size (m): 0.009999999776482582
       Color: 255; 255; 255
-      Color Transformer: ""
+      Color Transformer: RGB8
       Download graph: false
       Download map: false
       Download namespace: rtabmap
@@ -981,7 +981,7 @@ Visualization Manager:
       Name: 3D Mapping Cloud
       Node filtering angle (degrees): 30
       Node filtering radius (m): 0
-      Position Transformer: ""
+      Position Transformer: XYZ
       Queue Size: 10
       Size (Pixels): 3
       Size (m): 0.009999999776482582
