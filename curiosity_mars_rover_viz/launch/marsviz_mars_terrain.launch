@@ -2,7 +2,7 @@
 <launch>
     <include file="$(find curiosity_mars_rover_gazebo)/launch/main_mars_terrain.launch">
         <arg name="fake_depth_cameras" value="false" />
-        <arg name="fake_marsviz_gps" value="true" />
+        <arg name="fake_gps" value="true" />
 	</include>
     <include file="$(find curiosity_mars_rover_navigation)/launch/navigation.launch"/>
     <include file="$(find curiosity_mars_rover_viz)/launch/marsviz.launch"/>
