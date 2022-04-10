@@ -102,6 +102,18 @@ function rescaleaction(click, percent) {
 }
 
 
+var speed = 1;
+
+
+function speedUp() {
+    speed = speed * 1.1
+    document.getElementById("speed_state").innerHTML = Math.round(speed * 100) / 100;
+}
+
+function slowDown() {
+    speed = speed * 0.9
+    document.getElementById("speed_state").innerHTML = Math.round(speed * 100) / 100;
+}
 
 /**
  * Instead of taking the parameters, we also want to be able to work if someone moves diagonally
@@ -129,14 +141,14 @@ function moveRobot(arr){
 
       var twist = new ROSLIB.Message({
         linear : {
-          x : velocities[0],
+          x : velocities[0] * speed,
           y : velocities[1],
           z : velocities[2]
         },
         angular : {
           x : velocities[3],
           y : velocities[4],
-          z : velocities[5]
+          z : velocities[5] * speed,
         }
       });
       used_controls['cmd_vel'].publish(twist);

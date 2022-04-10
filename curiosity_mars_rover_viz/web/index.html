@@ -5,68 +5,72 @@
   <script src="https://aframe.io/releases/1.0.4/aframe.js"></script>
   <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.js"></script>
   <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
-
   <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.js"></script>
   <script src="https://static.robotwebtools.org/roslibjs/current/roslib.js"></script>
 
   <script src="js/ros3d.js"></script>
-
-  <script src="js/aframe-teleport-controls.js"></script>
-  <script src="js/aframe-movebase-controls.js"></script>
+  <script src="js/aframe-navigation-controls.js"></script>
   <script src="js/aframeros.js"></script>
-
   <script src="js/mappings.js"></script>
-
   <script src="js/robotcontrol.js"></script>
   <script src="js/side-controls.js"></script>
 
   <link rel="stylesheet" href="index.css">
+  <title>MarsViz</title>
 </head>
 
 <body onload="init_env_after_seconds(1)">
     <div class="sidenav">
-        <h1>MarsViz</h1>
-        <h2>Mast State: <span id="mast_state"></span></h2>
+        <h2>Mast State: <br><span id="mast_state"></span></h2>
         <a href="javascript:mast()">Raise/Lower Mast</a>
-        <h2>Arm State: <span id="arm_state"></span></h2>
+        <h2>Arm State: <br><span id="arm_state"></span></h2>
         <a href="javascript:arm()">Open/Close Arm</a>
+        <h2>Auto Nav State: <br><span id="nav_state">Awaiting instruction</span></h2>
+        <a href="javascript:pickMode()">Send Nav Target</a>
+        <h2>Teleoperation: <br>
+            Speed multiplier: <span id="speed_state">1.0</span></h2>
     </div>
       
-  <a-scene inspector
-    id="main">
+  <a-scene inspector tap-place id="main" fog="type: linear; color: #C49452; near: 10; far: 100;">
+    <a-assets>
+        <a-asset-item id="terrain" src="terrain_export_1.gltf"></a-asset-item>
+    </a-assets>
 
-    <a-entity id="rig" position="0 -0.5 5.1">
-        <a-entity id="camera" camera="far: 4000;" look-controls wasd-controls="acceleration:100; fly:true" position="0 0 0">
+    <a-sky color="#CCC299" scale="1 1 1"></a-sky>
+    <a-entity light="type: ambient; color: #CCC299"></a-entity>
+    <a-entity light="type: directional; color: #FFF; intensity: 1" position="-0.5 1 1"></a-entity>
+    <a-entity id="worldterrain" gltf-model="#terrain" position="0 0 0" rotation="0 0 0" scale="1 1 1" shadow="receive: false" class="cantap"></a-entity>
+
+    <a-entity id="rig" position="0 -0.5 5.1" >
+        <a-entity
+            id="camera"
+            camera="far: 4000;"
+            look-controls
+            wasd-controls="acceleration:100; fly:true"
+            position="0 0 0"
+            raycaster="objects: .cantap"
+            cursor="
+            fuse: false;
+            rayOrigin: mouse;">
         </a-entity>
-        <!-- hand controls abstract 6dof controllers-->
-        <a-entity thumbstick-logging id="leftHand" teleport-controls="cameraRig: #rig;
-        startEvents: teleportstart; endEvents: teleportend; collisionEntities: #worldterrain; maxLength: 50;
-        " navigation-controls="type: line; cameraRig: #rig;
-        startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;
-        " raycaster="objects: [gui-interactable]" laser-controls="hand: left;">
+        <a-entity
+            id="leftHand" 
+            navigation-controls="type: line; cameraRig: #rig; hitCylinderColor: #7DF9FF; curveHitColor: #7DF9FF; robotNav: true;
+                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;"
+            raycaster="objects: [gui-interactable]"
+            laser-controls="hand: left;">
         </a-entity>
-        <!-- right hand contains our indicator for the mode -->
-        <a-entity id="rightHand" teleport-controls="type: line; cameraRig: #rig;
-        startEvents: teleportstart; endEvents: teleportend; collisionEntities: #worldterrain; maxLength: 50;
-        " navigation-controls="type: line; cameraRig: #rig;
-        startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;
-        " raycaster="objects: [gui-interactable]" laser-controls="hand: right;">
-        <!-- <a-entity id="mode-text" scale="1 1 1" position="0.3 0 0.1"  text="color:#FF0000; zOffset:-0.178; xOffset:0.08; value: roboControls;"></a-entity> -->
+        <a-entity
+            id="rightHand"
+            navigation-controls="type: line; cameraRig: #rig;
+                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;" 
+            raycaster="objects: [gui-interactable]"
+            laser-controls="hand: right;">
         </a-entity>
     </a-entity>
    
     <a-entity position="0 0 0" rotation="-90 0 0" id='robot-element-parent'>
     </a-entity>
-    
-    <a-assets>
-        <a-asset-item id="terrain" src="terrain_export_1.gltf"></a-asset-item>
-    </a-assets>
-    <a-entity light="type: ambient; color: #CCC299"></a-entity>
-    <a-entity light="type: directional; color: #FFF; intensity: 1" position="-0.5 1 1"></a-entity>
-      <!-- <a-entity light="type: directional; color: #EEE; intensity: 2; castShadow: true;" position="-1 1 0"></a-entity> -->
-    <a-entity id="worldterrain" gltf-model="#terrain" position="0 0 0" rotation="0 0 0" scale="1 1 1" shadow="receive: false"></a-entity>
-     <a-sky color="#CCC299" scale="1 1 1"></a-sky>
-     
   </a-scene>
 </body>
 

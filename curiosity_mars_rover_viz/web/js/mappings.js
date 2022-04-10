@@ -12,51 +12,38 @@ var mappings = {
       triggerdown: {left: 'lefthand', right: 'righthand'}
     },
     'vive-controls': {
-      'grip.down': 'rescalegrip',
-      'grip.up': 'endrescalegrip',
-      'menu.down': { right:  'changeMode'},
-      'trackpad.up': 'teleportend',
-      'trackpad.down': 'teleportstart',
-      'trackpad.doublepress': 'doublepress',
-      // Activators for down, up, touchstart and touchend are optionals you can just write the event without the .
-      'trackpaddpadleftdown': 'dpadleft',
-      'trackpaddpadright.longpress': 'dpadrightlong'
+      'trackpad.up': 'navigationend',
+      'trackpad.down': 'navigationstart',
     },
     'oculus-touch-controls': {
-      'abutton.down': 'teleportstart',
-      'abutton.up': 'teleportend',
+      'trigger.down': 'navigationstart',
+      'trigger.up': 'navigationend',
+      'abutton.down': 'navigationstart',
+      'abutton.up': 'navigationend',
     },
     'windows-motion-controls': {
       'grip.down': 'changeTask'
     },
     keyboard: {
-      't_down': 'teleportstart',
-      't_up': 'teleportend',
+      't_down': 'navigationstart',
+      't_up': 'navigationend',
       'c_up': 'changeTask',
       'o_down': 'logtask1',
       'r_down':'changeMode',
     }
   },
-  roboControls:{ // sadly this needs to be duplicated TODO: add it dynamically with sth like mappings.robocontrols = x and mappings.default= x
+  roboControls:{
     'vive-controls': {      
-      'menu.down': { right:  'changeMode'},
-      'trackpad.up': 'teleportend',
-      'trackpad.down': 'teleportstart',
-      'trackpad.doublepress': 'doublepress',
+      'trackpad.up': 'navigationend',
+      'trackpad.down': 'navigationstart',
       'trackpadmoved' : 'moveRobo',
-      // Activators for down, up, touchstart and touchend are optionals you can just write the event without the .
-      'trackpaddpadleftdown': 'dpadleft',
-      'trackpaddpadright.longpress': 'dpadrightlong'
     },
     'oculus-touch-controls': {
-      'trigger.up': 'navigationend',
       'trigger.down': 'navigationstart',
-      'abutton.down': 'teleportstart',
-      'abutton.up': 'teleportend',
+      'trigger.up': 'navigationend',
       'ybutton.down': 'mastToggle',
       'bbutton.down' : 'armToggle',
       'thumbstickmoved':'moveRobo'
-
     },
     keyboard: {
       'i_down': 'moveForward',      
@@ -70,8 +57,6 @@ var mappings = {
 
       'l_down': 'turnRight',
       'l_up' : 'stopRobot',
-
-      'o_down':'logtask1',
 
       'q_down':'speedUp',
       'z_down':'slowDown',

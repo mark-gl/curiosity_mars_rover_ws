@@ -60670,11 +60670,11 @@ var ROS3D = (function (exports,ROSLIB) {
                                         message.poses[i].pose.position.z);
             lineGeometry.vertices.push(v3);
         }
-    
-        lineGeometry.computeLineDistances();
+        
         var lineMaterial = new THREE$1.LineBasicMaterial( { color: this.color } );
         var line = new THREE$1.Line( lineGeometry, lineMaterial );
-    
+        line.computeLineDistances();
+        
         this.sn = new SceneNode({
             frameID : message.header.frame_id,
             tfClient : this.tfClient,

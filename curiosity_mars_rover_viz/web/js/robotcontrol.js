@@ -18,7 +18,7 @@ function colormap(x){
 }
 
 function moveRobo(click){
-    controls = [-click.detail.y,0,0,0,0,-click.detail.x]
+    controls = [-click.detail.y*2,0,0,0,0,-click.detail.x*2]
           
     moveRobot(controls)
           
@@ -70,25 +70,15 @@ async function init_env_2(){
         serviceType : 'gazebo_msgs/DeleteModel'
     });
 
-    var  cloudClient = addVisualization(rootObjectNode,'cloudClient', ROS3D.PointCloud2,{
-        ros: ros,
-        tfClient: tfClient,
-        topic: '/colored_cloud',
-        material: { size: 0.05 },
-        colormap: colormap,
-        max_pts: 30000000,
-        decay:5
-    })
+    // var pathClient = addVisualization(rootObjectNode,'pathClient', ROS3D.Path,{
+    //     ros: ros,
+    //     tfClient: tfClient,
+    //     topic: '/move_base/NavfnROS/plan',
+    //     color: 0x00ff00
+    //   });
 
 }
 
-function speedUp() {
-    console.error("Speed not configured yet")
-}
-
-function slowDown() {
-    console.error("Speed not configured yet")
-}
 
 function mastToggle() {
     
@@ -197,7 +187,7 @@ async function init_env() {
 
     var node = document.createElement("a-entity");
     rootObjectNode.appendChild(node)
-    var cloudClient = getCloudClient(ros,tfClient,'/colored_cloud',node.object3D,5)
+    //var pathClient = getPathClient(ros,tfClient,'/colored_cloud',node.object3D,5)
 
 
     // node = document.createElement("a-entity");
@@ -237,7 +227,7 @@ async function init_env() {
     var urdfClient = load_urdf(ros, tfClient, node.object3D)
 
     used_visualisations["urdf"] = urdfClient;
-    used_visualisations["cloudClient"] = cloudClient;
+    // used_visualisations["pathClient"] = pathClient;
     used_visualisations["gridClient"] = gridClient;
     // used_visualisations["markerClient"] = markerClient;
     used_controls["cmd_vel"]  = cmdVel;
@@ -251,18 +241,3 @@ async function init_env_after_seconds(seconds) {
 
 }
 
-
-//controls
-
-/**
- * this needs to be configured to the specific robot
- */
-function teleportToRobot(){
-    scale = rootObjectNode.getAttribute("scale")
-    position = used_visualisations["urdf"].tfClient.frameInfos.base_link.transform.translation //TODO: make configurable
-    position.x *=scale.x
-    position.y *=scale.y
-    position.z *=scale.z
-
-    rig.setAttribute("position",position)
-}

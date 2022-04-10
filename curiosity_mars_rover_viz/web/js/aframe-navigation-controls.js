@@ -68,7 +68,7 @@
 	    };
 	}
 
-	AFRAME.registerComponent('teleport-controls', {
+	AFRAME.registerComponent('navigation-controls', {
 	  schema: {
 	    type: {default: 'parabolic', oneOf: ['parabolic', 'line']},
 	    button: {default: 'trackpad', oneOf: ['trackpad', 'trigger', 'grip', 'menu']},
@@ -92,6 +92,7 @@
 	    landingNormal: {type: 'vec3', default: { x: 0, y: 1, z: 0 }},
 	    landingMaxAngle: {default: '45', min: 0, max: 360},
 	    drawIncrementally: {default: false},
+        robotNav: {default: false},
 	    incrementalDrawMs: {default: 700},
 	    missOpacity: {default: 1.0},
 	    hitOpacity: {default: 1.0}
@@ -382,25 +383,61 @@
 
 	      // Finally update the rigs position
 	      newRigLocalPosition.copy(this.newRigWorldPosition);
-	      if (rig.object3D.parent) {
-	        rig.object3D.parent.worldToLocal(newRigLocalPosition);
-	      }
-	      rig.setAttribute('position', newRigLocalPosition);
 
-	      // If a rig was not explicitly declared, look for hands and mvoe them proportionally as well
-	      if (!this.data.cameraRig) {
-	        var hands = document.querySelectorAll('a-entity[tracked-controls]');
-	        for (var i = 0; i < hands.length; i++) {
-	          hands[i].object3D.getWorldPosition(handPosition);
+          if (this.data.robotNav) {
+            var ros = new ROSLIB.Ros({
+                url: 'wss://127.0.0.1:9090'
+            });
+            var move_base = new ROSLIB.Topic({
+                ros : ros,
+                name : '/move_base_simple/goal',
+                messageType : 'geometry_msgs/PoseStamped'
+            });
+            var currentTime = new Date();
+            var mySecs = Math.floor(currentTime.getTime()/1000);
+            var myNsecs = Math.round(1000000000*(currentTime.getTime()/1000-mySecs));
+            var nav = new ROSLIB.Message({
+            header: {
+                seq: 0,
+                stamp: {
+                    secs: mySecs,
+                    nsecs: myNsecs
+                },
+                frame_id: 'odom'
+            },
+            pose: {
+                position: {
+                x: this.newRigWorldPosition.x,
+                y: -1 * this.newRigWorldPosition.z,
+                z: 0.0, },
+                orientation: {
+                x: 0.0,
+                y: 0.0,
+                z: 0.0,
+                w: 1.0}
+                }
+            });
+            move_base.publish(nav);
+          }
+          else {  
+            if (rig.object3D.parent) {
+                rig.object3D.parent.worldToLocal(newRigLocalPosition);
+            }
+            rig.setAttribute('position', newRigLocalPosition);
+            // If a rig was not explicitly declared, look for hands and mvoe them proportionally as well
+            if (!this.data.cameraRig) {
+                var hands = document.querySelectorAll('a-entity[tracked-controls]');
+                for (var i = 0; i < hands.length; i++) {
+                    hands[i].object3D.getWorldPosition(handPosition);
 
-	          // diff = rigWorldPosition - handPosition
-	          // newPos = newRigWorldPosition - diff
-	          newHandPosition[i].copy(this.newRigWorldPosition).sub(this.rigWorldPosition).add(handPosition);
-	          hands[i].setAttribute('position', newHandPosition[i]);
-	        }
-	      }
-
-	      this.el.emit('teleported', this.teleportEventDetail);
+                    // diff = rigWorldPosition - handPosition
+                    // newPos = newRigWorldPosition - diff
+                    newHandPosition[i].copy(this.newRigWorldPosition).sub(this.rigWorldPosition).add(handPosition);
+                    hands[i].setAttribute('position', newHandPosition[i]);
+                }
+            }
+            this.el.emit('teleported', this.teleportEventDetail);
+            }
 	    };
 	  })(),
 
