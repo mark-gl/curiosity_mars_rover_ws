@@ -5,13 +5,13 @@
     <arg name="rviz_lite" default="false"/>
     <group unless="$(arg fake_depth_cameras)">
         <group unless="$(arg rviz_lite)">
-            <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_viz)/rviz/curiosity_mars_rover.rviz" />  
+            <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_viz)/rviz/curiosity_mars_rover.rviz" />
         </group>
         <group if="$(arg rviz_lite)">
-            <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_viz)/rviz/curiosity_mars_rover_lite.rviz" />  
+            <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_viz)/rviz/curiosity_mars_rover_lite.rviz" />
         </group>
     </group>
-    
+
     <group if="$(arg fake_depth_cameras)">
         <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_viz)/rviz/curiosity_mars_rover_fake_depth.rviz" />
     </group>

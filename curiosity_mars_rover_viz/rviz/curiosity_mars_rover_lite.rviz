@@ -182,14 +182,10 @@ Visualization Manager:
         odom:
           base_link:
             chassis:
-              camera_link_backhazcam_left:
-                {}
-              camera_link_backhazcam_right:
-                {}
-              camera_link_fronthazcam_left:
-                {}
-              camera_link_fronthazcam_right:
-                {}
+              camera_link_backhazcam_left: {}
+              camera_link_backhazcam_right: {}
+              camera_link_fronthazcam_left: {}
+              camera_link_fronthazcam_right: {}
               chassis_to_arm_01:
                 arm_01:
                   arm_01_to_arm_02:
@@ -200,58 +196,47 @@ Visualization Manager:
                             arm_04:
                               arm_04_to_arm_tools:
                                 arm_tools:
-                                  camera_link_armcam:
-                                    {}
+                                  camera_link_armcam: {}
               chassis_to_mast_p:
                 mast_p:
                   mast_p_to_mast_02:
                     mast_02:
                       mast_02_to_mast_cameras:
                         mast_cameras:
-                          camera_link_mastcam_left:
-                            {}
-                          camera_link_mastcam_right:
-                            {}
-                          camera_link_navcam_left:
-                            {}
-                          camera_link_navcam_right:
-                            {}
+                          camera_link_mastcam_left: {}
+                          camera_link_mastcam_right: {}
+                          camera_link_navcam_left: {}
+                          camera_link_navcam_right: {}
               left_axis:
                 suspension_arm_B_L:
                   suspension_arm_B_L_to_B2_L:
                     suspension_arm_B2_L:
                       suspension_arm_B2_L_to_middle_wheel_L:
-                        middle_wheel_L:
-                          {}
+                        middle_wheel_L: {}
                       suspension_arm_B2_L_to_suspension_steer_B_L:
                         suspension_steer_B_L:
                           suspension_steer_B_L_to_back_wheel_L:
-                            back_wheel_L:
-                              {}
+                            back_wheel_L: {}
                 suspension_arm_F_L:
                   suspension_arm_F_L_to_suspension_steer_F_L:
                     suspension_steer_F_L:
                       suspension_steer_F_L_to_front_wheel_L:
-                        front_wheel_L:
-                          {}
+                        front_wheel_L: {}
               right_axis:
                 suspension_arm_B_R:
                   suspension_arm_B_R_to_B2_R:
                     suspension_arm_B2_R:
                       suspension_arm_B2_R_to_middle_wheel_R:
-                        middle_wheel_R:
-                          {}
+                        middle_wheel_R: {}
                       suspension_arm_B2_R_to_suspension_steer_B_R:
                         suspension_steer_B_R:
                           suspension_steer_B_R_to_back_wheel_R:
-                            back_wheel_R:
-                              {}
+                            back_wheel_R: {}
                 suspension_arm_F_R:
                   suspension_arm_F_R_to_suspension_steer_F_R:
                     suspension_steer_F_R:
                       suspension_steer_F_R_to_front_wheel_R:
-                        front_wheel_R:
-                          {}
+                        front_wheel_R: {}
       Update Interval: 0
       Value: true
     - Alpha: 1

@@ -1,77 +1,98 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.js"></script>
+    <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.js"></script>
+    <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
+    <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.js"></script>
+    <script src="https://static.robotwebtools.org/roslibjs/current/roslib.js"></script>
 
-<head>
-  <script src="https://aframe.io/releases/1.0.4/aframe.js"></script>
-  <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.js"></script>
-  <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
-  <script src="https://static.robotwebtools.org/EventEmitter2/current/eventemitter2.js"></script>
-  <script src="https://static.robotwebtools.org/roslibjs/current/roslib.js"></script>
+    <script src="js/ros3d.js"></script>
+    <script src="js/aframe-navigation-controls.js"></script>
+    <script src="js/aframeros.js"></script>
+    <script src="js/mappings.js"></script>
+    <script src="js/robotcontrol.js"></script>
+    <script src="js/side-controls.js"></script>
 
-  <script src="js/ros3d.js"></script>
-  <script src="js/aframe-navigation-controls.js"></script>
-  <script src="js/aframeros.js"></script>
-  <script src="js/mappings.js"></script>
-  <script src="js/robotcontrol.js"></script>
-  <script src="js/side-controls.js"></script>
+    <link rel="stylesheet" href="index.css" />
+    <title>MarsViz</title>
+  </head>
 
-  <link rel="stylesheet" href="index.css">
-  <title>MarsViz</title>
-</head>
-
-<body onload="init_env_after_seconds(1)">
+  <body onload="init_env_after_seconds(1)">
     <div class="sidenav">
-        <h2>Mast State: <br><span id="mast_state"></span></h2>
-        <a href="javascript:mast()">Raise/Lower Mast</a>
-        <h2>Arm State: <br><span id="arm_state"></span></h2>
-        <a href="javascript:arm()">Open/Close Arm</a>
-        <h2>Auto Nav State: <br><span id="nav_state">Awaiting instruction</span></h2>
-        <a href="javascript:pickMode()">Send Nav Target</a>
-        <h2>Teleoperation: <br>
-            Speed multiplier: <span id="speed_state">1.0</span></h2>
+      <h2>Mast State: <br /><span id="mast_state"></span></h2>
+      <a href="javascript:mast()">Raise/Lower Mast</a>
+      <h2>Arm State: <br /><span id="arm_state"></span></h2>
+      <a href="javascript:arm()">Open/Close Arm</a>
+      <h2>
+        Auto Nav State: <br /><span id="nav_state">Awaiting instruction</span>
+      </h2>
+      <a href="javascript:pickMode()">Send Nav Target</a>
+      <h2>
+        Teleoperation: <br />
+        Speed multiplier: <span id="speed_state">1.0</span>
+      </h2>
     </div>
-      
-  <a-scene inspector tap-place id="main" fog="type: linear; color: #C49452; near: 10; far: 100;">
-    <a-assets>
+
+    <a-scene
+      inspector
+      tap-place
+      id="main"
+      fog="type: linear; color: #C49452; near: 10; far: 100;"
+    >
+      <a-assets>
         <a-asset-item id="terrain" src="terrain_export_1.gltf"></a-asset-item>
-    </a-assets>
+      </a-assets>
 
-    <a-sky color="#CCC299" scale="1 1 1"></a-sky>
-    <a-entity light="type: ambient; color: #CCC299"></a-entity>
-    <a-entity light="type: directional; color: #FFF; intensity: 1" position="-0.5 1 1"></a-entity>
-    <a-entity id="worldterrain" gltf-model="#terrain" position="0 0 0" rotation="0 0 0" scale="1 1 1" shadow="receive: false" class="cantap"></a-entity>
+      <a-sky color="#CCC299" scale="1 1 1"></a-sky>
+      <a-entity light="type: ambient; color: #CCC299"></a-entity>
+      <a-entity
+        light="type: directional; color: #FFF; intensity: 1"
+        position="-0.5 1 1"
+      ></a-entity>
+      <a-entity
+        id="worldterrain"
+        gltf-model="#terrain"
+        position="0 0 0"
+        rotation="0 0 0"
+        scale="1 1 1"
+        shadow="receive: false"
+        class="cantap"
+      ></a-entity>
 
-    <a-entity id="rig" position="0 -0.5 5.1" >
+      <a-entity id="rig" position="0 -0.5 5.1">
         <a-entity
-            id="camera"
-            camera="far: 4000;"
-            look-controls
-            wasd-controls="acceleration:100; fly:true"
-            position="0 0 0"
-            raycaster="objects: .cantap"
-            cursor="
+          id="camera"
+          camera="far: 4000;"
+          look-controls
+          wasd-controls="acceleration:100; fly:true"
+          position="0 0 0"
+          raycaster="objects: .cantap"
+          cursor="
             fuse: false;
-            rayOrigin: mouse;">
+            rayOrigin: mouse;"
+        >
         </a-entity>
         <a-entity
-            id="leftHand" 
-            navigation-controls="type: line; cameraRig: #rig; hitCylinderColor: #7DF9FF; curveHitColor: #7DF9FF; robotNav: true;
+          id="leftHand"
+          navigation-controls="type: line; cameraRig: #rig; hitCylinderColor: #7DF9FF; curveHitColor: #7DF9FF; robotNav: true;
                 startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;"
-            raycaster="objects: [gui-interactable]"
-            laser-controls="hand: left;">
+          raycaster="objects: [gui-interactable]"
+          laser-controls="hand: left;"
+        >
         </a-entity>
         <a-entity
-            id="rightHand"
-            navigation-controls="type: line; cameraRig: #rig;
-                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;" 
-            raycaster="objects: [gui-interactable]"
-            laser-controls="hand: right;">
+          id="rightHand"
+          navigation-controls="type: line; cameraRig: #rig;
+                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;"
+          raycaster="objects: [gui-interactable]"
+          laser-controls="hand: right;"
+        >
         </a-entity>
-    </a-entity>
-   
-    <a-entity position="0 0 0" rotation="-90 0 0" id='robot-element-parent'>
-    </a-entity>
-  </a-scene>
-</body>
+      </a-entity>
 
+      <a-entity position="0 0 0" rotation="-90 0 0" id="robot-element-parent">
+      </a-entity>
+    </a-scene>
+  </body>
 </html>
