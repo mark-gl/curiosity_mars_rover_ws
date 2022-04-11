@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
+    <arg name="fake_depth_cameras" default="false" />
+    <arg name="fake_gps" default="true" />
     <include file="$(find curiosity_mars_rover_gazebo)/launch/main_mars_terrain.launch">
-        <arg name="fake_depth_cameras" value="false" />
-        <arg name="fake_gps" value="true" />
+        <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
+        <arg name="fake_gps" value="$(arg fake_gps)" />
 	</include>
-    <include file="$(find curiosity_mars_rover_navigation)/launch/navigation.launch"/>
+
+    <include file="$(find curiosity_mars_rover_navigation)/launch/navigation.launch">
+        <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
+    </include>
+    
+    <node name="curiosity_rover_teleop_keyboard_obstacles_node"
+    pkg="curiosity_mars_rover_navigation"
+    type="obstacle_service.py"
+    respawn="false"
+    output="screen"
+    args="" /> 
+
     <include file="$(find curiosity_mars_rover_viz)/launch/marsviz.launch"/>
 </launch>
