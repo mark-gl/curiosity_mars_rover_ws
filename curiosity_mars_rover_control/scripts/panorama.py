@@ -59,6 +59,7 @@ class PanoramaActionServer():
                     rospy.loginfo('%s: Mast not raised, cancelling.' % self._action_name)
                     self._as.set_preempted()
                     success = False
+                    break
                 # check that preempt has not been requested by the client
                 if self._as.is_preempt_requested():
                     rospy.loginfo('%s: Cancelled by request.' % self._action_name)

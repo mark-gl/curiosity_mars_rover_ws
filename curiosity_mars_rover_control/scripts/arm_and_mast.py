@@ -155,15 +155,13 @@ class CuriosityMarsRoverArmAndMast(object):
                 self.mast_cameras_pos_msg.data = 0.0
             elif req.mode == "set":
                 # This mode is only used for creating panoramas, so it blocks the others
-                if req.pos_mast_02 <= -2:
+                if req.pos_mast_02 <= -2 or req.pos_mast_02 == -0.5:
                     self.mast_state = "Raised"
                 else:
                     self.mast_state = "Panorama"
                 self.mast_p_pos_msg.data = req.pos_mast_p
                 self.mast_02_pos_msg.data = req.pos_mast_02
                 self.mast_cameras_pos_msg.data = req.pos_mast_cameras
-                rospy.loginfo(self.mast_02_pos_msg.data)
-                rospy.loginfo(self.mast_cameras_pos_msg.data)
             # Allow rotation messages only when not creating panorama
             elif req.mode == "rotate" and self.mast_state == "Raised":
                 # Accepts changes eg +1 -1 rather than specific values
