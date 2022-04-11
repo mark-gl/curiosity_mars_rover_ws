@@ -157,8 +157,29 @@ def getKey(key_timeout):
 def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
 
+
+
+
+
+
+
 def callback(msg):
+    print(len(msg.ranges))
+    slices = int(len(msg.ranges) / 19)
+    startSliceIndex = slices * 9
+    end = startSliceIndex + slices
+    arraything = msg.ranges[startSliceIndex:end]
+    print(arraything)
+    if sum(arraything) / 51 < slices * 0.8:
+        print("Obstacles")
+    # Sample the middle of the array.
     print(msg.ranges)
+
+
+
+
+
+
 
 if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
