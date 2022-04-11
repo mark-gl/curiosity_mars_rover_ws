@@ -6,13 +6,13 @@ import geometry_msgs.msg
 import nav_msgs.msg
 from tf.transformations import *
 
-def handle_turtle_pose(msg, turtlename):
+def publish_fake_gps(msg, frame):
     br = tf2_ros.TransformBroadcaster()
     t = geometry_msgs.msg.TransformStamped()
 
     t.header.stamp = rospy.Time.now()
     t.header.frame_id = "odom"
-    t.child_frame_id = turtlename
+    t.child_frame_id = frame
 
     t.transform.translation.x = msg.pose.pose.position.x
     t.transform.translation.y = msg.pose.pose.position.y
@@ -34,10 +34,10 @@ def handle_turtle_pose(msg, turtlename):
         #lastStamp = t.header.stamp
 
 if __name__ == '__main__':
-    rospy.init_node('tf2_turtle_broadcaster')
-    turtlename = 'base_link'
+    rospy.init_node('curiosity_fake_gps_node')
+    frame = 'base_link'
     rospy.Subscriber('/curiosity_mars_rover/odom',
                      nav_msgs.msg.Odometry,
-                     handle_turtle_pose,
-                     turtlename,)
+                     publish_fake_gps,
+                     frame,)
     rospy.spin()
