@@ -24,12 +24,12 @@ function arm() {
 var mastClient = new ROSLIB.Service({
     ros : ros,
     name : '/curiosity_mars_rover/mast_service',
-    serviceType : 'gazebo_msgs/DeleteModel'
+    serviceType : 'curiosity_mars_rover_control/Mast'
 });
 var armClient = new ROSLIB.Service({
     ros : ros,
     name : '/curiosity_mars_rover/arm_service',
-    serviceType : 'gazebo_msgs/DeleteModel'
+    serviceType : 'curiosity_mars_rover_control/Arm'
 });
 
 var mastListener = new ROSLIB.Topic({
@@ -44,8 +44,8 @@ var armListener = new ROSLIB.Topic({
     messageType : 'std_msgs/String'
 });
 
-var requestPing = new ROSLIB.ServiceRequest({ model_name: 'ping' });
-var requestToggle = new ROSLIB.ServiceRequest({ model_name: 'toggle' });
+var requestPing = new ROSLIB.ServiceRequest({ mode: 'ping' });
+var requestToggle = new ROSLIB.ServiceRequest({ mode: 'toggle' });
 
 mastClient.callService(requestPing, function(result) {
     document.getElementById("mast_state").innerHTML = result.status_message.slice(17); });

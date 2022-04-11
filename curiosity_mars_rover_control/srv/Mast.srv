@@ -1,0 +1,9 @@
+string mode
+float64 pos_mast_p
+float64 pos_mast_02
+float64 pos_mast_cameras
+float64 rot_x
+float64 rot_y
+---
+bool success
+string status_message
