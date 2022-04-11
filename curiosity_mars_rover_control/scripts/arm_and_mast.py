@@ -143,25 +143,29 @@ class CuriosityMarsRoverArmAndMast(object):
 
     def set_mast_pose(self, req):
         if req.mode in ["close", "open", "toggle", "set", "rotate"]:
-            if req.mode == "close" or (req.mode == "toggle" and self.mast_state == "Raised"):
+            if (req.mode == "close" and not self.mast_state == "Panorama") or (req.mode == "toggle" and self.mast_state == "Raised"):
                 self.mast_state = "Lowered"
                 self.mast_p_pos_msg.data = 1.35 # not quite 90 degrees
                 self.mast_02_pos_msg.data = 1.57
                 self.mast_cameras_pos_msg.data = 0.0
-            elif req.mode == "open" or (req.mode == "toggle" and self.mast_state in ["Lowered", "User"]):
+            elif (req.mode == "open" and not self.mast_state == "Panorama") or (req.mode == "toggle" and self.mast_state == "Lowered"):
                 self.mast_state = "Raised"
                 self.mast_p_pos_msg.data = 0.0
                 self.mast_02_pos_msg.data = -0.5
                 self.mast_cameras_pos_msg.data = 0.0
             elif req.mode == "set":
-                self.mast_state = "User"
+                # This mode is only used for creating panoramas, so it blocks the others
+                if req.pos_mast_02 <= -2:
+                    self.mast_state = "Raised"
+                else:
+                    self.mast_state = "Panorama"
                 self.mast_p_pos_msg.data = req.pos_mast_p
                 self.mast_02_pos_msg.data = req.pos_mast_02
                 self.mast_cameras_pos_msg.data = req.pos_mast_cameras
                 rospy.loginfo(self.mast_02_pos_msg.data)
                 rospy.loginfo(self.mast_cameras_pos_msg.data)
-            # Allow rotation messages when mast is in user-defined pose
-            elif req.mode == "rotate" and self.mast_state in ["Raised", "User"]:
+            # Allow rotation messages only when not creating panorama
+            elif req.mode == "rotate" and self.mast_state == "Raised":
                 # Accepts changes eg +1 -1 rather than specific values
                 if not req.rot_x == 0.0:
                     # Limit 90 degrees either direction

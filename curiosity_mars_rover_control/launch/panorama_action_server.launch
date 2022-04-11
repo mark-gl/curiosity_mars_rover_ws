@@ -4,7 +4,7 @@
         <arg name="image" value="/curiosity_mars_rover/camera_mastcam/left/image_raw"/>
     </include>
 
-    <node name="curiosity_rover_panorama_node"
+    <node name="panorama_server_node"
         pkg="curiosity_mars_rover_control"
         type="panorama.py"
         respawn="false"
