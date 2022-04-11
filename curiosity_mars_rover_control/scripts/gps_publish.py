@@ -29,9 +29,7 @@ def publish_fake_gps(msg, frame):
     t.transform.rotation.z = q_new[2]
     t.transform.rotation.w = q_new[3]
     
-    #if t.header.stamp > lastStamp:
     br.sendTransform(t)
-        #lastStamp = t.header.stamp
 
 if __name__ == '__main__':
     rospy.init_node('curiosity_fake_gps_node')

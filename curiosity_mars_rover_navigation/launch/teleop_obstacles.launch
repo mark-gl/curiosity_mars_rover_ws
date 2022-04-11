@@ -1,0 +1,9 @@
+<launch>
+    <arg name="fake_depth_cameras" default="false" />
+
+    <include file="$(find curiosity_mars_rover_navigation)/launch/include/lasers.launch" >
+        <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)"/>
+    </include>
+
+    <include file="$(find curiosity_mars_rover_control)/launch/teleop_keyboard_rover.launch"  />
+</launch>

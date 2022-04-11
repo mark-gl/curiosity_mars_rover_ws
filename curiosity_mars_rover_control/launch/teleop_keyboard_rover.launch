@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <node name="curiosity_rover_teleop_keyboard_rover_node"
-        pkg="teleop_twist_keyboard"
-        type="teleop_twist_keyboard.py"
+    <!-- Node works with or without laser scans from nav package -->
+    <node name="curiosity_rover_teleop_keyboard_mast_node"
+        pkg="curiosity_mars_rover_control"
+        type="teleop_keyboard_obstacles.py"
         respawn="false"
         output="screen"
-        args="cmd_vel:='/curiosity_mars_rover/ackermann_drive_controller/cmd_vel'" />
+        args="" /> 
 </launch>

@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   genmsg
   actionlib_msgs
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions

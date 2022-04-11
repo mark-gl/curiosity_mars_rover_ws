@@ -9,5 +9,5 @@
         type="panorama.py"
         respawn="false"
         output="screen"
-        args=""/> 
+        args="" /> 
 </launch>

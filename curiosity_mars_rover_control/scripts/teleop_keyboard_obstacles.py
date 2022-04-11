@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
-
 from __future__ import print_function
-
 import threading
-
-import roslib; roslib.load_manifest('teleop_twist_keyboard')
 import rospy
 
 from geometry_msgs.msg import Twist
@@ -67,6 +63,10 @@ class PublishThread(threading.Thread):
     def __init__(self, rate):
         super(PublishThread, self).__init__()
         self.publisher = rospy.Publisher('/curiosity_mars_rover/ackermann_drive_controller/cmd_vel', Twist, queue_size = 1)
+        self.front = rospy.Subscriber("/curiosity_mars_rover/camera_fronthazcam/scan", LaserScan, self.frontScan)
+        self.back = rospy.Subscriber("/curiosity_mars_rover/camera_backhazcam/scan", LaserScan, self.backScan)
+        self.frontBlocked = False
+        self.backBlocked = False
         self.x = 0.0
         self.y = 0.0
         self.z = 0.0
@@ -121,7 +121,12 @@ class PublishThread(threading.Thread):
             self.condition.wait(self.timeout)
 
             # Copy state into twist message.
-            twist.linear.x = self.x * self.speed
+            if self.x == 1 and not self.frontBlocked:
+                twist.linear.x = self.x * self.speed
+            elif self.x == -1 and not self.backBlocked: 
+                twist.linear.x = self.x * self.speed
+            else: 
+                twist.linear.x = 0
             twist.linear.y = self.y * self.speed
             twist.linear.z = self.z * self.speed
             twist.angular.x = 0
@@ -131,6 +136,7 @@ class PublishThread(threading.Thread):
             self.condition.release()
 
             # Publish.
+
             self.publisher.publish(twist)
 
         # Publish stop message when thread exits.
@@ -142,6 +148,17 @@ class PublishThread(threading.Thread):
         twist.angular.z = 0
         self.publisher.publish(twist)
 
+    def frontScan(self, msg):
+        if any(t < 2.5 for t in msg.ranges):
+            self.frontBlocked = True
+        elif self.frontBlocked == True:
+            self.frontBlocked = False
+
+    def backScan(self, msg):
+        if any(t < 2.5 for t in msg.ranges):
+            self.backBlocked = True
+        elif self.backBlocked == True:
+            self.backBlocked = False
 
 def getKey(key_timeout):
     tty.setraw(sys.stdin.fileno())
@@ -157,37 +174,10 @@ def getKey(key_timeout):
 def vels(speed, turn):
     return "currently:\tspeed %s\tturn %s " % (speed,turn)
 
-
-
-
-
-
-
-def callback(msg):
-    print(len(msg.ranges))
-    slices = int(len(msg.ranges) / 19)
-    startSliceIndex = slices * 9
-    end = startSliceIndex + slices
-    arraything = msg.ranges[startSliceIndex:end]
-    print(arraything)
-    if sum(arraything) / 51 < slices * 0.8:
-        print("Obstacles")
-    # Sample the middle of the array.
-    print(msg.ranges)
-
-
-
-
-
-
-
 if __name__=="__main__":
     settings = termios.tcgetattr(sys.stdin)
 
-    rospy.init_node('teleop_twist_keyboard')
-
-    rospy.Subscriber("/merged_scan", LaserScan, callback)
-
+    rospy.init_node('curiosity_teleop_obstacles')
 
     speed = rospy.get_param("~speed", 0.05)
     turn = rospy.get_param("~turn", 0.05)
@@ -217,6 +207,10 @@ if __name__=="__main__":
                 y = moveBindings[key][1]
                 z = moveBindings[key][2]
                 th = moveBindings[key][3]
+                if x == 1 and pub_thread.frontBlocked:
+                    print("Cannot move forward as there is an obstacle in the way")
+                if x == -1 and pub_thread.backBlocked:
+                    print("Cannot reverse as there is an obstacle in the way")
             elif key in speedBindings.keys():
                 speed = speed * speedBindings[key][0]
                 turn = turn * speedBindings[key][1]
@@ -236,7 +230,7 @@ if __name__=="__main__":
                 th = 0
                 if (key == '\x03'):
                     break
- 
+
             pub_thread.update(x, y, z, th, speed, turn)
 
     except Exception as e:
