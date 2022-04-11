@@ -77,19 +77,19 @@ class PanoramaActionServer():
             mast.pos_mast_02 = -0.5
             result = self._ms(mast)
         if success:
-            rospy.loginfo('%s: Succeeded, now stitching.' % self._action_name)
-            self._feedback.state = "Stitching"
-            rospy.loginfo(self._feedback.state)
+            self._feedback.state = "Done photographing."
+            self._result.success = True
+            self._as.set_succeeded(self._result)
             self._as.publish_feedback(self._feedback)
+            rospy.loginfo(self._feedback.state)
 
             stitch = EmptyRequest()
             result = self._ss(stitch)
-            self._feedback.state = "Finished!"
+            self._feedback.state = "Stitched!"
             rospy.loginfo(self._feedback.state)
             self._as.publish_feedback(self._feedback)
 
-            self._result.success = True
-            self._as.set_succeeded(self._result)
+
 
 
 if __name__ == '__main__':
