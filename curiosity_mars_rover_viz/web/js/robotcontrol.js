@@ -77,6 +77,7 @@ async function init_env_2(){
     //     color: 0x00ff00
     //   });
 
+    
 }
 
 
@@ -223,7 +224,7 @@ async function init_env() {
 
     node = document.createElement("a-entity");
     rootObjectNode.appendChild(node)
-
+    
     var urdfClient = load_urdf(ros, tfClient, node.object3D)
 
     used_visualisations["urdf"] = urdfClient;

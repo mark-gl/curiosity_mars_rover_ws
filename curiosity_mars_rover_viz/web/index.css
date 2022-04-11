@@ -12,26 +12,60 @@
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.85);
   overflow-x: hidden; /* Disable horizontal scroll */
-  font-family: Helvetica;
+  font-family: "Abel";
+  color: #e9e9e9;
+  font-size: 18px;
+  display: flex;
+  flex-direction:column;
 }
 
-/* The navigation menu links */
 .sidenav h1 {
-  margin: 10px 0px 20px 0px;
-  padding: 0px;
+  margin: 0px 0px 0px 0px;
+  padding: 0;
   text-decoration: none;
   font-size: 28px;
   color: #e9e9e9;
   display: block;
 }
 
-.sidenav h2 {
-  margin: 10px 0px 10px 0px;
+.sidenav p {
+  margin: 10px 0px 0px 0px;
   padding: 0px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 18px;
+  color: #cecece;
+  display: block;
+}
+
+.boxes {
+    margin:20px 0 20px 0px;
+    padding:0;
+    top:0px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.controlbox {
+    margin:0 0 20px 0;
+    padding:10px 10px 10px 10px;
+    border: 1px solid rgb(53, 53, 53);
+    flex-grow: 1;
+}
+
+.controlinner {
+    margin:0 0 0 0;
+    padding:0px 0px 0px 10px;
+}
+
+.sidenav h2 {
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+  text-decoration: none;
+  font-size: 22px;
   color: #cecece;
   display: block;
 }
@@ -41,7 +75,7 @@
   margin: 0px;
   padding: 0px;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 18px;
   color: #818181;
   display: block;
 }

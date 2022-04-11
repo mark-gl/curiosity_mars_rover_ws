@@ -8,6 +8,9 @@ var ros = new ROSLIB.Ros({
     url: 'wss://127.0.0.1:9090'
 });
 
+ros.on('connection', function() {
+    console.log('Connected to ROS!');
+  });
 
 // Mast and Arm
 function mast() {
@@ -47,8 +50,21 @@ var armListener = new ROSLIB.Topic({
 var requestPing = new ROSLIB.ServiceRequest({ mode: 'ping' });
 var requestToggle = new ROSLIB.ServiceRequest({ mode: 'toggle' });
 
+// console.error(urdfClient)
+// if (ros) {
+//     document.getElementById('status').innerHTML = "Connected to rover"
+//     document.getElementById('status').style.color = "rgb(17, 207, 0)";
+// }
+console.error(mastClient)
+
 mastClient.callService(requestPing, function(result) {
-    document.getElementById("mast_state").innerHTML = result.status_message.slice(17); });
+    document.getElementById("mast_state").innerHTML = result.status_message.slice(17); 
+    document.getElementById('status').innerHTML = "Connected to rover";
+    document.getElementById('status').style.color = "rgb(17, 207, 0)";
+}, function(error) {
+    document.getElementById('status').innerHTML = "Couldn't connect.";
+    document.getElementById('status').style.color = "rgb(255, 47, 47)";
+});
 armClient.callService(requestPing, function(result) {
     document.getElementById("arm_state").innerHTML = result.status_message.slice(16); });
 
@@ -148,7 +164,6 @@ AFRAME.registerComponent('tap-place', {
                 });
                 move_base.publish(nav);
                 await delay(2);
-                console.log("Hidin");
                 newElement.setAttribute('material', {opacity: 0.0, transparent: true})
                 sendingNav = false;
             }

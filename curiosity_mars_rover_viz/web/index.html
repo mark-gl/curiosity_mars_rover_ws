@@ -13,25 +13,45 @@
     <script src="js/mappings.js"></script>
     <script src="js/robotcontrol.js"></script>
     <script src="js/side-controls.js"></script>
-
+    <link
+      href="https://fonts.googleapis.com/css?family=Abel"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="index.css" />
     <title>MarsViz</title>
   </head>
 
   <body onload="init_env_after_seconds(1)">
     <div class="sidenav">
-      <h2>Mast State: <br /><span id="mast_state"></span></h2>
-      <a href="javascript:mast()">Raise/Lower Mast</a>
-      <h2>Arm State: <br /><span id="arm_state"></span></h2>
-      <a href="javascript:arm()">Open/Close Arm</a>
-      <h2>
-        Auto Nav State: <br /><span id="nav_state">Awaiting instruction</span>
-      </h2>
-      <a href="javascript:pickMode()">Send Nav Target</a>
-      <h2>
-        Teleoperation: <br />
-        Speed multiplier: <span id="speed_state">1.0</span>
-      </h2>
+      <h1>M A R S V I Z</h1>
+      <p>Status: <span id="status" style="color:rgb(255, 147, 47)">Connecting...</span></p>
+        <div class="boxes">
+            <div class="controlbox">
+                <h2>Navigation</h2>
+                    <div class="controlinner">
+                        Auto Nav State: <br /><span id="nav_state"
+                        >Awaiting instruction</span
+                        >
+                        <a href="javascript:pickMode()">Send Nav Target</a>
+                        Teleoperation: <br />
+                        Speed multiplier: <span id="speed_state">1.0</span>
+                    </div>
+            </div>
+            <div class="controlbox">
+                <h2>Mast</h2>
+                <div class="controlinner">
+                    Mast State: <br /><span id="mast_state"></span>
+                    <a href="javascript:mast()">Raise/Lower Mast</a>
+                </div>
+            </div>
+            <div class="controlbox">
+                <h2>Robotic Arm</h2>
+                <div class="controlinner">
+                    <span id="arm_state"></span>
+                    <a href="javascript:arm()">Open/Close Arm</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <a-scene
