@@ -2,21 +2,21 @@
 <launch>
     <arg name="fake_depth_cameras" default="false" />
     <arg name="fake_gps" default="false" />
-	<arg name="paused" default="false"/>
-	<arg name="use_sim_time" default="true"/>
-	<arg name="gui" default="true"/>
-	<arg name="headless" default="false"/>
-	<arg name="debug" default="false"/>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
     <arg name="world" default="$(find curiosity_mars_rover_gazebo)/worlds/flat.world"/>
 
-	<include file="$(find gazebo_ros)/launch/empty_world.launch">
-		<arg name="world_name" value="$(arg world)"/>
-		<arg name="debug" value="$(arg debug)" />
-		<arg name="gui" value="$(arg gui)" />
-		<arg name="paused" value="$(arg paused)"/>
-		<arg name="use_sim_time" value="$(arg use_sim_time)"/>
-		<arg name="headless" value="$(arg headless)"/>
-	</include>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world)"/>
+        <arg name="debug" value="$(arg debug)" />
+        <arg name="gui" value="$(arg gui)" />
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="headless" value="$(arg headless)"/>
+    </include>
 
     <include file="$(find curiosity_mars_rover_description)/launch/curiosity_mars_rover_spawn.launch">
         <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />

@@ -2,9 +2,9 @@
 <launch>
     <arg name="fake_depth_cameras" default="false" />
     <arg name="fake_gps" default="false" />
-	<include file="$(find curiosity_mars_rover_gazebo)/launch/main_simple.launch">
+    <include file="$(find curiosity_mars_rover_gazebo)/launch/main_simple.launch">
         <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
         <arg name="fake_gps" value="$(arg fake_gps)" />
-		<arg name="world" value="$(find curiosity_mars_rover_gazebo)/worlds/mars_photo.world"/>
-	</include>
+        <arg name="world" value="$(find curiosity_mars_rover_gazebo)/worlds/mars_photo.world"/>
+    </include>
 </launch>
