@@ -4,6 +4,7 @@ from std_msgs.msg import Float64
 from std_msgs.msg import String
 from curiosity_mars_rover_control.srv import Mast, Arm, MastResponse, ArmResponse
 
+
 class CuriosityMarsRoverArmAndMast(object):
     def __init__(self):
         rospy.loginfo("Curiosity Arm And Mast Initialising...")
@@ -12,17 +13,18 @@ class CuriosityMarsRoverArmAndMast(object):
         self.publishers_curiosity_d = {}
         self.controller_ns = "curiosity_mars_rover"
         self.controller_command = "command"
-        self.controllers_list = [   "mast_p_joint_position_controller",
-                                    "mast_02_joint_position_controller",
-                                    "mast_cameras_joint_position_controller",
-                                    "arm_01_joint_position_controller",
-                                    "arm_02_joint_position_controller",
-                                    "arm_03_joint_position_controller",
-                                    "arm_04_joint_position_controller",
-                                    "arm_tools_joint_position_controller"
-                                ]
+        self.controllers_list = ["mast_p_joint_position_controller",
+                                 "mast_02_joint_position_controller",
+                                 "mast_cameras_joint_position_controller",
+                                 "arm_01_joint_position_controller",
+                                 "arm_02_joint_position_controller",
+                                 "arm_03_joint_position_controller",
+                                 "arm_04_joint_position_controller",
+                                 "arm_tools_joint_position_controller"
+                                 ]
         for controller_name in self.controllers_list:
-            topic_name = "/"+self.controller_ns+"/"+controller_name+"/"+self.controller_command
+            topic_name = "/"+self.controller_ns+"/" + \
+                controller_name+"/"+self.controller_command
             self.publishers_curiosity_d[controller_name] = rospy.Publisher(
                 topic_name,
                 Float64,
@@ -32,11 +34,15 @@ class CuriosityMarsRoverArmAndMast(object):
         self.init_publisher_variables()
 
         arm_service_name = "/"+self.controller_ns+"/arm_service"
-        self.arm_service = rospy.Service(arm_service_name, Arm, self.arm_service_cb)
-        self.arm_pub = rospy.Publisher("/" + self.controller_ns + "/arm_state", String, queue_size=10)
+        self.arm_service = rospy.Service(
+            arm_service_name, Arm, self.arm_service_cb)
+        self.arm_pub = rospy.Publisher(
+            "/" + self.controller_ns + "/arm_state", String, queue_size=10)
         mast_service_name = "/" + self.controller_ns + "/mast_service"
-        self.mast_service = rospy.Service(mast_service_name, Mast, self.mast_service_cb)
-        self.mast_pub = rospy.Publisher("/" + self.controller_ns + "/mast_state", String, queue_size=10)
+        self.mast_service = rospy.Service(
+            mast_service_name, Mast, self.mast_service_cb)
+        self.mast_pub = rospy.Publisher(
+            "/" + self.controller_ns + "/mast_state", String, queue_size=10)
         rospy.loginfo("Curiosity Arm And Mast...READY")
 
     def arm_service_cb(self, req):
@@ -64,7 +70,8 @@ class CuriosityMarsRoverArmAndMast(object):
         for controller_name, publisher_obj in self.publishers_curiosity_d.items():
             publisher_ready = False
             while not publisher_ready:
-                rospy.loginfo("Checking Publisher for ==>"+str(controller_name))
+                rospy.loginfo("Checking Publisher for ==>" +
+                              str(controller_name))
                 pub_num = publisher_obj.get_num_connections()
                 publisher_ready = (pub_num > 0)
                 rate_wait.sleep()
@@ -145,7 +152,7 @@ class CuriosityMarsRoverArmAndMast(object):
         if req.mode in ["close", "open", "toggle", "set", "rotate"]:
             if (req.mode == "close" and not self.mast_state == "Panorama") or (req.mode == "toggle" and self.mast_state == "Raised"):
                 self.mast_state = "Lowered"
-                self.mast_p_pos_msg.data = 1.35 # not quite 90 degrees
+                self.mast_p_pos_msg.data = 1.35  # not quite 90 degrees
                 self.mast_02_pos_msg.data = 1.57
                 self.mast_cameras_pos_msg.data = 0.0
             elif (req.mode == "open" and not self.mast_state == "Panorama") or (req.mode == "toggle" and self.mast_state == "Lowered"):
@@ -167,11 +174,13 @@ class CuriosityMarsRoverArmAndMast(object):
                 # Accepts changes eg +1 -1 rather than specific values
                 if not req.rot_x == 0.0:
                     # Limit 90 degrees either direction
-                    self.mast_cameras_pos_msg.data = max(-1.57, min(self.mast_cameras_pos_msg.data + req.rot_x, 1.57))
+                    self.mast_cameras_pos_msg.data = max(-1.57, min(
+                        self.mast_cameras_pos_msg.data + req.rot_x, 1.57))
                     self.mast_cameras.publish(self.mast_cameras_pos_msg)
                 if not req.rot_y == 0.0:
                     # Limit 180 degrees either direction (starts at -0.5 radians, so one is pi-0.5 and the other is -pi-0.5)
-                    self.mast_02_pos_msg.data = max(-3.64, min(self.mast_02_pos_msg.data + req.rot_y, 2.64))
+                    self.mast_02_pos_msg.data = max(-3.64, min(
+                        self.mast_02_pos_msg.data + req.rot_y, 2.64))
                     self.mast_02.publish(self.mast_02_pos_msg)
             self.mast_p.publish(self.mast_p_pos_msg)
             self.mast_02.publish(self.mast_02_pos_msg)
@@ -180,7 +189,8 @@ class CuriosityMarsRoverArmAndMast(object):
         else:
             return False
 
+
 if __name__ == "__main__":
-    rospy.init_node("CuriosityRoverArmMast_node")
+    rospy.init_node("curiosity_mars_rover_arm_mast_node")
     curiosity_mars_rover_arm_mast_object = CuriosityMarsRoverArmAndMast()
     rospy.spin()

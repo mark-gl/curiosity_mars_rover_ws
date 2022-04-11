@@ -6,6 +6,7 @@ import geometry_msgs.msg
 import nav_msgs.msg
 from tf.transformations import *
 
+
 def publish_fake_gps(msg, frame):
     br = tf2_ros.TransformBroadcaster()
     t = geometry_msgs.msg.TransformStamped()
@@ -17,10 +18,13 @@ def publish_fake_gps(msg, frame):
     t.transform.translation.x = msg.pose.pose.position.x
     t.transform.translation.y = msg.pose.pose.position.y
     t.transform.translation.z = msg.pose.pose.position.z
+    # Three.js transformations for curiosity_mars_rover_viz
+    # Commented out as the conversion is done on the other end
     # t.transform.translation.x = msg.pose.pose.position.x
     # t.transform.translation.y = msg.pose.pose.position.z
     # t.transform.translation.z = -msg.pose.pose.position.y
-    q_orig =[msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w]
+    q_orig = [msg.pose.pose.orientation.x, msg.pose.pose.orientation.y,
+              msg.pose.pose.orientation.z, msg.pose.pose.orientation.w]
     q_rot = quaternion_from_euler(0, 0, 0)
     #q_rot = quaternion_from_euler(-1.57, 0, 0)
     q_new = quaternion_multiply(q_rot, q_orig)
@@ -28,11 +32,12 @@ def publish_fake_gps(msg, frame):
     t.transform.rotation.y = q_new[1]
     t.transform.rotation.z = q_new[2]
     t.transform.rotation.w = q_new[3]
-    
+
     br.sendTransform(t)
 
+
 if __name__ == '__main__':
-    rospy.init_node('curiosity_fake_gps_node')
+    rospy.init_node('curiosity_mars_rover_fake_gps_node')
     frame = 'base_link'
     rospy.Subscriber('/curiosity_mars_rover/odom',
                      nav_msgs.msg.Odometry,

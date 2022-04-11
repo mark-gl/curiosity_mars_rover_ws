@@ -2,8 +2,13 @@
 from __future__ import print_function
 import threading
 import rospy
-import sys, select, termios, tty
+import sys
+import select
+import termios
+import tty
 from curiosity_mars_rover_control.srv import Mast, MastRequest
+
+# This code has been modified from the teleop_twist_keyboard.py file of the teleop_twist_keyboard package
 
 msg = """
 Reading from the keyboard and publishing to the mast!
@@ -20,24 +25,26 @@ CTRL-C to quit
 """
 
 moveBindings = {
-        'i':(1,0),
-        'o':(1,-1),
-        'j':(0,1),
-        'l':(0,-1),
-        'u':(1,1),
-        ',':(-1,0),
-        '.':(-1,1),
-        'm':(-1,-1),
-    }
+    'i': (1, 0),
+    'o': (1, -1),
+    'j': (0, 1),
+    'l': (0, -1),
+    'u': (1, 1),
+    ',': (-1, 0),
+    '.': (-1, 1),
+    'm': (-1, -1),
+}
 
-speedBindings={
-        'q':(1.1,1.1),
-        'z':(.9,.9),
-        'w':(1.1,1),
-        'x':(.9,1),
-        'e':(1,1.1),
-        'c':(1,.9),
-    }
+speedBindings = {
+    'q': (1.1, 1.1),
+    'z': (.9, .9),
+    'w': (1.1, 1),
+    'x': (.9, 1),
+    'e': (1, 1.1),
+    'c': (1, .9),
+}
+
+
 class PublishThread(threading.Thread):
     def __init__(self, rate, service):
         super(PublishThread, self).__init__()
@@ -89,6 +96,7 @@ class PublishThread(threading.Thread):
             if not result.success and not self.inactive:
                 self.inactive = True
 
+
 def toggleMast(pub_thread):
     mast_request = MastRequest()
     mast_request.mode = "toggle"
@@ -100,6 +108,7 @@ def toggleMast(pub_thread):
         print(result.status_message)
         pub_thread.inactive = False
 
+
 def getKey(key_timeout):
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], key_timeout)
@@ -110,10 +119,12 @@ def getKey(key_timeout):
     termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
     return key
 
-def vels(speed, turn):
-    return "current speed:\tvertical %s\thorizontal %s " % (speed,turn)
 
-if __name__=="__main__":
+def vels(speed, turn):
+    return "current speed:\tvertical %s\thorizontal %s " % (speed, turn)
+
+
+if __name__ == "__main__":
     settings = termios.tcgetattr(sys.stdin)
 
     rospy.init_node('teleop_keyboard_mast_node')
@@ -122,7 +133,8 @@ if __name__=="__main__":
     speed = 0.01
     turn = 0.01
 
-    mast_service = rospy.ServiceProxy('/curiosity_mars_rover/mast_service', Mast)
+    mast_service = rospy.ServiceProxy(
+        '/curiosity_mars_rover/mast_service', Mast)
     pub_thread = PublishThread(0.0, mast_service)
 
     x = 0
@@ -133,18 +145,19 @@ if __name__=="__main__":
         pub_thread.update(x, y, speed, turn)
 
         print(msg)
-        print(vels(speed,turn))
+        print(vels(speed, turn))
         while(1):
             key = getKey(None)
             if (key in moveBindings.keys() or key in speedBindings.keys()) and pub_thread.inactive:
-                print("Can't teleoperate mast as it is not raised. Press 'n' to raise the mast.")
+                print(
+                    "Can't teleoperate mast as it is not raised. Press 'n' to raise the mast.")
             elif key in moveBindings.keys():
                 x = -1 * moveBindings[key][0] * speed
                 y = moveBindings[key][1] * turn
-            elif key in speedBindings.keys() :
+            elif key in speedBindings.keys():
                 speed = speed * speedBindings[key][0]
                 turn = turn * speedBindings[key][1]
-                print(vels(speed,turn))
+                print(vels(speed, turn))
                 if (status == 14):
                     print(msg)
                 status = (status + 1) % 15

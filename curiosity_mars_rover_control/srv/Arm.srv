@@ -1,9 +1,12 @@
+# The mode of instruction (open, close or set specific positional values)
 string mode
+# Float variables for arm joints
 float64 pos_arm_01
 float64 pos_arm_02
 float64 pos_arm_03
 float64 pos_arm_04
 float64 pos_arm_tools
 ---
+# Result of the request
 bool success
 string status_message

@@ -1,8 +1,8 @@
-# Define the goal
+# (Unused) panorama type (horizontal, equirectangular etc)
 string type
 ---
-# Define the result
+# Whether the panorama action has been finished completely
 bool success
 ---
-# Define a feedback message
+# Current panorama progress
 string state

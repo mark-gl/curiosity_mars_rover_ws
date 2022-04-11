@@ -1,9 +1,13 @@
+# The mode of instruction (open, close, rotate or set for panorama)
 string mode
+# 'set' uses specific values for each joint
 float64 pos_mast_p
 float64 pos_mast_02
 float64 pos_mast_cameras
+# whereas 'rotate' sends an amount to add or subtract from the top joints
 float64 rot_x
 float64 rot_y
 ---
+# Result of the request
 bool success
 string status_message
