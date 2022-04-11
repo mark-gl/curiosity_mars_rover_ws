@@ -1,24 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <launch>
     <arg name="fake_depth_cameras" default="false" />
 
     <group unless="$(arg fake_depth_cameras)">
         <!-- The stereo data from the back hazcam is used because it gives the most reliable output -->
-        <node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_backhazcam/" >
+        <node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_backhazcam/">
             <param name="queue_size" value="2000" />
             <param name="approximate_sync" value="True" />
         </node>
         <!-- Front Hazcam: Too low -->
-        <!-- <node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_fronthazcam/" >
+        <!-- <node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_fronthazcam/">
             <param name="queue_size" value="2000" />
             <param name="approximate_sync" value="True" />
         </node> -->
         <!-- Navcam: Perspective is off -->
-        <!-- <node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_navcam/" >
+        <!-- <node name="stereo_image_proc" pkg="stereo_image_proc" type="stereo_image_proc" output="screen" ns="/curiosity_mars_rover/camera_navcam/">
             <param name="queue_size" value="2000" />
             <param name="approximate_sync" value="True" />
         </node> -->
         <include file="$(find rtabmap_ros)/launch/stereo_mapping.launch">
-		    <arg name="stereo_namespace" value="/curiosity_mars_rover/camera_backhazcam/"/>
+            <arg name="stereo_namespace" value="/curiosity_mars_rover/camera_backhazcam/"/>
             <arg name="rtabmap_args" value="--delete_db_on_start" />
             <arg name="rviz" value="false" />
             <arg name="rtabmapviz" value="false" />
@@ -28,15 +29,15 @@
 
     <group if="$(arg fake_depth_cameras)">
         <!-- For the depth cameras, the navcam is the best option since it's high up and the actual distances are measured -->
-        <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" ns="/curiosity_mars_rover/camera_navcam/color/" >
+        <node name="image_proc" pkg="image_proc" type="image_proc" output="screen" ns="/curiosity_mars_rover/camera_navcam/color/">
             <param name="queue_size" value="2000" />
             <param name="approximate_sync" value="True" />
         </node>
 
         <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
-            <arg name="rgb_topic"               default="/curiosity_mars_rover/camera_navcam/color/image_rect_color" />
-            <arg name="depth_topic"             default="/curiosity_mars_rover/camera_navcam/depth/image_raw" />
-            <arg name="camera_info_topic"       default="/curiosity_mars_rover/camera_navcam/color/camera_info" />
+            <arg name="rgb_topic" default="/curiosity_mars_rover/camera_navcam/color/image_rect_color" />
+            <arg name="depth_topic" default="/curiosity_mars_rover/camera_navcam/depth/image_raw" />
+            <arg name="camera_info_topic" default="/curiosity_mars_rover/camera_navcam/color/camera_info" />
             <arg name="depth_camera_info_topic" default="/curiosity_mars_rover/camera_navcam/depth/camera_info/" />
             <arg name="rtabmap_args" value="--delete_db_on_start" />
             <arg name="rviz" value="false" />

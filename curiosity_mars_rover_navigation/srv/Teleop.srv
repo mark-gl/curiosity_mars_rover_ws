@@ -1,3 +1,5 @@
+# Movement message to send
 geometry_msgs/Twist twist
 ---
+# Indicates which camera is blocked by an obstacle
 string feedback

@@ -3,14 +3,14 @@ obstacles_layer:
   scan1:
     sensor_frame: base_link
     data_type: LaserScan
-    topic: '/curiosity_mars_rover/camera_fronthazcam/scan'
+    topic: "/curiosity_mars_rover/camera_fronthazcam/scan"
     marking: true
     clearing: true
     inf_is_valid: true
   scan2:
     sensor_frame: camera_link_backhazcam_left
     data_type: LaserScan
-    topic: '/curiosity_mars_rover/camera_backhazcam/scan'
+    topic: "/curiosity_mars_rover/camera_backhazcam/scan"
     marking: true
     clearing: true
     inf_is_valid: true

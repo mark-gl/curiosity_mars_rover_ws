@@ -1,26 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <launch>
     <master auto="start"/>
     <arg name="fake_depth_cameras" default="false" />
     <arg name="use_shapes_map" default="false" />
 
     <include file="$(find curiosity_mars_rover_navigation)/launch/include/amcl.launch" if="$(arg use_shapes_map)" />
-    <include file="$(find curiosity_mars_rover_navigation)/launch/include/lasers.launch" >
+    <include file="$(find curiosity_mars_rover_navigation)/launch/include/lasers.launch">
         <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)"/>
     </include>
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-        <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
 
-        <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_obstacles_stereo_camera.yaml" command="load" ns="global_costmap" unless="$(arg fake_depth_cameras)" /> 
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_obstacles_stereo_camera.yaml" command="load" ns="global_costmap" unless="$(arg fake_depth_cameras)" />
         <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_obstacles_stereo_camera.yaml" command="load" ns="local_costmap" unless="$(arg fake_depth_cameras)" />
-        <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_obstacles_fake_depth.yaml" command="load" ns="global_costmap" if="$(arg fake_depth_cameras)" /> 
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_obstacles_fake_depth.yaml" command="load" ns="global_costmap" if="$(arg fake_depth_cameras)" />
         <rosparam file="$(find curiosity_mars_rover_navigation)/config/costmap_obstacles_fake_depth.yaml" command="load" ns="local_costmap" if="$(arg fake_depth_cameras)" />
 
         <rosparam file="$(find curiosity_mars_rover_navigation)/config/odom/local_costmap_params.yaml" command="load" unless="$(arg use_shapes_map)" />
-        <rosparam file="$(find curiosity_mars_rover_navigation)/config/odom/global_costmap_params.yaml" command="load" unless="$(arg use_shapes_map)" /> 
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/odom/global_costmap_params.yaml" command="load" unless="$(arg use_shapes_map)" />
         <rosparam file="$(find curiosity_mars_rover_navigation)/config/map/local_costmap_params.yaml" command="load" if="$(arg use_shapes_map)" />
-        <rosparam file="$(find curiosity_mars_rover_navigation)/config/map/global_costmap_params.yaml" command="load" if="$(arg use_shapes_map)" /> 
+        <rosparam file="$(find curiosity_mars_rover_navigation)/config/map/global_costmap_params.yaml" command="load" if="$(arg use_shapes_map)" />
 
         <rosparam file="$(find curiosity_mars_rover_navigation)/config/base_local_planner_params.yaml" command="load" />
 

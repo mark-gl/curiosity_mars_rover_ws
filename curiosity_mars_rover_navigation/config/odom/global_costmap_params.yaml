@@ -10,4 +10,3 @@ global_costmap:
   origin_y: -40.0
   static_map: true
   rolling_window: false
-  
