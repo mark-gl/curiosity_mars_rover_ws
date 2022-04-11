@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <node name="curiosity_rover_teleop_keyboard_mast_node"
+        pkg="curiosity_mars_rover_control"
+        type="teleop_keyboard_mast.py"
+        respawn="false"
+        output="screen"
+        args=""/> 
+</launch>

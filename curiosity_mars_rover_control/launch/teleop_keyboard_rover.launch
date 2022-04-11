@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <node name="curiosity_rover_teleop_keyboard_rover_node"
+        pkg="teleop_twist_keyboard"
+        type="teleop_twist_keyboard.py"
+        respawn="false"
+        output="screen"
+        args="cmd_vel:='/curiosity_mars_rover/ackermann_drive_controller/cmd_vel'" />
+</launch>
