@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <include file="$(find hugin_panorama)/launch/hugin_panorama.launch" >
+        <arg name="image" value="/curiosity_mars_rover/camera_mastcam/left/image_raw"/>
+    </include>
+
+    <node name="curiosity_rover_panorama_node"
+        pkg="curiosity_mars_rover_control"
+        type="panorama.py"
+        respawn="false"
+        output="screen"
+        args=""/> 
+</launch>

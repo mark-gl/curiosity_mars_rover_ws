@@ -1,0 +1,8 @@
+# Define the goal
+string destination_file
+---
+# Define the result
+bool success
+---
+# Define a feedback message
+float32 percent_complete

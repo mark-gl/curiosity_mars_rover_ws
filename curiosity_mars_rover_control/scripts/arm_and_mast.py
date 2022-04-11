@@ -158,6 +158,8 @@ class CuriosityMarsRoverArmAndMast(object):
                 self.mast_p_pos_msg.data = req.pos_mast_p
                 self.mast_02_pos_msg.data = req.pos_mast_02
                 self.mast_cameras_pos_msg.data = req.pos_mast_cameras
+                rospy.loginfo(self.mast_02_pos_msg.data)
+                rospy.loginfo(self.mast_cameras_pos_msg.data)
             # Allow rotation messages when mast is in user-defined pose
             elif req.mode == "rotate" and self.mast_state in ["Raised", "User"]:
                 # Accepts changes eg +1 -1 rather than specific values
