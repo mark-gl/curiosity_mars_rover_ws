@@ -38,7 +38,7 @@
         position="-0.5 1 1"
       ></a-entity>
       <a-entity
-        id="worldterrain"
+        id="mars_terrain"
         gltf-model="#terrain"
         position="0 0 0"
         rotation="0 0 0"
@@ -63,7 +63,7 @@
         <a-entity
           id="leftHand"
           navigation-controls="type: line; cameraRig: #rig; hitCylinderColor: #7DF9FF; curveHitColor: #7DF9FF; robotNav: true;
-                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;"
+                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #mars_terrain; maxLength: 50;"
           raycaster="objects: [gui-interactable]"
           laser-controls="hand: left;"
         >
@@ -71,7 +71,7 @@
         <a-entity
           id="rightHand"
           navigation-controls="type: line; cameraRig: #rig;
-                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #worldterrain; maxLength: 50;"
+                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #mars_terrain; maxLength: 50;"
           raycaster="objects: [gui-interactable]"
           laser-controls="hand: right;"
         >

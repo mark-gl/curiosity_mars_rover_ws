@@ -3,7 +3,8 @@
 
         <!-- Martian Gravity-->
         <gravity>0 0 -3.711</gravity>
-
+        
+        <model name="world_mars_path" />
         <include>
             <uri>model://curiosity_path</uri>
             <name>curiosity_path</name>

@@ -4,6 +4,7 @@
         <!-- Martian Gravity-->
         <gravity>0 0 -3.711</gravity>
 
+        <model name="world_mars_terrain" />
         <include>
             <uri>model://terrain_export_1</uri>
             <name>terrain_export_1</name>

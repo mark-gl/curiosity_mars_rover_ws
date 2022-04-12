@@ -4,6 +4,7 @@
         <!-- Martian Gravity-->
         <gravity>0 0 -3.711</gravity>
 
+        <model name="world_mars_photo" />
         <include>
             <uri>model://photogrammetry</uri>
             <name>photogrammetry</name>
