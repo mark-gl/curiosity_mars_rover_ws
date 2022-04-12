@@ -254,75 +254,15 @@ move_base_result.subscribe(function (message) {
   }
 });
 
-AFRAME.registerComponent("tap-place", {
-  schema: {
-    min: { default: 6 },
-    max: { default: 10 },
-  },
-  init() {
-      // WALLACE !!! Generalise this 
-    const ground = document.getElementById("mars_terrain");
-    var newElement = document.createElement("a-cylinder");
-    document.getElementById("main").appendChild(newElement);
-    newElement.setAttribute("height", 500);
-    newElement.setAttribute("radius", 0.4);
-    newElement.setAttribute("color", "cyan");
-    newElement.setAttribute("material", { opacity: 0.0, transparent: true });
-    newElement.setAttribute("visible", "true");
-    newElement.setAttribute("scale", "0.7 1.2 0.7");
-    newElement.setAttribute("shadow", { receive: false });
-
-    ground.addEventListener("click", (event) => nav(event), false);
-    async function nav(event) {
-      if (sendingNav) {
-        // The raycaster gives a location of the touch in the scene
-        var touchPoint = event.detail.intersection.point;
-        newElement.setAttribute("position", touchPoint);
-        newElement.setAttribute("material", {
-          opacity: 0.2,
-          transparent: true,
-        });
-
-        var currentTime = new Date();
-        var mySecs = Math.floor(currentTime.getTime() / 1000);
-        var myNsecs = Math.round(
-          1000000000 * (currentTime.getTime() / 1000 - mySecs)
-        );
-        var nav = new ROSLIB.Message({
-          header: {
-            seq: 0,
-            stamp: {
-              secs: mySecs,
-              nsecs: myNsecs,
-            },
-            frame_id: "odom",
-          },
-          pose: {
-            position: {
-              x: event.detail.intersection.point.x,
-              y: -1 * event.detail.intersection.point.z,
-              z: 0.0,
-            },
-            orientation: {
-              x: 0.0,
-              y: 0.0,
-              z: 0.0,
-              w: 1.0,
-            },
-          },
-        });
-        move_base.publish(nav);
-        await delay(2);
-        newElement.setAttribute("material", {
-          opacity: 0.0,
-          transparent: true,
-        });
-        sendingNav = false;
-        navigating = true;
-      }
-    }
-  },
-});
+// AFRAME.registerComponent("tap-place", {
+//   schema: {
+//     min: { default: 6 },
+//     max: { default: 10 },
+//   },
+//   init() {
+//       // WALLACE !!! Generalise this 
+ 
+// });
 
 var keepPublishingTeleop;
 var keepPublishingMast;

@@ -2,6 +2,7 @@
 <launch>
     <arg name="fake_depth_cameras" default="false" />
     <arg name="fake_gps" default="false" />
+    <arg name="rviz" default="true"/>
     <arg name="paused" default="false"/>
     <arg name="use_sim_time" default="true"/>
     <arg name="gui" default="true"/>
@@ -25,8 +26,11 @@
         <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
         <arg name="fake_gps" value="$(arg fake_gps)" />
     </include>
-    <include file="$(find curiosity_mars_rover_viz)/launch/rviz.launch">
-        <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
-        <arg name="fake_gps" value="$(arg fake_gps)" />
-    </include>
+    
+    <group if="$(arg rviz)">
+        <include file="$(find curiosity_mars_rover_viz)/launch/rviz.launch">
+            <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
+            <arg name="fake_gps" value="$(arg fake_gps)" />
+        </include>
+    </group>
 </launch>

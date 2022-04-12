@@ -1,0 +1,156 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.8.19",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "IngenuityRTE_StereoPair_585_593_Baked",
+            "rotation" : [
+                0.272067666053772,
+                -0.037399742752313614,
+                -0.020220039412379265,
+                0.961338460445404
+            ],
+            "translation" : [
+                0.17717839777469635,
+                0.3051944077014923,
+                -1.9378910064697266
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "IngenuityRTE_StereoPair_585_593_Bake1_baked.001",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "IngenuityRTE_StereoPair_585_593.002",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        }
+    ],
+    "materials": [
+        {
+        "pbrMetallicRoughness": {
+            "baseColorTexture": {
+            "index": 0
+            },
+            "metallicFactor": 0.0,
+            "roughnessFactor": 1.0
+        }
+        }
+    ],
+
+    "textures": [
+        {
+        "sampler": 0,
+        "source": 0
+        }
+    ],
+    "images": [
+        {
+        "mimeType": "image/jpeg",
+        "name": "ingenuity",
+        "uri": "ingenuity.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 55614,
+            "max" : [
+                21.700550079345703,
+                7.663661956787109,
+                12.813441276550293
+            ],
+            "min" : [
+                -24.68709945678711,
+                -6.0496439933776855,
+                -12.830820083618164
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 55614,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 55614,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 206292,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 667368,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 667368,
+            "byteOffset" : 667368
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 444912,
+            "byteOffset" : 1334736
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 412584,
+            "byteOffset" : 1779648
+        }
+    ],
+    "samplers" : [
+        {
+            "magFilter" : 9729,
+            "minFilter" : 9987
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 2192232,
+            "uri" : "photogrammetry.bin"
+        }
+    ]
+}

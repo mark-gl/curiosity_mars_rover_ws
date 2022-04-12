@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <!-- <script src="js/gazebo-worlds.js" defer></script> -->
+    <script src="js/gazebo-worlds.js" defer></script>
 
     <title>MarsViz</title>
   </head>
@@ -26,12 +26,14 @@
   <body onload="init_env_after_seconds(1)">
     <a-scene
       inspector
-      tap-place
+      gazebo-world
       id="main"
       fog="type: linear; color: #C49452; near: 10; far: 100;"
     >
       <a-assets>
-        <a-asset-item id="terrain" src="terrain_export_1.gltf"></a-asset-item>
+        <a-asset-item id="terrain" src="models/terrain_export_1.gltf"></a-asset-item>
+        <a-asset-item id="path" src="models/curiosity_path.gltf"></a-asset-item>
+        <a-asset-item id="photo" src="models/photogrammetry.gltf"></a-asset-item>
       </a-assets>
 
       <a-sky color="#CCC299" scale="1 1 1"></a-sky>
@@ -40,7 +42,7 @@
         light="type: directional; color: #FFF; intensity: 1"
         position="-0.5 1 1"
       ></a-entity>
-      <a-entity
+      <!-- <a-entity
         id="mars_terrain"
         gltf-model="#terrain"
         position="0 0 0"
@@ -48,7 +50,7 @@
         scale="1 1 1"
         shadow="receive: false"
         class="cantap"
-      ></a-entity>
+      ></a-entity> -->
 
       <a-entity id="rig" position="0 -0.5 5.1">
         <a-entity
@@ -66,7 +68,7 @@
         <a-entity
           id="leftHand"
           navigation-controls="type: line; cameraRig: #rig; hitCylinderColor: #7DF9FF; curveHitColor: #7DF9FF; robotNav: true;
-                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #mars_terrain; maxLength: 50;"
+                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #world; maxLength: 50;"
           raycaster="objects: [gui-interactable]"
           laser-controls="hand: left;"
         >
@@ -74,7 +76,7 @@
         <a-entity
           id="rightHand"
           navigation-controls="type: line; cameraRig: #rig;
-                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #mars_terrain; maxLength: 50;"
+                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #world; maxLength: 50;"
           raycaster="objects: [gui-interactable]"
           laser-controls="hand: right;"
         >
