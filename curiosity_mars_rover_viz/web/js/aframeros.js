@@ -115,6 +115,8 @@ function slowDown() {
     document.getElementById("speed_state").innerHTML = Math.round(speed * 100) / 100;
 }
 
+
+
 /**
  * Instead of taking the parameters, we also want to be able to work if someone moves diagonally
  * so instead of just taking the movement and publishing it - which only publishes one of two commands, we will try to
@@ -140,16 +142,48 @@ function moveRobot(arr){
     // var newVelocities = [0,0,0,0,0,0]
 
       var twist = new ROSLIB.Message({
-        linear : {
-          x : velocities[0] * speed,
-          y : velocities[1],
-          z : velocities[2]
-        },
-        angular : {
-          x : velocities[3],
-          y : velocities[4],
-          z : velocities[5] * speed,
+        twist : {
+            linear : {
+                x : velocities[0] * speed,
+                y : velocities[1],
+                z : velocities[2]
+              },
+              angular : {
+                x : velocities[3],
+                y : velocities[4],
+                z : velocities[5] * speed,
+              }
         }
       });
-      used_controls['cmd_vel'].publish(twist);
+      cmd_vel_service.callService(twist, function (result) {
+        console.error(result)
+        switch (result.feedback) {
+            case "":
+                document.getElementById("tele_state").innerHTML = "OK"
+                document.getElementById("n").disabled = false
+                document.getElementById("ne").disabled = false
+                document.getElementById("nw").disabled = false
+                document.getElementById("s").disabled = false
+                document.getElementById("se").disabled = false
+                document.getElementById("sw").disabled = false
+                break;
+            case "Obstacle in front":
+                document.getElementById("tele_state").innerHTML = "Blocked"
+                document.getElementById("n").disabled = true
+                document.getElementById("ne").disabled = true
+                document.getElementById("nw").disabled = true
+                clearInterval(keepPublishingTeleop)
+                break;
+            case "Obstacle in rear":
+                document.getElementById("tele_state").innerHTML = "Blocked"
+                document.getElementById("s").disabled = true
+                document.getElementById("se").disabled = true
+                document.getElementById("sw").disabled = true
+                clearInterval(keepPublishingTeleop)
+                break;
+            default:
+                break;
+        }
+      });
+      // used_controls['cmd_vel'].publish(twist);
 }

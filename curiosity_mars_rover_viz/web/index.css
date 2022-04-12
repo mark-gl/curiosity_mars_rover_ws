@@ -97,6 +97,10 @@ button:hover {
 button:active {
   background-color: #888888;
 }
+button:disabled {
+    background-color: #080808;
+    opacity: 0.5;
+  }
 
 .sidenav h2 {
   margin: 0px 10px 10px 0px;

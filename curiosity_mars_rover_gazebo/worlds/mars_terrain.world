@@ -4,12 +4,6 @@
         <!-- Martian Gravity-->
         <gravity>0 0 -3.711</gravity>
 
-        <!-- <include>
-      <uri>model://curiosity_path</uri>
-      <name>curiosity_path</name>
-      <pose>5364.521484 1847.901001 540 0 0 3.14</pose>
-    </include> -->
-
         <include>
             <uri>model://terrain_export_1</uri>
             <name>terrain_export_1</name>

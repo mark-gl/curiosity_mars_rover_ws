@@ -1,3 +1,5 @@
+
+
 function colormap(x) {
   _floatColor = new Float32Array(1);
   _rgb_lut = new Float32Array(256);
@@ -59,6 +61,11 @@ async function init_env_2() {
       path: "https://127.0.0.1:8080/",
     }
   );
+  var cmd_vel_service = new ROSLIB.Service({
+    ros: ros,
+    name: "/curiosity_mars_rover/cmd_vel_obstacle",
+    serviceType: "geometry_msgs/Twist",
+  });
 
   var cmdVel = addControls("cmd_vel", ROSLIB.Topic, {
     ros: ros,
@@ -142,10 +149,7 @@ function moveMast(move) {
     rot_y: rotation_y,
   });
 
-  mastClient.callService(request, function (result) {
-    document.getElementById("mast_state").innerHTML =
-      result.status_message.slice(17);
-  });
+  mastClient.callService(request, function (result) {});
 }
 
 function setupEventListeners(scene) {
@@ -194,6 +198,9 @@ function setupEventListeners(scene) {
 /**
  * Setup all visualization elements when the page is loaded.
  */
+
+var cmd_vel_service;
+
 async function init_env() {
   var scene = document.querySelector("a-scene");
 
@@ -286,7 +293,14 @@ async function init_env() {
   // used_visualisations["pathClient"] = pathClient;
   used_visualisations["gridClient"] = gridClient;
   // used_visualisations["markerClient"] = markerClient;
-  used_controls["cmd_vel"] = cmdVel;
+  var cmd_vel_service = new ROSLIB.Service({
+    ros: ros,
+    name: "/curiosity_mars_rover/cmd_vel_obstacle",
+    serviceType: "geometry_msgs/Twist",
+  });
+  
+
+  used_controls["cmd_vel"] = cmd_vel_service;
   used_controls["mast"] = armClient;
   used_controls["arm"] = mastClient;
 }

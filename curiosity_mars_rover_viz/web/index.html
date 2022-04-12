@@ -92,9 +92,9 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                <td><button onmousedown="teleop([1,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">north_west</i></button></td>
-                                <td><button onmousedown="teleop([1,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">north</i></button></td>
-                                <td><button onmousedown="teleop([1,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">north_east</i></button></td>
+                                <td><button id="nw" onmousedown="teleop([1,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">north_west</i></button></td>
+                                <td><button id="n" onmousedown="teleop([1,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">north</i></button></td>
+                                <td><button id="ne" onmousedown="teleop([1,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">north_east</i></button></td>
                                 </tr>
                                 <tr>
                                 <td><button onmousedown="teleop([0,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">west</i></button></td>
@@ -102,9 +102,9 @@
                                 <td><button onmousedown="teleop([0,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">east</i></button></td>
                                 </tr>
                                 <tr>
-                                <td><button onmousedown="teleop([-1,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">south_west</i></button></td>
-                                <td><button onmousedown="teleop([-1,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">south</i></button></td>
-                                <td><button onmousedown="teleop([-1,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">south_east</i></button></td>
+                                <td><button id="sw" onmousedown="teleop([-1,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">south_west</i></button></td>
+                                <td><button id="s" onmousedown="teleop([-1,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">south</i></button></td>
+                                <td><button id="se" onmousedown="teleop([-1,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">south_east</i></button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -118,7 +118,7 @@
                             </tbody>
                             </table>
                             Auto nav status: <span id="nav_state">Waiting</span>
-                            <table><tbody><tr><td><button onclick="pickMode()">Send Nav Target</button></td></tr></tbody></table>
+                            <table><tbody><tr><td><button onclick="pickMode()"><span id="send_button">Send Nav Goal</span></button></td></tr></tbody></table>
                         </div>
                 </div>
                 <div class="controlbox">
@@ -129,17 +129,17 @@
                             <tbody>
                             <tr>
                             <td></td>
-                            <td><button onmousedown="mastClick('up')" onmouseup="mastStop()"><i class="material-icons md-18">north</i></button></td>
+                            <td><button id="mu" onmousedown="mastClick('up')" onmouseup="mastStop()"><i class="material-icons md-18">north</i></button></td>
                             <td></td>
                             </tr>
                             <tr>
-                            <td><button onmousedown="mastClick('left')" onmouseup="mastStop()"><i class="material-icons md-18">west</i></button></td>
-                            <td><button onmousedown="mastClick('down')" onmouseup="mastStop()"><i class="material-icons md-18">south</i></button></td>
-                            <td><button onmousedown="mastClick('right')" onmouseup="mastStop()"><i class="material-icons md-18">east</i></button></td>
+                            <td><button id="ml" onmousedown="mastClick('left')" onmouseup="mastStop()"><i class="material-icons md-18">west</i></button></td>
+                            <td><button id="md" onmousedown="mastClick('down')" onmouseup="mastStop()"><i class="material-icons md-18">south</i></button></td>
+                            <td><button id="mr" onmousedown="mastClick('right')" onmouseup="mastStop()"><i class="material-icons md-18">east</i></button></td>
                             </tr>
                             </tbody>
                         </table>
-                        <table><tbody><tr><td><button onclick="panorama('start')"><span id="panorama_button_text">Take Panorama</span></button></td></tr></tbody></table>
+                        <table><tbody><tr><td><button id="panorama_button" onclick="panorama()"><span id="panorama_button_text">Take Panorama</span></button></td></tr></tbody></table>
                         Panorama status: <span id="panorama_status">Inactive</span>
                     </div>
                 </div>

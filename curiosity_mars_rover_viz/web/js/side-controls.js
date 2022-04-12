@@ -1,4 +1,5 @@
 var buttonDown = false;
+var stitching = false;
 
 function delay(n){
     return new Promise(function(resolve){
@@ -53,7 +54,11 @@ function armSet(id, value) {
     });
 }
 
-
+var cmd_vel_service = new ROSLIB.Service({
+    ros: ros,
+    name: "/curiosity_mars_rover/cmd_vel_obstacle",
+    serviceType: "geometry_msgs/Twist",
+  });
 
 var mastClient = new ROSLIB.Service({
     ros : ros,
@@ -89,6 +94,7 @@ var requestToggle = new ROSLIB.ServiceRequest({ mode: 'toggle' });
 
 mastClient.callService(requestPing, function(result) {
     document.getElementById("mast_state").innerHTML = result.status_message.slice(17); 
+    updateMastButtons(result.status_message.slice(17));
     document.getElementById('status').innerHTML = "Connected to rover";
     document.getElementById('status').style.color = "rgb(17, 207, 0)";
 }, function(error) {
@@ -102,12 +108,45 @@ armClient.callService(requestPing, function(result) {
 
 mastListener.subscribe(function(message) {
     document.getElementById("mast_state").innerHTML = message.data;
+    updateMastButtons(message.data);
 });
 
 armListener.subscribe(function(message) {
     document.getElementById("arm_state").innerHTML = message.data;
     armControls(message.data)
 });
+
+function updateMastButtons(message) {
+    if (message == "Raised") {
+        document.getElementById("mu").disabled = false;
+        document.getElementById("ml").disabled = false;
+        document.getElementById("md").disabled = false;
+        document.getElementById("mr").disabled = false;
+        document.getElementById("panorama_button_text").innerHTML = "Take Panorama"
+        if (!stitching) {
+            document.getElementById("panorama_button").disabled = false;
+        }
+        document.getElementById("mast_button").disabled = false;
+    }
+    if (message == "Lowered") {
+        document.getElementById("mu").disabled = true;
+        document.getElementById("ml").disabled = true;
+        document.getElementById("md").disabled = true;
+        document.getElementById("mr").disabled = true;
+        document.getElementById("panorama_button").disabled = true;
+        document.getElementById("mast_button").disabled = false;
+    }
+    if (message == "Panorama") {
+        document.getElementById("mu").disabled = true;
+        document.getElementById("ml").disabled = true;
+        document.getElementById("md").disabled = true;
+        document.getElementById("mr").disabled = true;
+        document.getElementById("panorama_button").disabled = false;
+        document.getElementById("panorama_button_text").innerHTML = "Cancel Panorama"
+        document.getElementById("mast_button").disabled = true;
+        //document.getElementById("panorama_button_text")
+    }
+}
 
 function armControls(message) {
     if (message == "Closed") {
@@ -135,7 +174,15 @@ function armControls(message) {
 var sendingNav = false;
 
 function pickMode() {
-    sendingNav = true;
+    if (document.getElementById("nav_state").innerHTML != "Navigating") {
+        sendingNav = true;
+    }
+    else {
+        move_base_cancel.publish(new ROSLIB.Message({}));
+        document.getElementById("nav_state").innerHTML == "Waiting"
+        document.getElementById("send_button").innerHTML == "Send Nav Goal"
+    }
+    
 }
 
 // document.getElementById("nav_state").innerHTML = "Awaiting Goal";
@@ -144,6 +191,12 @@ var move_base = new ROSLIB.Topic({
     ros : ros,
     name : '/move_base_simple/goal',
     messageType : 'geometry_msgs/PoseStamped'
+});
+
+var move_base_cancel = new ROSLIB.Topic({
+    ros : ros,
+    name : '/move_base/cancel',
+    messageType : 'actionlib_msgs/GoalID'
 });
 
 var move_base_feedback = new ROSLIB.Topic({
@@ -159,12 +212,31 @@ var move_base_result = new ROSLIB.Topic({
 });
 
 move_base_feedback.subscribe(function(message) {
-    document.getElementById("nav_state").innerHTML = "Navigating to goal";
+    if (message.status.status == 1) {
+        document.getElementById("nav_state").innerHTML = "Navigating";
+        document.getElementById('send_button').innerHTML = 'Cancel Nav Goal';
+    }
+    console.error(message)
+    
 });
 
 move_base_result.subscribe(function(message) {
-    document.getElementById("nav_state").innerHTML = "Reached goal!";
+    console.error(message)
+    if (message.status.status == 2) {
+        document.getElementById("nav_state").innerHTML = "Cancelled";
+        document.getElementById("send_button").innerHTML = "Send Nav Goal";
+    }
+    if (message.status.status == 3) {
+        document.getElementById("nav_state").innerHTML = "Reached goal!";
+        document.getElementById("send_button").innerHTML = "Send Nav Goal";
+    }
+    if (message.status.status == 4) {
+        document.getElementById("nav_state").innerHTML = "Aborted";
+        document.getElementById("send_button").innerHTML = "Send Nav Goal";
+    }
 });
+
+
 
 
 AFRAME.registerComponent('tap-place', {
@@ -187,6 +259,7 @@ AFRAME.registerComponent('tap-place', {
         ground.addEventListener('click', (event) => nav(event), false)
         async function nav(event) {
             if (sendingNav) {
+                console.error("Hello?")
                 // The raycaster gives a location of the touch in the scene
                 var touchPoint = event.detail.intersection.point
                 newElement.setAttribute('position', touchPoint)
@@ -251,3 +324,60 @@ function mastStop() {
 }
 
 
+
+var panorama_goal = new ROSLIB.Topic({
+    ros : ros,
+    name : '/panorama_server_node/goal',
+    messageType : 'actionlib_msgs/GoalID'
+});
+
+var panorama_cancel = new ROSLIB.Topic({
+    ros : ros,
+    name : '/panorama_server_node/cancel',
+    messageType : 'actionlib_msgs/GoalID'
+});
+
+var panorama_feedback = new ROSLIB.Topic({
+    ros : ros,
+    name : '/panorama_server_node/feedback',
+    messageType : 'curiosity_mars_rover_control/PanoramaActionFeedback'
+});
+
+var panorama_result = new ROSLIB.Topic({
+    ros : ros,
+    name : '/panorama_server_node/result',
+    messageType : 'curiosity_mars_rover_control/PanoramaActionResult'
+});
+
+panorama_feedback.subscribe(function(message) {
+    console.error("Helo???")
+    console.error(message)
+    document.getElementById("panorama_status").innerHTML = message.feedback.state;
+    if (message.feedback.state == "Stitching") {
+        stitching = true
+        document.getElementById("panorama_button").disabled = true;
+    }
+});
+
+// panorama_result.subscribe(function(message) {
+//     console.error(message.success);
+//     if (message.success) {
+//         document.getElementById("panorama_state").innerHTML = "Finished!";
+//     }
+//     else {
+//         document.getElementById("panorama_state").innerHTML = "Cancelled";
+//     }
+// });
+
+function panorama() {
+    if (document.getElementById("panorama_button_text").innerHTML == "Take Panorama") {
+        panorama_goal.publish(new ROSLIB.Message({}));
+        document.getElementById("panorama_button_text").innerHTML = "Cancel Panorama"
+    }
+    else {
+        panorama_cancel.publish(new ROSLIB.Message({}));
+        document.getElementById("panorama_button_text").innerHTML = "Cancelling..."
+        document.getElementById("panorama_button").disabled = true
+    }
+    
+}

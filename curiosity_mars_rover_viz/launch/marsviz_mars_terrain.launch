@@ -6,12 +6,7 @@
         <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
         <arg name="fake_gps" value="$(arg fake_gps)" />
     </include>
-
-    <include file="$(find curiosity_mars_rover_navigation)/launch/navigation.launch">
+    <include file="$(find curiosity_mars_rover_viz)/launch/marsviz.launch">
         <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
     </include>
-
-    <node name="curiosity_rover_teleop_keyboard_obstacles_node" pkg="curiosity_mars_rover_navigation" type="obstacle_service.py" respawn="false" output="screen" args="" />
-    <include file="$(find curiosity_mars_rover_control)/launch/panorama_action_server.launch"/>
-    <include file="$(find curiosity_mars_rover_viz)/launch/marsviz.launch"/>
 </launch>

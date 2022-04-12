@@ -31,7 +31,7 @@ class PanoramaActionServer():
         r = rospy.Rate(1)
 
         success = True
-        self._feedback.state = "Photographing 0%"
+        self._feedback.state = "0%"
         orientation = 1.07
 
         mast = MastRequest()
@@ -67,7 +67,7 @@ class PanoramaActionServer():
                     self._as.set_preempted()
                     success = False
                     break
-                self._feedback.state = "Photographing {0}%".format(i/30 * 100)
+                self._feedback.state = "{:.2f}%".format(i/30 * 100)
                 rospy.loginfo(self._feedback.state)
                 self._as.publish_feedback(self._feedback)
                 r.sleep()
@@ -77,12 +77,11 @@ class PanoramaActionServer():
             mast.pos_mast_02 = -0.5
             result = self._ms(mast)
         if success:
-            self._feedback.state = "Done photographing."
+            self._feedback.state = "Stitching"
             self._result.success = True
             self._as.set_succeeded(self._result)
             self._as.publish_feedback(self._feedback)
             rospy.loginfo(self._feedback.state)
-
             stitch = EmptyRequest()
             result = self._ss(stitch)
             self._feedback.state = "Stitched!"

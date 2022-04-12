@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
+    <arg name="fake_depth_cameras" default="false" />
+    
+    <include file="$(find curiosity_mars_rover_navigation)/launch/navigation.launch">
+        <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
+    </include>
+
+    <node name="curiosity_rover_teleop_keyboard_obstacles_node" pkg="curiosity_mars_rover_navigation" type="obstacle_service.py" respawn="false" output="screen" args="" />
+    <include file="$(find curiosity_mars_rover_control)/launch/panorama_action_server.launch"/>
+
     <node name="tf2_web_republisher" pkg="tf2_web_republisher" type="tf2_web_republisher" respawn="false" output="screen">
     </node>
 
