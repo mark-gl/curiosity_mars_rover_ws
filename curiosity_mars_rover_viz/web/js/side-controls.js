@@ -1,3 +1,5 @@
+var buttonDown = false;
+
 function delay(n){
     return new Promise(function(resolve){
         setTimeout(resolve,n*1000);
@@ -23,6 +25,35 @@ function arm() {
         document.getElementById("arm_state").innerHTML = result.status_message.slice(16);
     });
 }
+
+function armSet(id, value) {
+    var req = new ROSLIB.ServiceRequest({})
+    switch (id)
+    {
+        case 'joint1':
+            req = new ROSLIB.ServiceRequest({ mode: 'set', pos_arm_01: parseFloat(-1.57 * value/100) })
+            break;
+        case 'joint2':
+            req = new ROSLIB.ServiceRequest({ mode: 'set', pos_arm_02: parseFloat(-1.57 * value/100) })
+            break;
+        case 'joint3':
+            req = new ROSLIB.ServiceRequest({ mode: 'set', pos_arm_03: parseFloat(-0.9 * value/100) })
+            break;
+        case 'joint4':
+            req = new ROSLIB.ServiceRequest({ mode: 'set', pos_arm_04: parseFloat(-1.57 * value/100) })
+            break;
+        case 'effector':
+            req = new ROSLIB.ServiceRequest({ mode: 'set', pos_arm_tools: parseFloat(-1.57 * value/100) })
+            break;
+        default:
+            break;
+}
+    armClient.callService(req, function(result) {
+        document.getElementById("arm_state").innerHTML = result.status_message.slice(16);
+    });
+}
+
+
 
 var mastClient = new ROSLIB.Service({
     ros : ros,
@@ -65,7 +96,9 @@ mastClient.callService(requestPing, function(result) {
     document.getElementById('status').style.color = "rgb(255, 47, 47)";
 });
 armClient.callService(requestPing, function(result) {
-    document.getElementById("arm_state").innerHTML = result.status_message.slice(16); });
+    document.getElementById("arm_state").innerHTML = result.status_message.slice(16);
+    armControls(result.status_message.slice(16));
+});
 
 mastListener.subscribe(function(message) {
     document.getElementById("mast_state").innerHTML = message.data;
@@ -73,8 +106,30 @@ mastListener.subscribe(function(message) {
 
 armListener.subscribe(function(message) {
     document.getElementById("arm_state").innerHTML = message.data;
+    armControls(message.data)
 });
 
+function armControls(message) {
+    if (message == "Closed") {
+        document.getElementById("joint1").disabled = true;
+        document.getElementById("joint2").disabled = true;
+        document.getElementById("joint3").disabled = true;
+        document.getElementById("joint4").disabled = true;
+        document.getElementById("effector").disabled = true;
+    }
+    else if (message == "Open") {
+        document.getElementById("joint1").disabled = false;
+        document.getElementById("joint1").value = 0.0;
+        document.getElementById("joint2").disabled = false;
+        document.getElementById("joint2").value = 0.0;
+        document.getElementById("joint3").disabled = false;
+        document.getElementById("joint3").value = 0.0;
+        document.getElementById("joint4").disabled = false;
+        document.getElementById("joint4").value = 0.0;
+        document.getElementById("effector").disabled = false;
+        document.getElementById("effector").value = 0.0;
+    }
+}
 
 // Navigation
 var sendingNav = false;
@@ -121,7 +176,7 @@ AFRAME.registerComponent('tap-place', {
         const ground = document.getElementById('worldterrain')
         var newElement = document.createElement('a-cylinder')
         document.getElementById('main').appendChild(newElement)
-        newElement.setAttribute('height', 1)
+        newElement.setAttribute('height', 500)
         newElement.setAttribute('radius', 0.4)
         newElement.setAttribute('color', "cyan")
         newElement.setAttribute('material', {opacity: 0.0, transparent: true})
@@ -170,3 +225,29 @@ AFRAME.registerComponent('tap-place', {
     },
 
 });
+
+
+var keepPublishingTeleop;
+var keepPublishingMast;
+
+function teleop(params) {
+    keepPublishingTeleop = setInterval(function() {
+        moveRobot(params)
+      }, 16);
+}
+
+function telestop() {
+    clearInterval(keepPublishingTeleop)
+}
+
+function mastClick(params) {
+    keepPublishingMast = setInterval(function() {
+        moveMast(params)
+      }, 16);
+}
+
+function mastStop() {
+    clearInterval(keepPublishingMast)
+}
+
+
