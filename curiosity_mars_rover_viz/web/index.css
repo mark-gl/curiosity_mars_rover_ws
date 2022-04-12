@@ -141,6 +141,11 @@ button:active {
   opacity: 1;
 }
 
+.slider:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
 
 .slider:focus {
     outline: 1px white solid;

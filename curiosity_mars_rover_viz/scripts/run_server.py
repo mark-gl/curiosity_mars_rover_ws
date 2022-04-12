@@ -18,3 +18,5 @@ httpd.socket = ssl.wrap_socket(httpd.socket,
                                certfile=ssl_certificate_file,
                                ssl_version=ssl.PROTOCOL_TLS)
 httpd.serve_forever()
+
+print("Ready! Visit MarsViz at https://127.0.0.1:8080/")

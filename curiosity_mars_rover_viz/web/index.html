@@ -92,19 +92,19 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                <td><button><i class="material-icons md-18">north_west</i></button></td>
-                                <td><button><i class="material-icons md-18">north</i></button></td>
-                                <td><button><i class="material-icons md-18">north_east</i></button></td>
+                                <td><button onmousedown="teleop([1,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">north_west</i></button></td>
+                                <td><button onmousedown="teleop([1,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">north</i></button></td>
+                                <td><button onmousedown="teleop([1,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">north_east</i></button></td>
                                 </tr>
                                 <tr>
-                                <td><button><i class="material-icons md-18">west</i></button></td>
-                                <td><button><i class="material-icons md-18">stop</i></button></button></td>
-                                <td><button><i class="material-icons md-18">east</i></button></td>
+                                <td><button onmousedown="teleop([0,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">west</i></button></td>
+                                <td><button onmousedown="teleop([0,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">stop</i></button></button></td>
+                                <td><button onmousedown="teleop([0,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">east</i></button></td>
                                 </tr>
                                 <tr>
-                                <td><button><i class="material-icons md-18">south_west</i></button></td>
-                                <td><button><i class="material-icons md-18">south</i></button></td>
-                                <td><button><i class="material-icons md-18">south_east</i></button></td>
+                                <td><button onmousedown="teleop([-1,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">south_west</i></button></td>
+                                <td><button onmousedown="teleop([-1,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">south</i></button></td>
+                                <td><button onmousedown="teleop([-1,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">south_east</i></button></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -112,8 +112,8 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                <td><button>Slow Down</button></td>
-                                <td><button>Speed Up</button></td>
+                                <td><button onclick="slowDown()">Slow Down</button></td>
+                                <td><button onclick="speedUp()">Speed Up</button></td>
                                 </tr>
                             </tbody>
                             </table>
@@ -129,17 +129,17 @@
                             <tbody>
                             <tr>
                             <td></td>
-                            <td><button><i class="material-icons md-18">north</i></button></td>
+                            <td><button onmousedown="mastClick('up')" onmouseup="mastStop()"><i class="material-icons md-18">north</i></button></td>
                             <td></td>
                             </tr>
                             <tr>
-                            <td><button><i class="material-icons md-18">west</i></button></td>
-                            <td><button><i class="material-icons md-18">south</i></button></td>
-                            <td><button><i class="material-icons md-18">east</i></button></td>
+                            <td><button onmousedown="mastClick('left')" onmouseup="mastStop()"><i class="material-icons md-18">west</i></button></td>
+                            <td><button onmousedown="mastClick('down')" onmouseup="mastStop()"><i class="material-icons md-18">south</i></button></td>
+                            <td><button onmousedown="mastClick('right')" onmouseup="mastStop()"><i class="material-icons md-18">east</i></button></td>
                             </tr>
                             </tbody>
                         </table>
-                        <table><tbody><tr><td><button><span id="panorama_button_text">Take Panorama</span></button></td></tr></tbody></table>
+                        <table><tbody><tr><td><button onclick="panorama('start')"><span id="panorama_button_text">Take Panorama</span></button></td></tr></tbody></table>
                         Panorama status: <span id="panorama_status">Inactive</span>
                     </div>
                 </div>
@@ -150,24 +150,24 @@
                         <table>
                             <tbody>
                               <tr>
-                                <td>Joint 1</td>
-                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint1"></td>
+                                <td>Azimuth</td>
+                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint1" oninput="armSet(this.id, this.value)"></td>
                               </tr>
                               <tr>
-                                <td>Joint 2</td>
-                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint2"></td>
+                                <td>Elevation</td>
+                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint2" oninput="armSet(this.id, this.value)"></td>
                               </tr>
                               <tr>
-                                <td>Joint 3</td>
-                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint3"></td>
+                                <td>Elbow</td>
+                                <td><input type="range" min="-100" max="100" value="0" class="slider" id="joint3" oninput="armSet(this.id, this.value)"></td>
                               </tr>
                               <tr>
-                                <td>Joint 4</td>
-                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint4"></td>
+                                <td>Wrist</td>
+                                <td><input type="range" min="-100" max="100" value="0" class="slider" id="joint4" oninput="armSet(this.id, this.value)"></td>
                               </tr>
                               <tr>
-                                <td>Effector</td>
-                                <td><input type="range" min="1" max="100" value="1" class="slider" id="effector"></td>
+                                <td>Tools</td>
+                                <td><input type="range" min="-100" max="100" value="0" class="slider" id="effector" oninput="armSet(this.id, this.value)"></td>
                               </tr>
                             </tbody>
                           </table>

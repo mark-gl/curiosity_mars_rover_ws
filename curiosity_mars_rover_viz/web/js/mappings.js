@@ -58,6 +58,11 @@ var mappings = {
       'l_down': 'turnRight',
       'l_up' : 'stopRobot',
 
+      't_down': 'mastUp',
+      'g_down': 'mastDown',
+      'f_down': 'mastLeft',
+      'h_down': 'mastRight',
+
       'q_down':'speedUp',
       'z_down':'slowDown',
 
@@ -98,6 +103,10 @@ var inputActions = {
     slowDown: {params: ''},
     mastToggle: {params: ''},
     armToggle: {params: ''},
+    mastUp: {params: 'up'},
+    mastDown: {params: 'down'},
+    mastLeft: {params: 'left'},
+    mastRight: {params: 'right'},
   }
 }
 
