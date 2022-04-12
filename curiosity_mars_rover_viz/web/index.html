@@ -13,47 +13,14 @@
     <script src="js/mappings.js"></script>
     <script src="js/robotcontrol.js"></script>
     <script src="js/side-controls.js"></script>
-    <link
-      href="https://fonts.googleapis.com/css?family=Abel"
-      rel="stylesheet"
-    />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel"/>
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>MarsViz</title>
   </head>
 
   <body onload="init_env_after_seconds(1)">
-    <div class="sidenav">
-      <h1>M A R S V I Z</h1>
-      <p>Status: <span id="status" style="color:rgb(255, 147, 47)">Connecting...</span></p>
-        <div class="boxes">
-            <div class="controlbox">
-                <h2>Navigation</h2>
-                    <div class="controlinner">
-                        Auto Nav State: <br /><span id="nav_state"
-                        >Awaiting instruction</span
-                        >
-                        <a href="javascript:pickMode()">Send Nav Target</a>
-                        Teleoperation: <br />
-                        Speed multiplier: <span id="speed_state">1.0</span>
-                    </div>
-            </div>
-            <div class="controlbox">
-                <h2>Mast</h2>
-                <div class="controlinner">
-                    Mast State: <br /><span id="mast_state"></span>
-                    <a href="javascript:mast()">Raise/Lower Mast</a>
-                </div>
-            </div>
-            <div class="controlbox">
-                <h2>Robotic Arm</h2>
-                <div class="controlinner">
-                    <span id="arm_state"></span>
-                    <a href="javascript:arm()">Open/Close Arm</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <a-scene
       inspector
       tap-place
@@ -114,5 +81,100 @@
       <a-entity position="0 0 0" rotation="-90 0 0" id="robot-element-parent">
       </a-entity>
     </a-scene>
+    <div class="sidenav">
+        <h1>M A R S V I Z</h1>
+        <p>Status: <span id="status" style="color:rgb(255, 147, 47)">Connecting...</span></p>
+            <div class="boxes">
+                <div class="controlbox">
+                    <h2>Navigation</h2>
+                        <div class="controlinner">
+                            Teleoperation status: <span id="tele_state">OK</span>
+                            <table>
+                                <tbody>
+                                <tr>
+                                <td><button><i class="material-icons md-18">north_west</i></button></td>
+                                <td><button><i class="material-icons md-18">north</i></button></td>
+                                <td><button><i class="material-icons md-18">north_east</i></button></td>
+                                </tr>
+                                <tr>
+                                <td><button><i class="material-icons md-18">west</i></button></td>
+                                <td><button><i class="material-icons md-18">stop</i></button></button></td>
+                                <td><button><i class="material-icons md-18">east</i></button></td>
+                                </tr>
+                                <tr>
+                                <td><button><i class="material-icons md-18">south_west</i></button></td>
+                                <td><button><i class="material-icons md-18">south</i></button></td>
+                                <td><button><i class="material-icons md-18">south_east</i></button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            Speed multiplier: <span id="speed_state">1.0</span>
+                            <table>
+                                <tbody>
+                                <tr>
+                                <td><button>Slow Down</button></td>
+                                <td><button>Speed Up</button></td>
+                                </tr>
+                            </tbody>
+                            </table>
+                            Auto nav status: <span id="nav_state">Waiting</span>
+                            <table><tbody><tr><td><button onclick="pickMode()">Send Nav Target</button></td></tr></tbody></table>
+                        </div>
+                </div>
+                <div class="controlbox">
+                    <h2>Mast (<span id="mast_state"></span>)</h2>
+                    <div class="controlinner">
+                        <table><tbody><tr><td><button id="mast_button" onclick="mast()">Raise/Lower Mast</button></td></tr></tbody></table>
+                        <table>
+                            <tbody>
+                            <tr>
+                            <td></td>
+                            <td><button><i class="material-icons md-18">north</i></button></td>
+                            <td></td>
+                            </tr>
+                            <tr>
+                            <td><button><i class="material-icons md-18">west</i></button></td>
+                            <td><button><i class="material-icons md-18">south</i></button></td>
+                            <td><button><i class="material-icons md-18">east</i></button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table><tbody><tr><td><button><span id="panorama_button_text">Take Panorama</span></button></td></tr></tbody></table>
+                        Panorama status: <span id="panorama_status">Inactive</span>
+                    </div>
+                </div>
+                <div class="controlbox">
+                    <h2>Arm (<span id="arm_state"></span>)</h2>
+                    <div class="controlinner">
+                        <table><tbody><tr><td><button onclick="arm()">Open/Close Arm</button></td></tr></tbody></table>
+                        <table>
+                            <tbody>
+                              <tr>
+                                <td>Joint 1</td>
+                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint1"></td>
+                              </tr>
+                              <tr>
+                                <td>Joint 2</td>
+                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint2"></td>
+                              </tr>
+                              <tr>
+                                <td>Joint 3</td>
+                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint3"></td>
+                              </tr>
+                              <tr>
+                                <td>Joint 4</td>
+                                <td><input type="range" min="1" max="100" value="1" class="slider" id="joint4"></td>
+                              </tr>
+                              <tr>
+                                <td>Effector</td>
+                                <td><input type="range" min="1" max="100" value="1" class="slider" id="effector"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+
   </body>
 </html>

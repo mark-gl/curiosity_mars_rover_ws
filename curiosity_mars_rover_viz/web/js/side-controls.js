@@ -55,7 +55,6 @@ var requestToggle = new ROSLIB.ServiceRequest({ mode: 'toggle' });
 //     document.getElementById('status').innerHTML = "Connected to rover"
 //     document.getElementById('status').style.color = "rgb(17, 207, 0)";
 // }
-console.error(mastClient)
 
 mastClient.callService(requestPing, function(result) {
     document.getElementById("mast_state").innerHTML = result.status_message.slice(17); 
