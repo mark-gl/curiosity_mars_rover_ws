@@ -260,7 +260,8 @@ AFRAME.registerComponent("tap-place", {
     max: { default: 10 },
   },
   init() {
-    const ground = document.getElementById("worldterrain");
+      // WALLACE !!! Generalise this 
+    const ground = document.getElementById("mars_terrain");
     var newElement = document.createElement("a-cylinder");
     document.getElementById("main").appendChild(newElement);
     newElement.setAttribute("height", 500);

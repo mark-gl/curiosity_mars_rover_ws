@@ -20,6 +20,7 @@ var gazeboWorld = new ROSLIB.Service({
       case "world_mars_terrain":
         console.error("Moment");
         var mars_terrain = document.createElement("a-entity");
+        mars_terrain.setAttribute("id", "mars_terrain");
         mars_terrain.setAttribute("gltf-model", "#terrain");
         mars_terrain.setAttribute("position", "0 0 0");
         mars_terrain.setAttribute("rotation", "0 0 0");
