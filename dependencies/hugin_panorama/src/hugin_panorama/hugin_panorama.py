@@ -59,7 +59,7 @@ class HuginPanorama():
     # create project file
     self.bash_exec('pto_gen -o pano.pto %s' % files)
     # do cpfind
-    self.bash_exec('cpfind -o pano.pto --multirow --celeste pano.pto')
+    self.bash_exec('cpfind -o pano.pto ---linearmatch pano.pto')
     # do clean
     self.bash_exec('cpclean -o pano.pto pano.pto')
     # do vertical lines
