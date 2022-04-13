@@ -275,16 +275,6 @@ move_base_result.subscribe(function (message) {
   }
 });
 
-// AFRAME.registerComponent("tap-place", {
-//   schema: {
-//     min: { default: 6 },
-//     max: { default: 10 },
-//   },
-//   init() {
-//       // WALLACE !!! Generalise this
-
-// });
-
 var keepPublishingTeleop;
 var keepPublishingMast;
 

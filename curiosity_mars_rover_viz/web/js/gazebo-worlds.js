@@ -78,7 +78,6 @@ AFRAME.registerComponent("gazebo-world", {
       ground.addEventListener("click", (event) => nav(event), false);
       async function nav(event) {
         if (sendingNav) {
-          // document WALLACE reneable
           //   .getElementById("camera")
           //   .setAttribute("look-controls", { enabled: true });
           // sendingNav = false;
