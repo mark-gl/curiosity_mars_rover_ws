@@ -31,6 +31,7 @@
       fog="type: linear; color: #C49452; near: 10; far: 100;"
     >
       <a-assets>
+        <a-asset-item id="arrow" src="models/arrow.obj"></a-asset-item>
         <a-asset-item id="terrain" src="models/terrain_export_1.gltf"></a-asset-item>
         <a-asset-item id="path" src="models/curiosity_path.gltf"></a-asset-item>
         <a-asset-item id="photo" src="models/photogrammetry.gltf"></a-asset-item>
@@ -63,6 +64,8 @@
           cursor="
             fuse: false;
             rayOrigin: mouse;"
+          collider-check
+          cursor-listener
         >
         </a-entity>
         <a-entity

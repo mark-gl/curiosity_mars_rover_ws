@@ -191,12 +191,31 @@ function armControls(message) {
 var sendingNav = false;
 
 function pickMode() {
-  if (document.getElementById("nav_state").innerHTML != "Navigating") {
+  if (
+    !orientationPick &&
+    !sendingNav &&
+    document.getElementById("nav_state").innerHTML != "Navigating"
+  ) {
     sendingNav = true;
+    document
+      .getElementById("camera")
+      .setAttribute("look-controls", { enabled: false });
+    document.getElementById("send_button").innerHTML =
+      "Picking... (Click to cancel)";
+  } else if (sendingNav || orientationPick) {
+    console.error("ok stop sending nav");
+    sendingNav = false;
+    orientationPick = false;
+    hideMarker();
+    document
+      .getElementById("camera")
+      .setAttribute("look-controls", { enabled: true });
+    document.getElementById("send_button").innerHTML = "Send Nav Goal";
   } else {
     move_base_cancel.publish(new ROSLIB.Message({}));
-    document.getElementById("nav_state").innerHTML == "Waiting";
-    document.getElementById("send_button").innerHTML == "Send Nav Goal";
+    console.error(document.getElementById("camera"));
+    //document.getElementById("nav_state").innerHTML = "Waiting";
+    //document.getElementById("send_button").innerHTML = "Send Nav Goal";
   }
 }
 
@@ -233,6 +252,7 @@ move_base_feedback.subscribe(function (message) {
   if (message.status.status == 1 && navigating) {
     document.getElementById("nav_state").innerHTML = "Navigating";
     document.getElementById("send_button").innerHTML = "Cancel Nav Goal";
+    teleportIndicator.setAttribute("visible", "true");
   }
 });
 
@@ -241,16 +261,17 @@ var navigating = false;
 move_base_result.subscribe(function (message) {
   if (message.status.status == 2) {
     document.getElementById("nav_state").innerHTML = "Cancelled";
-    document.getElementById("send_button").innerHTML = "Send Nav Goal";
   }
   if (message.status.status == 3) {
     document.getElementById("nav_state").innerHTML = "Reached goal!";
-    document.getElementById("send_button").innerHTML = "Send Nav Goal";
     navigating = false;
   }
   if (message.status.status == 4) {
     document.getElementById("nav_state").innerHTML = "Aborted";
+  }
+  if (!sendingNav) {
     document.getElementById("send_button").innerHTML = "Send Nav Goal";
+    teleportIndicator.setAttribute("visible", "false");
   }
 });
 
@@ -260,8 +281,8 @@ move_base_result.subscribe(function (message) {
 //     max: { default: 10 },
 //   },
 //   init() {
-//       // WALLACE !!! Generalise this 
- 
+//       // WALLACE !!! Generalise this
+
 // });
 
 var keepPublishingTeleop;
@@ -336,4 +357,3 @@ function panorama() {
     document.getElementById("panorama_button").disabled = true;
   }
 }
-

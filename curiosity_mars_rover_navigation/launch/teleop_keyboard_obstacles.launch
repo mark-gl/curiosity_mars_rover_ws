@@ -8,5 +8,5 @@
 
     <node name="curiosity_rover_teleop_keyboard_obstacles_node" pkg="curiosity_mars_rover_navigation" type="obstacle_service.py" respawn="false" output="screen" args="" />
 
-    <node name="curiosity_rover_teleop_keyboard_obstacles_node" pkg="curiosity_mars_rover_navigation" type="teleop_keyboard_obstacles.py" respawn="false" output="screen" args="" />
+    <node name="curiosity_rover_teleop_keyboard_obstacles_node_2" pkg="curiosity_mars_rover_navigation" type="teleop_keyboard_obstacles.py" respawn="false" output="screen" args="" />
 </launch>
