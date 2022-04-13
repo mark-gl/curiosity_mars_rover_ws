@@ -57,8 +57,7 @@
   <build_export_depend>curiosity_mars_rover_description</build_export_depend>
   <build_export_depend>curiosity_mars_rover_gazebo</build_export_depend>
   <build_export_depend>tf2_web_republisher</build_export_depend>
-  <exec_depend>curiosity_mars_rover_control</exec_depend>
-  <exec_depend>curiosity_mars_rover_description</exec_depend>
+  <exec_depend>curiosity_mars_rover_navigation</exec_depend>
   <exec_depend>curiosity_mars_rover_gazebo</exec_depend>
   <exec_depend>tf2_web_republisher</exec_depend>
 
