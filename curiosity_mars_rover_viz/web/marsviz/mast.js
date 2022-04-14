@@ -144,3 +144,24 @@ panorama_feedback.subscribe(function (message) {
     document.getElementById("panorama_button").disabled = false;
   }
 });
+
+
+
+
+
+    // // Mast/arm functions
+    // scene.addEventListener("mastToggle", mastToggle);
+    // scene.addEventListener("armToggle", armToggle);
+
+    // scene.addEventListener("mastUp", function (_) {
+    //   mastMove(-0.02, 0);
+    // });
+    // scene.addEventListener("mastDown", function (_) {
+    //   mastMove(0.02, 0);
+    // });
+    // scene.addEventListener("mastLeft", function (_) {
+    //   mastMove(0, 0.02);
+    // });
+    // scene.addEventListener("mastRight", function (_) {
+    //   mastMove(0, -0.02);
+    // });

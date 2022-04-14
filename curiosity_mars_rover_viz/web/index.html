@@ -11,13 +11,15 @@
     <script src="include/aframe-navigation-controls.js"></script>
 
     <script src="marsviz/controls.js" defer></script>
+    <script src="marsviz/teleop.js" defer></script>
+    
     <script src="marsviz/init.js" defer></script>
 
-    <script src="marsviz/teleop.js" defer></script>
-    <script src="marsviz/nav.js" defer></script>
+
+    <!-- <script src="marsviz/nav.js" defer></script>
 
     <script src="marsviz/arm.js" defer></script>
-    <script src="marsviz/mast.js" defer></script>
+    <script src="marsviz/mast.js" defer></script> -->
 
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel"/>
@@ -26,7 +28,7 @@
     <title>MarsViz</title>
   </head>
 
-  <body onload="init_env_after_seconds(1)">
+  <body>
 
     <a-scene gazebo-world id="main" fog="type: linear; color: #C49452; near: 10; far: 100;">
 
