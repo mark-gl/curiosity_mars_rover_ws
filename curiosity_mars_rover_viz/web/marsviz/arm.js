@@ -94,3 +94,5 @@ armListener.subscribe(function (message) {
   document.getElementById("arm_state").innerHTML = message.data;
   updateArmButtons(message.data);
 });
+
+// scene.addEventListener("armToggle", armToggle);

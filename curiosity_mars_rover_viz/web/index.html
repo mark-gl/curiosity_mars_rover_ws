@@ -12,9 +12,10 @@
 
     <script src="marsviz/controls.js" defer></script>
     <script src="marsviz/teleop.js" defer></script>
+    <script src="marsviz/nav.js" defer></script>
 
     <script src="marsviz/init.js" defer></script>
-    <!-- <script src="marsviz/nav.js" defer></script> -->
+    
 
     <!-- 
     <script src="marsviz/arm.js" defer></script>
@@ -211,7 +212,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <button onclick="pickMode()">
+                    <button onclick="marsviz.navigation.pickLocation()">
                       <span id="send_button">Send Nav Goal</span>
                     </button>
                   </td>

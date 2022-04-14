@@ -4,7 +4,7 @@ class MarsViz {
     this.scene = document.querySelector("a-scene");
 
     this.teleop = new Teleop(this.ros, this.scene);
-    //this.navigation = new Nav();
+    this.navigation; // Initialised after world loaded
 
     // this.requestPing = new ROSLIB.ServiceRequest({ mode: "ping" });
     // this.requestToggle = new ROSLIB.ServiceRequest({ mode: "toggle" });
@@ -38,7 +38,6 @@ class MarsViz {
         path: "https://127.0.0.1:8080/",
       }
     );
-    
   }
 
   addVisualization(rootNode, type, options, enabled = true) {
@@ -91,6 +90,7 @@ class MarsViz {
         newElement.setAttribute("rotation", "-90 0 0");
         break;
     }
+    this.navigation = new Nav(this.ros);
   }
 }
 
