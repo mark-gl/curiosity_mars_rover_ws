@@ -87,7 +87,6 @@ class Nav {
   }
 
   async nav(event) {
-    console.error("Hello!2");
     if (this.sendingNav) {
       var touchPoint = event.detail.intersection.point;
       var position =

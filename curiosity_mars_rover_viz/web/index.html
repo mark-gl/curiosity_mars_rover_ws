@@ -12,15 +12,12 @@
 
     <script src="marsviz/controls.js" defer></script>
     <script src="marsviz/teleop.js" defer></script>
+    <script src="marsviz/mast.js" defer></script>
+    <script src="marsviz/arm.js" defer></script>
     <script src="marsviz/nav.js" defer></script>
 
     <script src="marsviz/init.js" defer></script>
     
-
-    <!-- 
-    <script src="marsviz/arm.js" defer></script>
-    <script src="marsviz/mast.js" defer></script> -->
-
     <link rel="stylesheet" href="index.css" />
     <link
       rel="stylesheet"
@@ -228,7 +225,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <button id="mast_button" onclick="mastToggle()">
+                    <button id="mast_button" onclick="marsviz.mast.mastToggle()">
                       Raise/Lower Mast
                     </button>
                   </td>
@@ -242,8 +239,8 @@
                   <td>
                     <button
                       id="mu"
-                      onmousedown="mastClick(-0.02, 0)"
-                      onmouseup="mastStop()"
+                      onmousedown="marsviz.mast.mastClick(-0.02, 0)"
+                      onmouseup="marsviz.mast.mastStop()"
                     >
                       <i class="material-icons md-18">north</i>
                     </button>
@@ -254,8 +251,8 @@
                   <td>
                     <button
                       id="ml"
-                      onmousedown="mastClick(0, 0.02)"
-                      onmouseup="mastStop()"
+                      onmousedown="marsviz.mast.mastClick(0, 0.02)"
+                      onmouseup="marsviz.mast.mastStop()"
                     >
                       <i class="material-icons md-18">west</i>
                     </button>
@@ -263,8 +260,8 @@
                   <td>
                     <button
                       id="md"
-                      onmousedown="mastClick(0.02, 0)"
-                      onmouseup="mastStop()"
+                      onmousedown="marsviz.mast.mastClick(0.02, 0)"
+                      onmouseup="marsviz.mast.mastStop()"
                     >
                       <i class="material-icons md-18">south</i>
                     </button>
@@ -272,8 +269,8 @@
                   <td>
                     <button
                       id="mr"
-                      onmousedown="mastClick(0, -0.02)"
-                      onmouseup="mastStop()"
+                      onmousedown="marsviz.mast.mastClick(0, -0.02)"
+                      onmouseup="marsviz.mast.mastStop()"
                     >
                       <i class="material-icons md-18">east</i>
                     </button>
@@ -285,7 +282,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <button id="panorama_button" onclick="panorama()">
+                    <button id="panorama_button" onclick="marsviz.mast.panorama()">
                       <span id="panorama_button_text">Take Panorama</span>
                     </button>
                   </td>
@@ -301,7 +298,7 @@
             <table>
               <tbody>
                 <tr>
-                  <td><button onclick="armToggle()">Open/Close Arm</button></td>
+                  <td><button onclick="marsviz.arm.armToggle()">Open/Close Arm</button></td>
                 </tr>
               </tbody>
             </table>
@@ -317,7 +314,7 @@
                       value="1"
                       class="slider"
                       id="joint1"
-                      oninput="armSet(this.id, this.value)"
+                      oninput="marsviz.arm.armSet(this.id, this.value)"
                     />
                   </td>
                 </tr>
@@ -331,7 +328,7 @@
                       value="1"
                       class="slider"
                       id="joint2"
-                      oninput="armSet(this.id, this.value)"
+                      oninput="marsviz.arm.armSet(this.id, this.value)"
                     />
                   </td>
                 </tr>
@@ -345,7 +342,7 @@
                       value="0"
                       class="slider"
                       id="joint3"
-                      oninput="armSet(this.id, this.value)"
+                      oninput="marsviz.arm.armSet(this.id, this.value)"
                     />
                   </td>
                 </tr>
@@ -359,7 +356,7 @@
                       value="0"
                       class="slider"
                       id="joint4"
-                      oninput="armSet(this.id, this.value)"
+                      oninput="marsviz.arm.armSet(this.id, this.value)"
                     />
                   </td>
                 </tr>
@@ -373,7 +370,7 @@
                       value="0"
                       class="slider"
                       id="effector"
-                      oninput="armSet(this.id, this.value)"
+                      oninput="marsviz.arm.armSet(this.id, this.value)"
                     />
                   </td>
                 </tr>

@@ -15,100 +15,93 @@ class Mast {
       messageType: "std_msgs/String",
     });
 
-    this.panorama_goal = new ROSLIB.Topic({
+    this.panoramaGoal = new ROSLIB.Topic({
       ros: ros,
       name: "/panorama_server_node/goal",
       messageType: "actionlib_msgs/GoalID",
     });
 
-    this.panorama_cancel = new ROSLIB.Topic({
+    this.panoramaCancel = new ROSLIB.Topic({
       ros: ros,
       name: "/panorama_server_node/cancel",
       messageType: "actionlib_msgs/GoalID",
     });
 
-    this.panorama_feedback = new ROSLIB.Topic({
+    this.panoramaFeedback = new ROSLIB.Topic({
       ros: ros,
       name: "/panorama_server_node/feedback",
       messageType: "curiosity_mars_rover_control/PanoramaActionFeedback",
     });
 
-    this.panorama_result = new ROSLIB.Topic({
+    this.panoramaResult = new ROSLIB.Topic({
       ros: ros,
       name: "/panorama_server_node/result",
       messageType: "curiosity_mars_rover_control/PanoramaActionResult",
     });
-
     this.mastClient.callService(
-      requestPing,
-      function (result) {
-        document.getElementById("mast_state").innerHTML =
-          result.status_message.slice(17);
-        // READD! updateMastButtons(result.status_message.slice(17));
-        document.getElementById("status").innerHTML = "Connected to rover";
-        document.getElementById("status").style.color = "rgb(17, 207, 0)";
-      },
+      new ROSLIB.ServiceRequest({ mode: "ping" }),
+      this.mastCallback.bind(this),
       function (error) {
         document.getElementById("status").innerHTML = "Couldn't connect.";
+        // Can display error?
         document.getElementById("status").style.color = "rgb(255, 47, 47)";
       }
     );
 
-    this.mastListener.subscribe(function (message) {
-      document.getElementById("mast_state").innerHTML = message.data;
-      // READD! updateMastButtons(message.data);
-    });
+    this.mastListener.subscribe(this.mastCallback.bind(this));
 
-    this.panorama_feedback.subscribe(function (message) {
-      document.getElementById("panorama_status").innerHTML =
-        message.feedback.state;
-      if (message.feedback.state == "Stitching") {
-        // READD! stitching = true;
-        document.getElementById("panorama_button").disabled = true;
-      }
-      if (message.feedback.state == "Stitched!") {
-        // READD! stitching = false;
-        document.getElementById("panorama_button").disabled = false;
-      }
-    });
+    this.panoramaFeedback.subscribe(this.panoramaCallback.bind(this));
 
-    scene.addEventListener("mastToggle", mastToggle);
+    scene.addEventListener("mastToggle", this.mastToggle.bind(this));
 
-    scene.addEventListener("mastUp", function (_) {
-      mastMove(-0.02, 0);
-    });
-    scene.addEventListener("mastDown", function (_) {
-      mastMove(0.02, 0);
-    });
-    scene.addEventListener("mastLeft", function (_) {
-      mastMove(0, 0.02);
-    });
-    scene.addEventListener("mastRight", function (_) {
-      mastMove(0, -0.02);
-    });
+    scene.addEventListener("mastUp", this.mastMove.bind(this, -0.02, 0));
+    scene.addEventListener("mastDown",  this.mastMove.bind(this, 0.02, 0));
+    scene.addEventListener("mastLeft", this.mastMove.bind(this, 0, 0.02));
+    scene.addEventListener("mastRight", this.mastMove.bind(this, 0, -0.02));
+  }
+
+  mastCallback(result) {
+    document.getElementById("mast_state").innerHTML =
+      result.status_message.slice(17);
+    this.updateMastButtons(result.status_message.slice(17));
+    document.getElementById("status").innerHTML = "Connected to rover";
+    document.getElementById("status").style.color = "rgb(17, 207, 0)";
+  }
+
+  panoramaCallback(result) {
+    document.getElementById("panorama_status").innerHTML =
+      result.feedback.state;
+    if (result.feedback.state == "Stitching") {
+      this.stitching = true;
+      document.getElementById("panorama_button").disabled = true;
+    }
+    if (result.feedback.state == "Stitched!") {
+      this.stitching = false;
+      document.getElementById("panorama_button").disabled = false;
+    }
   }
 
   mastToggle() {
-    mastClient.callService(requestToggle);
+    this.mastClient.callService(new ROSLIB.ServiceRequest({ mode: "toggle" }));
   }
 
   mastMove(x, y) {
-    request = new ROSLIB.ServiceRequest({
+    var request = new ROSLIB.ServiceRequest({
       mode: "rotate",
       rot_x: x,
       rot_y: y,
     });
-    mastClient.callService(request);
+    this.mastClient.callService(request);
   }
 
+  // Need changes below here
+
   mastClick(x, y) {
-    keepPublishingMast = setInterval(function () {
-      mastMove(x, y);
-    }, 16);
+    this.keepPublishingMast = setInterval(this.mastMove.bind(this, x, y), 16);
   }
 
   mastStop() {
-    clearInterval(keepPublishingMast);
+    clearInterval(this.keepPublishingMast);
   }
 
   panorama() {
@@ -116,11 +109,11 @@ class Mast {
       document.getElementById("panorama_button_text").innerHTML ==
       "Take Panorama"
     ) {
-      panorama_goal.publish(new ROSLIB.Message({}));
+      this.panoramaGoal.publish(new ROSLIB.Message({}));
       document.getElementById("panorama_button_text").innerHTML =
         "Cancel Panorama";
     } else {
-      panorama_cancel.publish(new ROSLIB.Message({}));
+      this.panoramaCancel.publish(new ROSLIB.Message({}));
       document.getElementById("panorama_button_text").innerHTML =
         "Cancelling...";
       document.getElementById("panorama_button").disabled = true;
@@ -136,7 +129,7 @@ class Mast {
         document.getElementById("mr").disabled = false;
         document.getElementById("panorama_button_text").innerHTML =
           "Take Panorama";
-        if (!stitching) {
+        if (!this.stitching) {
           document.getElementById("panorama_button").disabled = false;
         }
         document.getElementById("mast_button").disabled = false;

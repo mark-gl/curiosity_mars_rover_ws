@@ -4,10 +4,10 @@ class MarsViz {
     this.scene = document.querySelector("a-scene");
 
     this.teleop = new Teleop(this.ros, this.scene);
-    this.navigation; // Initialised after world loaded
+    this.mast = new Mast(this.ros, this.scene)
+    this.arm = new Arm(this.ros, this.scene)
 
-    // this.requestPing = new ROSLIB.ServiceRequest({ mode: "ping" });
-    // this.requestToggle = new ROSLIB.ServiceRequest({ mode: "toggle" });
+    this.navigation; // Initialised after world loaded
 
     this.gazeboWorld = new ROSLIB.Service({
       ros: this.ros,

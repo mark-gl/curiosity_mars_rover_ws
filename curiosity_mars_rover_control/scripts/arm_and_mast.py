@@ -50,7 +50,7 @@ class CuriosityMarsRoverArmAndMast(object):
         response.success = self.set_arm_pose(req)
         if response.success:
             response.status_message = "Done! Arm Mode: " + self.arm_state
-            self.arm_pub.publish(self.arm_state)
+            self.arm_pub.publish(response.status_message)
         else:
             response.status_message = "Fail! Arm Mode: " + self.arm_state
         return response
@@ -60,7 +60,7 @@ class CuriosityMarsRoverArmAndMast(object):
         response.success = self.set_mast_pose(req)
         if response.success:
             response.status_message = "Done! Mast Mode: " + self.mast_state
-            self.mast_pub.publish(self.mast_state)
+            self.mast_pub.publish(response.status_message)
         else:
             response.status_message = "Fail! Mast Mode: " + self.mast_state
         return response
