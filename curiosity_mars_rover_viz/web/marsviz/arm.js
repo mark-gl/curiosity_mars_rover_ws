@@ -12,12 +12,9 @@ class Arm {
       messageType: "std_msgs/String",
     });
 
-    this.armClient.callService(
-      new ROSLIB.ServiceRequest({ mode: "ping" }),
-      this.updateArmButtons.bind(this)
-    );
-
     this.armListener.subscribe(this.updateArmButtons.bind(this));
+
+    this.armClient.callService(new ROSLIB.ServiceRequest({ mode: "ping" }));
 
     scene.addEventListener("armToggle", this.armToggle.bind(this));
   }
@@ -62,16 +59,13 @@ class Arm {
       default:
         break;
     }
-    armClient.callService(req, function (result) {
-      document.getElementById("arm_state").innerHTML =
-        result.status_message.slice(16);
-    });
+    armClient.callService(req);
   }
 
   updateArmButtons(result) {
     document.getElementById("arm_state").innerHTML =
-      result.status_message.slice(16);
-    switch (result.status_message.slice(16)) {
+      result.data.slice(16);
+    switch (result.data.slice(16)) {
       case "Closed":
         document.getElementById("joint1").disabled = true;
         document.getElementById("joint2").disabled = true;

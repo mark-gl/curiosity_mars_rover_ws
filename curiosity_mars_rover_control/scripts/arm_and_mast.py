@@ -53,6 +53,7 @@ class CuriosityMarsRoverArmAndMast(object):
             self.arm_pub.publish(response.status_message)
         else:
             response.status_message = "Fail! Arm Mode: " + self.arm_state
+            self.arm_pub.publish(response.status_message)
         return response
 
     def mast_service_cb(self, req):
@@ -63,6 +64,7 @@ class CuriosityMarsRoverArmAndMast(object):
             self.mast_pub.publish(response.status_message)
         else:
             response.status_message = "Fail! Mast Mode: " + self.mast_state
+            self.mast_pub.publish(response.status_message)
         return response
 
     def wait_publishers_to_be_ready(self):

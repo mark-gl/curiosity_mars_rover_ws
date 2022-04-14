@@ -38,17 +38,20 @@ class Mast {
       name: "/panorama_server_node/result",
       messageType: "curiosity_mars_rover_control/PanoramaActionResult",
     });
-    this.mastClient.callService(
-      new ROSLIB.ServiceRequest({ mode: "ping" }),
-      this.mastCallback.bind(this),
-      function (error) {
-        document.getElementById("status").innerHTML = "Couldn't connect.";
-        // Can display error?
-        document.getElementById("status").style.color = "rgb(255, 47, 47)";
-      }
-    );
 
     this.mastListener.subscribe(this.mastCallback.bind(this));
+
+    this.mastClient.callService(
+        new ROSLIB.ServiceRequest({ mode: "ping" }),
+        function (result ) {
+          document.getElementById("status").innerHTML = "Connected to rover";
+          document.getElementById("status").style.color = "rgb(17, 207, 0)";
+        },
+        function (error) {
+          document.getElementById("status").innerHTML = "Couldn't connect.";
+          document.getElementById("status").style.color = "rgb(255, 47, 47)";
+        }
+      );  
 
     this.panoramaFeedback.subscribe(this.panoramaCallback.bind(this));
 
@@ -61,11 +64,10 @@ class Mast {
   }
 
   mastCallback(result) {
+    console.error(result)
     document.getElementById("mast_state").innerHTML =
-      result.status_message.slice(17);
-    this.updateMastButtons(result.status_message.slice(17));
-    document.getElementById("status").innerHTML = "Connected to rover";
-    document.getElementById("status").style.color = "rgb(17, 207, 0)";
+      result.data.slice(17);
+    this.updateMastButtons(result.data.slice(17));
   }
 
   panoramaCallback(result) {
