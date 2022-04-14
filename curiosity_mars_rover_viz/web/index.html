@@ -4,7 +4,7 @@
     <script src="https://aframe.io/releases/1.0.4/aframe.js"></script>
     <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.js"></script>
     <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
-    
+
     <script src="include/roslib.js"></script>
     <script src="include/ros3d.js"></script>
     <script src="include/eventemitter2.js"></script>
@@ -12,36 +12,52 @@
 
     <script src="marsviz/controls.js" defer></script>
     <script src="marsviz/teleop.js" defer></script>
-    
+
     <script src="marsviz/init.js" defer></script>
+    <!-- <script src="marsviz/nav.js" defer></script> -->
 
-
-    <!-- <script src="marsviz/nav.js" defer></script>
-
+    <!-- 
     <script src="marsviz/arm.js" defer></script>
     <script src="marsviz/mast.js" defer></script> -->
 
     <link rel="stylesheet" href="index.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abel"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Abel"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
 
     <title>MarsViz</title>
   </head>
 
   <body>
-
-    <a-scene gazebo-world id="main" fog="type: linear; color: #C49452; near: 10; far: 100;">
-
+    <a-scene
+      gazebo-world
+      id="main"
+      fog="type: linear; color: #C49452; near: 10; far: 100;"
+    >
       <a-assets>
         <a-asset-item id="arrow" src="models/arrow.obj"></a-asset-item>
-        <a-asset-item id="terrain" src="models/terrain_export_1.gltf"></a-asset-item>
+        <a-asset-item
+          id="terrain"
+          src="models/terrain_export_1.gltf"
+        ></a-asset-item>
         <a-asset-item id="path" src="models/curiosity_path.gltf"></a-asset-item>
-        <a-asset-item id="photo" src="models/photogrammetry.gltf"></a-asset-item>
+        <a-asset-item
+          id="photo"
+          src="models/photogrammetry.gltf"
+        ></a-asset-item>
       </a-assets>
 
       <a-sky color="#CCC299" scale="1 1 1"></a-sky>
       <a-entity light="type: ambient; color: #CCC299"></a-entity>
-      <a-entity light="type: directional; color: #FFF; intensity: 1" position="-0.5 1 1"></a-entity>
+      <a-entity
+        light="type: directional; color: #FFF; intensity: 1"
+        position="-0.5 1 1"
+      ></a-entity>
 
       <a-entity id="rig" position="0 -0.5 5.1">
         <a-entity
@@ -55,99 +71,316 @@
             fuse: false;
             rayOrigin: mouse;"
           collider-check
-          cursor-listener>
+          cursor-listener
+        >
         </a-entity>
         <a-entity
           id="leftHand"
           navigation-controls="type: line; cameraRig: #rig; hitCylinderColor: #7DF9FF; curveHitColor: #7DF9FF; robotNav: true;
                 startEvents: navigationstart; endEvents: navigationend; collisionEntities: #world; maxLength: 50;"
           raycaster="objects: [gui-interactable]"
-          laser-controls="hand: left;">
+          laser-controls="hand: left;"
+        >
         </a-entity>
         <a-entity
           id="rightHand"
           navigation-controls="type: line; cameraRig: #rig;
                 startEvents: navigationstart; endEvents: navigationend; collisionEntities: #world; maxLength: 50;"
           raycaster="objects: [gui-interactable]"
-          laser-controls="hand: right;">
+          laser-controls="hand: right;"
+        >
         </a-entity>
       </a-entity>
 
       <a-entity position="0 0 0" rotation="-90 0 0" id="robot-element-parent">
       </a-entity>
-
     </a-scene>
 
     <div class="sidenav">
       <h1>M A R S V I Z</h1>
-      <p>Status: <span id="status" style="color:rgb(255, 147, 47)">Connecting...</span></p>
-        <div class="boxes">
-          <div class="controlbox">
-            <h2>Navigation</h2>
-              <div class="controlinner">
-                Teleoperation status: <span id="tele_state">OK</span>
-                <table><tbody><tr>
-                  <td><button id="nw" onmousedown="teleop([1,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">north_west</i></button></td>
-                  <td><button id="n" onmousedown="teleop([1,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">north</i></button></td>
-                  <td><button id="ne" onmousedown="teleop([1,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">north_east</i></button><td>
-                </tr><tr>
-                  <td><button onmousedown="teleop([0,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">west</i></button></td>
-                  <td><button onmousedown="teleop([0,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">stop</i></button></button></td>
-                  <td><button onmousedown="teleop([0,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">east</i></button></td>
-                </tr><tr>
-                  <td><button id="sw" onmousedown="teleop([-1,0,0,0,0,1])" onmouseup="telestop()"><i class="material-icons md-18">south_west</i></button></td>
-                  <td><button id="s" onmousedown="teleop([-1,0,0,0,0,0])" onmouseup="telestop()"><i class="material-icons md-18">south</i></button></td>
-                  <td><button id="se" onmousedown="teleop([-1,0,0,0,0,-1])" onmouseup="telestop()"><i class="material-icons md-18">south_east</i></button></td>
-                </tr></tbody></table>
-                Speed multiplier: <span id="speed_state">1.0</span>
-                <table><tbody><tr>
-                  <td><button onclick="slowDown()">Slow Down</button></td>
-                  <td><button onclick="speedUp()">Speed Up</button></td>
-                </tr></tbody></table>
-                Auto nav status: <span id="nav_state">Waiting</span>
-                <table><tbody><tr><td><button onclick="pickMode()"><span id="send_button">Send Nav Goal</span></button></td></tr></tbody></table>
-              </div>
-          </div>
-          <div class="controlbox">
-              <h2>Mast (<span id="mast_state"></span>)</h2>
-              <div class="controlinner">
-                <table><tbody><tr><td><button id="mast_button" onclick="mastToggle()">Raise/Lower Mast</button></td></tr></tbody></table>
-                <table><tbody><tr><td></td>
-                  <td><button id="mu" onmousedown="mastClick(-0.02, 0)" onmouseup="mastStop()"><i class="material-icons md-18">north</i></button></td>
-                <td></td></tr><tr>
-                  <td><button id="ml" onmousedown="mastClick(0, 0.02)" onmouseup="mastStop()"><i class="material-icons md-18">west</i></button></td>
-                  <td><button id="md" onmousedown="mastClick(0.02, 0)" onmouseup="mastStop()"><i class="material-icons md-18">south</i></button></td>
-                  <td><button id="mr" onmousedown="mastClick(0, -0.02)" onmouseup="mastStop()"><i class="material-icons md-18">east</i></button></td>
-                </tr></tbody></table>
-                <table><tbody><tr><td>
-                  <button id="panorama_button" onclick="panorama()"><span id="panorama_button_text">Take Panorama</span></button>
-                </td></tr></tbody></table>
-                Panorama status: <span id="panorama_status">Inactive</span>
-              </div>
-          </div>
-          <div class="controlbox">
-              <h2>Arm (<span id="arm_state"></span>)</h2>
-              <div class="controlinner">
-                  <table><tbody><tr><td><button onclick="armToggle()">Open/Close Arm</button></td></tr></tbody></table>
-                  <table><tbody><tr>
-                    <td>Azimuth</td>
-                    <td><input type="range" min="1" max="100" value="1" class="slider" id="joint1" oninput="armSet(this.id, this.value)"></td>
-                  </tr><tr>
-                    <td>Elevation</td>
-                    <td><input type="range" min="1" max="100" value="1" class="slider" id="joint2" oninput="armSet(this.id, this.value)"></td>
-                  </tr><tr>
-                    <td>Elbow</td>
-                    <td><input type="range" min="-100" max="100" value="0" class="slider" id="joint3" oninput="armSet(this.id, this.value)"></td>
-                  </tr><tr>
-                    <td>Wrist</td>
-                    <td><input type="range" min="-100" max="100" value="0" class="slider" id="joint4" oninput="armSet(this.id, this.value)"></td>
-                  </tr><tr>
-                    <td>Tools</td>
-                    <td><input type="range" min="-100" max="100" value="0" class="slider" id="effector" oninput="armSet(this.id, this.value)"></td>
-                  </tr></tbody></table>
-              </div>
+      <p>
+        Status:
+        <span id="status" style="color: rgb(255, 147, 47)">Connecting...</span>
+      </p>
+      <div class="boxes">
+        <div class="controlbox">
+          <h2>Navigation</h2>
+          <div class="controlinner">
+            Teleoperation status: <span id="tele_state">OK</span>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <button
+                      id="nw"
+                      onmousedown="marsviz.teleop.teleopStart([1,0,0,0,0,1])"
+                      onmouseup="marsviz.teleop.teleopStop()"
+                    >
+                      <i class="material-icons md-18">north_west</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      id="n"
+                      onmousedown="marsviz.teleop.teleopStart([1,0,0,0,0,0])"
+                      onmouseup="marsviz.teleop.teleopStop()"
+                    >
+                      <i class="material-icons md-18">north</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      id="ne"
+                      onmousedown="marsviz.teleop.teleopStart([1,0,0,0,0,-1])"
+                      onmouseup="marsviz.teleop.teleopStop()"
+                    >
+                      <i class="material-icons md-18">north_east</i>
+                    </button>
+                  </td>
+                  <td></td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <button
+                      onmousedown="marsviz.teleop.teleopStart([0,0,0,0,0,1])"
+                      onmouseup="marsviz.teleop.teleopStop()"
+                    >
+                      <i class="material-icons md-18">west</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onmousedown="marsviz.teleop.teleopStart([0,0,0,0,0,0])"
+                      onmouseup="marsviz.teleop.teleopStop()"
+                    >
+                      <i class="material-icons md-18">stop</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onmousedown="marsviz.teleop.teleopStart([0,0,0,0,0,-1])"
+                      onmouseup="marsviz.teleop.teleopStop()"
+                    >
+                      <i class="material-icons md-18">east</i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <button
+                      id="sw"
+                      onmousedown="marsviz.teleop.teleopStart([-1,0,0,0,0,1])"
+                      onmouseup="marsviz.teleop.teleopStop()"
+                    >
+                      <i class="material-icons md-18">south_west</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      id="s"
+                      onmousedown="marsviz.teleop.teleopStart([-1,0,0,0,0,0])"
+                      onmouseup="marsviz.teleop.teleopStop()"
+                    >
+                      <i class="material-icons md-18">south</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      id="se"
+                      onmousedown="marsviz.teleop.teleopStart([-1,0,0,0,0,-1])"
+                      onmouseup="marsviz.teleop.teleopStop()"
+                    >
+                      <i class="material-icons md-18">south_east</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            Speed multiplier: <span id="speed_state">1.0</span>
+            <table>
+              <tbody>
+                <tr>
+                  <td><button onclick="marsviz.teleop.slowDown()">Slow Down</button></td>
+                  <td><button onclick="marsviz.teleop.speedUp()">Speed Up</button></td>
+                </tr>
+              </tbody>
+            </table>
+            Auto nav status: <span id="nav_state">Waiting</span>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <button onclick="pickMode()">
+                      <span id="send_button">Send Nav Goal</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+        <div class="controlbox">
+          <h2>Mast (<span id="mast_state"></span>)</h2>
+          <div class="controlinner">
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <button id="mast_button" onclick="mastToggle()">
+                      Raise/Lower Mast
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td>
+                    <button
+                      id="mu"
+                      onmousedown="mastClick(-0.02, 0)"
+                      onmouseup="mastStop()"
+                    >
+                      <i class="material-icons md-18">north</i>
+                    </button>
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    <button
+                      id="ml"
+                      onmousedown="mastClick(0, 0.02)"
+                      onmouseup="mastStop()"
+                    >
+                      <i class="material-icons md-18">west</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      id="md"
+                      onmousedown="mastClick(0.02, 0)"
+                      onmouseup="mastStop()"
+                    >
+                      <i class="material-icons md-18">south</i>
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      id="mr"
+                      onmousedown="mastClick(0, -0.02)"
+                      onmouseup="mastStop()"
+                    >
+                      <i class="material-icons md-18">east</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <button id="panorama_button" onclick="panorama()">
+                      <span id="panorama_button_text">Take Panorama</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            Panorama status: <span id="panorama_status">Inactive</span>
+          </div>
+        </div>
+        <div class="controlbox">
+          <h2>Arm (<span id="arm_state"></span>)</h2>
+          <div class="controlinner">
+            <table>
+              <tbody>
+                <tr>
+                  <td><button onclick="armToggle()">Open/Close Arm</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Azimuth</td>
+                  <td>
+                    <input
+                      type="range"
+                      min="1"
+                      max="100"
+                      value="1"
+                      class="slider"
+                      id="joint1"
+                      oninput="armSet(this.id, this.value)"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Elevation</td>
+                  <td>
+                    <input
+                      type="range"
+                      min="1"
+                      max="100"
+                      value="1"
+                      class="slider"
+                      id="joint2"
+                      oninput="armSet(this.id, this.value)"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Elbow</td>
+                  <td>
+                    <input
+                      type="range"
+                      min="-100"
+                      max="100"
+                      value="0"
+                      class="slider"
+                      id="joint3"
+                      oninput="armSet(this.id, this.value)"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Wrist</td>
+                  <td>
+                    <input
+                      type="range"
+                      min="-100"
+                      max="100"
+                      value="0"
+                      class="slider"
+                      id="joint4"
+                      oninput="armSet(this.id, this.value)"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Tools</td>
+                  <td>
+                    <input
+                      type="range"
+                      min="-100"
+                      max="100"
+                      value="0"
+                      class="slider"
+                      id="effector"
+                      oninput="armSet(this.id, this.value)"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>

@@ -1,7 +1,9 @@
 class MarsViz {
   constructor(secsToWait) {
     this.ros = new ROSLIB.Ros({ url: "wss://127.0.0.1:9090" });
-    this.teleop = new Teleop(this.ros);
+    this.scene = document.querySelector("a-scene");
+
+    this.teleop = new Teleop(this.ros, this.scene);
     //this.navigation = new Nav();
 
     // this.requestPing = new ROSLIB.ServiceRequest({ mode: "ping" });
@@ -36,6 +38,7 @@ class MarsViz {
         path: "https://127.0.0.1:8080/",
       }
     );
+    
   }
 
   addVisualization(rootNode, type, options, enabled = true) {
@@ -91,13 +94,12 @@ class MarsViz {
   }
 }
 
-// Main code - Aframe input mapping/events are defined outside of the class scopes
+// Main code - A-Frame input mapping/events are defined outside of the class scopes
 
 let marsviz = new MarsViz(1);
 
 AFRAME.registerInputMappings(Controls.mappings);
 AFRAME.registerInputActions(Controls.inputActions, "default");
-
 AFRAME.registerComponent("gazebo-world", {
   schema: {},
   init() {
@@ -106,28 +108,3 @@ AFRAME.registerComponent("gazebo-world", {
     });
   },
 });
-
-let scene = document.querySelector("a-scene");
-scene.addEventListener("moveJoy", marsviz.teleop.moveJoy);
-scene.addEventListener("speedUp", marsviz.teleop.speedUp);
-scene.addEventListener("slowDown", marsviz.teleop.slowDown);
-
-const robotMovementEvents = [
-  "moveForward",
-  "moveBackward",
-  "turnLeft",
-  "turnRight",
-  "stopRobot",
-];
-
-for (var i = 0; i < robotMovementEvents.length; i++) {
-  scene.addEventListener(robotMovementEvents[i], function (event) {
-    var type = event.type;
-    var currentMappingActions =
-      AFRAME.inputActions[AFRAME.currentInputMapping];
-    var parameters = currentMappingActions[type]
-      ? currentMappingActions[type].params
-      : [0, 0, 0, 0, 0, 0];
-    marsviz.teleop.moveRobot(parameters);
-  });
-}

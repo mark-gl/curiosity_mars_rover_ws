@@ -1,3 +1,9 @@
+class Nav {
+  constructor(ros, scene) {
+
+
+  }
+}
 var sendingNav = false;
 var navigating = false;
 var orientationPick = false;

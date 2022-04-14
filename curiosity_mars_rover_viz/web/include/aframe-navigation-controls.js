@@ -115,10 +115,10 @@
           landingNormal: { type: "vec3", default: { x: 0, y: 1, z: 0 } },
           landingMaxAngle: { default: "45", min: 0, max: 360 },
           drawIncrementally: { default: false },
-          robotNav: { default: false },
           incrementalDrawMs: { default: 700 },
           missOpacity: { default: 1.0 },
           hitOpacity: { default: 1.0 },
+          robotNav: { default: false },
         },
 
         init: function () {
