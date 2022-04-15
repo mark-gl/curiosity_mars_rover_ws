@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <launch>
+    <!-- 
+    This launch file has been borrowed from the jackal_navigation package.
+    It has not been heavily modified. It can be found at:
+    https://github.com/jackal/jackal/blob/noetic-devel/jackal_navigation/launch/include/amcl.launch
+    -->
+
     <!-- Run the map server -->
     <arg name="map_file" default="$(find curiosity_mars_rover_navigation)/maps/shapes.yaml"/>
     <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />

@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+
+# This file has been modified from the original teleop_twist_keyboard.py file.
+# It can be found here on GitHub:
+# https://github.com/ros-teleop/teleop_twist_keyboard
+
 from __future__ import print_function
 import threading
 import rospy

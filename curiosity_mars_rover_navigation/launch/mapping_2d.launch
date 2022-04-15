@@ -6,6 +6,7 @@
         <arg name="fake_depth" value="$(arg fake_depth)"/>
     </include>
 
+    <!-- Launch gmapping to build a 2D map from simulated laser data -->
     <node pkg="gmapping" type="slam_gmapping" name="gmapping" output="screen">
         <param name="odom_frame" value="odom" />
         <param name="base_frame" value="base_link" />

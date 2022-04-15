@@ -67,6 +67,8 @@
         </node>
     </group>
 
+    <!-- Merge all the laser data into one topic for convenience -->
+    <!-- This also allows AMCL to use it all to localise the rover -->
     <node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
         <param name="destination_frame" value="odom"/>
         <param name="cloud_destination_topic" value="/merged_cloud"/>

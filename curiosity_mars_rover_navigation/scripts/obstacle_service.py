@@ -9,6 +9,7 @@ class ObstacleService(object):
     def __init__(self):
         self.cmd_vel_service = rospy.Service("/curiosity_mars_rover/cmd_vel_obstacle", Teleop, self.teleop_obstacle)
         self.publisher = rospy.Publisher('/curiosity_mars_rover/ackermann_drive_controller/cmd_vel', Twist, queue_size = 1)
+        # Same topics are used for fake depth cameras and normal stereo cameras
         self.front = rospy.Subscriber("/curiosity_mars_rover/camera_fronthazcam/scan", LaserScan, self.frontScan)
         self.back = rospy.Subscriber("/curiosity_mars_rover/camera_backhazcam/scan", LaserScan, self.backScan)
         self.frontBlocked = False
@@ -22,7 +23,8 @@ class ObstacleService(object):
             response.feedback = "Obstacle in front"
         elif req.twist.linear.x < 0 and self.backBlocked: 
             response.feedback = "Obstacle in rear"
-        else: 
+        else:
+            # Safe to publish movement
             self.publisher.publish(req.twist)
         return response
     

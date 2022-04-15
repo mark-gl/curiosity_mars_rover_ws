@@ -52,5 +52,6 @@ voxel_layer:
     min_obstacle_height: -4
     max_obstacle_height: 4
 
+# Inflation layer is used to create a radius of space to avoid around each obstacle
 inflation_layer:
   inflation_radius: 3.0

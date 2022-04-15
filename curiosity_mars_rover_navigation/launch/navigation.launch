@@ -25,6 +25,7 @@
 
         <rosparam file="$(find curiosity_mars_rover_navigation)/config/base_local_planner_params.yaml" command="load" />
 
+        <!-- move_base takes input parameters 'cmd_vel' and 'odom', here the topics to use for them are specified -->
         <remap from="cmd_vel" to="/curiosity_mars_rover/ackermann_drive_controller/cmd_vel"/>
         <remap from="odom" to="/curiosity_mars_rover/odom" />
     </node>
