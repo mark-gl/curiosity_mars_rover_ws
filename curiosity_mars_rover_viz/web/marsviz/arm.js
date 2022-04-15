@@ -63,8 +63,7 @@ class Arm {
   }
 
   updateArmButtons(result) {
-    document.getElementById("arm_state").innerHTML =
-      result.data.slice(16);
+    document.getElementById("arm_state").innerHTML = result.data.slice(16);
     switch (result.data.slice(16)) {
       case "Closed":
         document.getElementById("joint1").disabled = true;

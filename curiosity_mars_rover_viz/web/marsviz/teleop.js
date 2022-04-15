@@ -21,7 +21,6 @@ class Teleop {
     scene.addEventListener("moveJoy", this.moveJoy.bind(this));
     scene.addEventListener("speedUp", this.speedUp.bind(this));
     scene.addEventListener("slowDown", this.slowDown.bind(this));
-
     for (var i = 0; i < robotMovementEvents.length; i++) {
       scene.addEventListener(
         robotMovementEvents[i],
@@ -74,6 +73,17 @@ class Teleop {
     this.cmdVelService.callService(twist, this.updateButtons.bind(this));
   }
 
+  teleopStart(params) {
+    this.keepPublishingTeleop = setInterval(
+      this.moveRobot.bind(this, params),
+      16
+    );
+  }
+
+  teleopStop() {
+    clearInterval(this.keepPublishingTeleop);
+  }
+
   updateButtons(result) {
     switch (result.feedback) {
       case "Obstacle in front":
@@ -104,13 +114,5 @@ class Teleop {
         }
         break;
     }
-  }
-
-  teleopStart(params) {
-    this.keepPublishingTeleop = setInterval(this.moveRobot(params), 16);
-  }
-
-  teleopStop() {
-    clearInterval(this.keepPublishingTeleop);
   }
 }

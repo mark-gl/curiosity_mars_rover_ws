@@ -2,9 +2,9 @@
 
 class Nav {
   constructor(ros) {
-    this.sendingNav = false;
     this.navigating = false;
-    this.orientationPick = false;
+    this.pickPosition = false;
+    this.pickOrientation = false;
 
     this.moveBase = new ROSLIB.Topic({
       ros: ros,
@@ -56,38 +56,14 @@ class Nav {
     document.getElementById("main").appendChild(this.goalArrow);
     document
       .getElementById("world")
-      .addEventListener("click", this.nav.bind(this), false);
+      .addEventListener("click", this.clickedGround.bind(this), false);
 
-    this.moveBaseFeedback.subscribe(function (message) {
-      if (message.status.status == 1 && navigating) {
-        document.getElementById("nav_state").innerHTML = "Navigating";
-        document.getElementById("send_button").innerHTML = "Cancel Nav Goal";
-        goalCylinder.setAttribute("visible", "true");
-      }
-    });
-
-    this.moveBaseResult.subscribe(function (message) {
-      if (message.status.status == 2) {
-        document.getElementById("nav_state").innerHTML = "Cancelled";
-      }
-      // Need to bind!
-      // if (message.status.status == 3) {
-      //   document.getElementById("nav_state").innerHTML = "Reached goal!";
-      //   navigating = false;
-      // }
-      if (message.status.status == 4) {
-        document.getElementById("nav_state").innerHTML = "Aborted";
-      }
-      // Re-enable with binded function
-      // if (!sendingNav) {
-      //   document.getElementById("send_button").innerHTML = "Send Nav Goal";
-      //   goalCylinder.setAttribute("visible", "false");
-      // }
-    });
+    this.moveBaseFeedback.subscribe(this.updateStatus.bind(this));
+    this.moveBaseResult.subscribe(this.updateStatus.bind(this));
   }
 
-  async nav(event) {
-    if (this.sendingNav) {
+  async clickedGround(event) {
+    if (this.pickPosition) {
       var touchPoint = event.detail.intersection.point;
       var position =
         touchPoint.x + " " + (touchPoint.y + 0.5) + " " + touchPoint.z;
@@ -96,11 +72,13 @@ class Nav {
         opacity: 0.5,
         transparent: true,
       });
-      this.orientationPick = true;
-      this.sendingNav = false;
-    } else if (this.orientationPick) {
-      this.orientationPick = false;
-      this.goalCylinder.setAttribute("position", goalArrow.object3D.position);
+      this.pickPosition = false;
+      this.pickOrientation = true;
+    } else if (this.pickOrientation) {
+      this.goalCylinder.setAttribute(
+        "position",
+        this.goalArrow.object3D.position
+      );
       this.goalCylinder.setAttribute("visible", "true");
       this.goalCylinder.setAttribute("material", {
         opacity: 0.2,
@@ -115,10 +93,12 @@ class Nav {
       var myNsecs = Math.round(
         1000000000 * (currentTime.getTime() / 1000 - mySecs)
       );
-      var newRotation = goalArrow.object3D.quaternion;
+
+      var newRotation = this.goalArrow.object3D.quaternion;
       const quaternion = new THREE.Quaternion();
       quaternion.setFromAxisAngle(new THREE.Vector3(0, -1, 0), Math.PI / 2);
       newRotation.multiplyQuaternions(newRotation, quaternion);
+
       var nav = new ROSLIB.Message({
         header: {
           seq: 0,
@@ -130,8 +110,8 @@ class Nav {
         },
         pose: {
           position: {
-            x: goalArrow.object3D.position.x,
-            y: -1 * goalArrow.object3D.position.z,
+            x: this.goalArrow.object3D.position.x,
+            y: -1 * this.goalArrow.object3D.position.z,
             z: 0.0,
           },
           orientation: {
@@ -143,6 +123,8 @@ class Nav {
         },
       });
       this.moveBase.publish(nav);
+
+      this.pickOrientation = false;
       this.navigating = true;
       document
         .getElementById("camera")
@@ -150,21 +132,17 @@ class Nav {
     }
   }
 
-  pickLocation() {
-    if (
-      !this.orientationPick &&
-      !this.sendingNav &&
-      document.getElementById("nav_state").innerHTML != "Navigating"
-    ) {
-      this.sendingNav = true;
+  sendNavButton() {
+    if (!(this.navigating || this.pickPosition || this.pickOrientation)) {
+      this.pickPosition = true;
       document
         .getElementById("camera")
         .setAttribute("look-controls", { enabled: false });
       document.getElementById("send_button").innerHTML =
         "Picking... (Click to cancel)";
-    } else if (this.sendingNav || this.orientationPick) {
-      this.sendingNav = false;
-      this.orientationPick = false;
+    } else if (this.pickPosition || this.pickOrientation) {
+      this.pickPosition = false;
+      this.pickOrientation = false;
       this.goalArrow.setAttribute("material", {
         opacity: 0.0,
         transparent: true,
@@ -174,51 +152,52 @@ class Nav {
         .setAttribute("look-controls", { enabled: true });
       document.getElementById("send_button").innerHTML = "Send Nav Goal";
     } else {
-      moveBaseCancel.publish(new ROSLIB.Message({}));
+      this.moveBaseCancel.publish(new ROSLIB.Message({}));
+    }
+  }
+
+  updateArrow(intersection) {
+    if (this.pickPosition) {
+      this.goalArrow.setAttribute("material", {
+        opacity: 0.5,
+        transparent: true,
+      });
+      var touchPoint = intersection.point;
+      this.goalArrow.object3D.position.set(
+        touchPoint.x,
+        touchPoint.y + 0.5,
+        touchPoint.z
+      );
+    } else if (this.pickOrientation) {
+      var quaternion = new THREE.Quaternion(); // create one and reuse it
+      var from = this.goalArrow.getAttribute("position");
+      quaternion.setFromUnitVectors(from, intersection.point);
+      this.goalArrow.object3D.lookAt(
+        intersection.point.x,
+        from.y,
+        intersection.point.z
+      );
+    }
+  }
+
+  updateStatus(message) {
+    if (message.status.status == 1 && this.navigating) {
+      document.getElementById("nav_state").innerHTML = "Navigating";
+      document.getElementById("send_button").innerHTML = "Cancel Nav Goal";
+      this.goalCylinder.setAttribute("visible", "true");
+    } else if (message.status.status > 1 && message.status.status < 5) {
+      if (message.status.status == 2) {
+        document.getElementById("nav_state").innerHTML = "Cancelled";
+      } else if (message.status.status == 3) {
+        document.getElementById("nav_state").innerHTML = "Reached goal!";
+      } else if (message.status.status == 4) {
+        document.getElementById("nav_state").innerHTML = "Aborted";
+      }
+      if (!(this.pickPosition || this.pickOrientation)) {
+        document.getElementById("send_button").innerHTML = "Send Nav Goal";
+        this.goalCylinder.setAttribute("visible", "false");
+      }
+      this.navigating = false;
     }
   }
 }
-
-// AFRAME.registerComponent("cursor-listener", {
-//   init: function () {
-//     this.el.addEventListener("raycaster-intersected", (evt) => {
-//       this.raycaster = evt.detail.el;
-//     });
-//     this.el.addEventListener("raycaster-intersected-cleared", (evt) => {
-//       this.raycaster = null;
-//     });
-//   },
-//   tick: function () {
-//     if (!this.raycaster || !(sendingNav || orientationPick)) {
-//       return;
-//     } // Not intersecting.
-//     let intersection = this.raycaster.components.raycaster.getIntersection(
-//       this.el
-//     );
-//     if (!intersection) {
-//       return;
-//     } // Not intersecting
-//     // intersecting
-//     if (!orientationPick) {
-//       goalArrow.setAttribute("material", {
-//         opacity: 0.5,
-//         transparent: true,
-//       });
-//       var touchPoint = intersection.point;
-//       goalArrow.object3D.position.set(
-//         touchPoint.x,
-//         touchPoint.y + 0.5,
-//         touchPoint.z
-//       );
-//     } else {
-//       var quaternion = new THREE.Quaternion(); // create one and reuse it
-//       var from = goalArrow.getAttribute("position");
-//       quaternion.setFromUnitVectors(from, intersection.point);
-//       goalArrow.object3D.lookAt(
-//         intersection.point.x,
-//         from.y,
-//         intersection.point.z
-//       );
-//     }
-//   },
-// });

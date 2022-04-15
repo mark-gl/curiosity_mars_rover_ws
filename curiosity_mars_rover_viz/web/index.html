@@ -5,95 +5,203 @@
     <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.js"></script>
     <script src="https://unpkg.com/aframe-input-mapping-component/dist/aframe-input-mapping-component.min.js"></script>
 
+    <!-- ROS scripts are locally hosted because they seem to move around and get deleted from the internet often! -->
     <script src="include/roslib.js"></script>
     <script src="include/ros3d.js"></script>
     <script src="include/eventemitter2.js"></script>
     <script src="include/aframe-navigation-controls.js"></script>
 
-    <script src="marsviz/controls.js" defer></script>
-    <script src="marsviz/teleop.js" defer></script>
-    <script src="marsviz/mast.js" defer></script>
-    <script src="marsviz/arm.js" defer></script>
-    <script src="marsviz/nav.js" defer></script>
+    <script src="marsviz/controls.js"></script>
+    <script src="marsviz/teleop.js"></script>
+    <script src="marsviz/mast.js"></script>
+    <script src="marsviz/arm.js"></script>
+    <script src="marsviz/nav.js"></script>
 
-    <script src="marsviz/init.js" defer></script>
-    
-    <link rel="stylesheet" href="index.css" />
+    <!-- Initialisation script loaded last -->
+    <script src="marsviz/marsviz.js" defer></script>
+
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Abel"
-    />
+      href="https://fonts.googleapis.com/css?family=Abel" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
+      href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
     <title>MarsViz</title>
+
+    <!-- Due to security features of modern browsers, a seperate CSS file does not always load on the local server -->
+    <!-- To make sure it always loads, it has been provided in this file, at the expense of making the file longer -->
+    <!-- An IDE with code folding features is highly recommended for navigating this file! -->
+    <style>
+      .sidenav {
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
+        padding: 20px;
+        margin: 0;
+        height: 100%; /* Full-height: remove this if you want "auto" height */
+        width: 15%; /* Set the width of the sidebar */
+        position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.85);
+        overflow-x: hidden; /* Disable horizontal scroll */
+        font-family: "Abel";
+        color: #e9e9e9;
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+      }
+      .material-icons.md-18 {
+        font-size: 14px;
+      }
+      .sidenav h1 {
+        margin: 0px 0px 0px 0px;
+        padding: 0;
+        text-decoration: none;
+        font-size: 28px;
+        color: #e9e9e9;
+        display: block;
+      }
+      .sidenav p {
+        margin: 10px 0px 0px 0px;
+        padding: 0px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #cecece;
+        display: block;
+      }
+      .boxes {
+        margin: 20px 0 20px 0px;
+        padding: 0;
+        top: 0px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .controlbox {
+        margin: 0 0 20px 0;
+        padding: 10px 10px 0px 10px;
+        border: 1px solid rgb(53, 53, 53);
+        flex-grow: 1;
+      }
+      .controlinner {
+        margin: 0 0 0 0;
+        padding: 0px 10px 0px 10px;
+      }
+      .controlinner button {
+        border: 1px solid rgb(71, 71, 71);
+        font-size: 16px;
+        font-family: "Abel";
+        width: 100%;
+        color: white;
+        background-color: #161616;
+      }
+      table {
+        border-spacing: 0;
+        border-collapse: collapse;
+        margin: 10px 0px 10px 0px;
+        padding: 0;
+        width: 100%;
+      }
+      tbody,
+      th,
+      tr,
+      td,
+      button {
+        border: 0px;
+        border-spacing: 0;
+        border-radius: 0px;
+        margin: 0;
+        padding: 1;
+      }
+      button:hover {
+        background-color: #333333;
+      }
+      button:active {
+        background-color: #888888;
+      }
+      button:disabled {
+        background-color: #080808;
+        opacity: 0.5;
+      }
+      .sidenav h2 {
+        margin: 0px 10px 10px 0px;
+        padding: 0px;
+        text-decoration: none;
+        font-size: 22px;
+        color: #cecece;
+        display: block;
+      }
+      /* The navigation menu links */
+      .sidenav a {
+        margin: 0px;
+        padding: 0px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #818181;
+        display: block;
+      }
+      /* When you mouse over the navigation links, change their color */
+      .sidenav a:hover {
+        color: #f1f1f1;
+      }
+      .slider {
+        -webkit-appearance: none;
+        height: 10px;
+        background: #474747;
+        width: 100%;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: 0.2s;
+        transition: opacity 0.2s;
+        right: 0px;
+      }
+      .slider:hover {
+        opacity: 1;
+      }
+      .slider:disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+      .slider:focus {
+        outline: 1px white solid;
+      }
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 10px;
+        height: 10px;
+        background: #f0f0f0;
+        cursor: pointer;
+      }
+      .slider::-moz-range-thumb {
+        width: 10px;
+        height: 10px;
+        background: #f0f0f0;
+        cursor: pointer;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #2b2b2b;
+      }
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: rgb(59, 59, 59);
+      }
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    </style>
   </head>
 
-  <body>
-    <a-scene
-      gazebo-world
-      id="main"
-      fog="type: linear; color: #C49452; near: 10; far: 100;"
-    >
-      <a-assets>
-        <a-asset-item id="arrow" src="models/arrow.obj"></a-asset-item>
-        <a-asset-item
-          id="terrain"
-          src="models/terrain_export_1.gltf"
-        ></a-asset-item>
-        <a-asset-item id="path" src="models/curiosity_path.gltf"></a-asset-item>
-        <a-asset-item
-          id="photo"
-          src="models/photogrammetry.gltf"
-        ></a-asset-item>
-      </a-assets>
-
-      <a-sky color="#CCC299" scale="1 1 1"></a-sky>
-      <a-entity light="type: ambient; color: #CCC299"></a-entity>
-      <a-entity
-        light="type: directional; color: #FFF; intensity: 1"
-        position="-0.5 1 1"
-      ></a-entity>
-
-      <a-entity id="rig" position="0 -0.5 5.1">
-        <a-entity
-          id="camera"
-          camera="far: 4000;"
-          look-controls
-          wasd-controls="acceleration:100; fly:true"
-          position="0 0 0"
-          raycaster="objects: .cantap"
-          cursor="
-            fuse: false;
-            rayOrigin: mouse;"
-          collider-check
-          cursor-listener
-        >
-        </a-entity>
-        <a-entity
-          id="leftHand"
-          navigation-controls="type: line; cameraRig: #rig; hitCylinderColor: #7DF9FF; curveHitColor: #7DF9FF; robotNav: true;
-                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #world; maxLength: 50;"
-          raycaster="objects: [gui-interactable]"
-          laser-controls="hand: left;"
-        >
-        </a-entity>
-        <a-entity
-          id="rightHand"
-          navigation-controls="type: line; cameraRig: #rig;
-                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #world; maxLength: 50;"
-          raycaster="objects: [gui-interactable]"
-          laser-controls="hand: right;"
-        >
-        </a-entity>
-      </a-entity>
-
-      <a-entity position="0 0 0" rotation="-90 0 0" id="robot-element-parent">
-      </a-entity>
-    </a-scene>
-
+  <body onload="marsviz = initialiseMarsviz()">
     <div class="sidenav">
       <h1>M A R S V I Z</h1>
       <p>
@@ -112,8 +220,7 @@
                     <button
                       id="nw"
                       onmousedown="marsviz.teleop.teleopStart([1,0,0,0,0,1])"
-                      onmouseup="marsviz.teleop.teleopStop()"
-                    >
+                      onmouseup="marsviz.teleop.teleopStop()">
                       <i class="material-icons md-18">north_west</i>
                     </button>
                   </td>
@@ -121,8 +228,7 @@
                     <button
                       id="n"
                       onmousedown="marsviz.teleop.teleopStart([1,0,0,0,0,0])"
-                      onmouseup="marsviz.teleop.teleopStop()"
-                    >
+                      onmouseup="marsviz.teleop.teleopStop()">
                       <i class="material-icons md-18">north</i>
                     </button>
                   </td>
@@ -130,8 +236,7 @@
                     <button
                       id="ne"
                       onmousedown="marsviz.teleop.teleopStart([1,0,0,0,0,-1])"
-                      onmouseup="marsviz.teleop.teleopStop()"
-                    >
+                      onmouseup="marsviz.teleop.teleopStop()">
                       <i class="material-icons md-18">north_east</i>
                     </button>
                   </td>
@@ -142,24 +247,21 @@
                   <td>
                     <button
                       onmousedown="marsviz.teleop.teleopStart([0,0,0,0,0,1])"
-                      onmouseup="marsviz.teleop.teleopStop()"
-                    >
+                      onmouseup="marsviz.teleop.teleopStop()">
                       <i class="material-icons md-18">west</i>
                     </button>
                   </td>
                   <td>
                     <button
                       onmousedown="marsviz.teleop.teleopStart([0,0,0,0,0,0])"
-                      onmouseup="marsviz.teleop.teleopStop()"
-                    >
+                      onmouseup="marsviz.teleop.teleopStop()">
                       <i class="material-icons md-18">stop</i>
                     </button>
                   </td>
                   <td>
                     <button
                       onmousedown="marsviz.teleop.teleopStart([0,0,0,0,0,-1])"
-                      onmouseup="marsviz.teleop.teleopStop()"
-                    >
+                      onmouseup="marsviz.teleop.teleopStop()">
                       <i class="material-icons md-18">east</i>
                     </button>
                   </td>
@@ -169,8 +271,7 @@
                     <button
                       id="sw"
                       onmousedown="marsviz.teleop.teleopStart([-1,0,0,0,0,1])"
-                      onmouseup="marsviz.teleop.teleopStop()"
-                    >
+                      onmouseup="marsviz.teleop.teleopStop()">
                       <i class="material-icons md-18">south_west</i>
                     </button>
                   </td>
@@ -178,8 +279,7 @@
                     <button
                       id="s"
                       onmousedown="marsviz.teleop.teleopStart([-1,0,0,0,0,0])"
-                      onmouseup="marsviz.teleop.teleopStop()"
-                    >
+                      onmouseup="marsviz.teleop.teleopStop()">
                       <i class="material-icons md-18">south</i>
                     </button>
                   </td>
@@ -187,8 +287,7 @@
                     <button
                       id="se"
                       onmousedown="marsviz.teleop.teleopStart([-1,0,0,0,0,-1])"
-                      onmouseup="marsviz.teleop.teleopStop()"
-                    >
+                      onmouseup="marsviz.teleop.teleopStop()">
                       <i class="material-icons md-18">south_east</i>
                     </button>
                   </td>
@@ -199,8 +298,14 @@
             <table>
               <tbody>
                 <tr>
-                  <td><button onclick="marsviz.teleop.slowDown()">Slow Down</button></td>
-                  <td><button onclick="marsviz.teleop.speedUp()">Speed Up</button></td>
+                  <td>
+                    <button onclick="marsviz.teleop.slowDown()">
+                      Slow Down
+                    </button>
+                  </td>
+                  <td>
+                    <button onclick="marsviz.teleop.speedUp()">Speed Up</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -209,7 +314,7 @@
               <tbody>
                 <tr>
                   <td>
-                    <button onclick="marsviz.navigation.pickLocation()">
+                    <button onclick="marsviz.navigation.sendNavButton()">
                       <span id="send_button">Send Nav Goal</span>
                     </button>
                   </td>
@@ -225,7 +330,9 @@
               <tbody>
                 <tr>
                   <td>
-                    <button id="mast_button" onclick="marsviz.mast.mastToggle()">
+                    <button
+                      id="mast_button"
+                      onclick="marsviz.mast.mastToggle()">
                       Raise/Lower Mast
                     </button>
                   </td>
@@ -240,8 +347,7 @@
                     <button
                       id="mu"
                       onmousedown="marsviz.mast.mastClick(-0.02, 0)"
-                      onmouseup="marsviz.mast.mastStop()"
-                    >
+                      onmouseup="marsviz.mast.mastStop()">
                       <i class="material-icons md-18">north</i>
                     </button>
                   </td>
@@ -252,8 +358,7 @@
                     <button
                       id="ml"
                       onmousedown="marsviz.mast.mastClick(0, 0.02)"
-                      onmouseup="marsviz.mast.mastStop()"
-                    >
+                      onmouseup="marsviz.mast.mastStop()">
                       <i class="material-icons md-18">west</i>
                     </button>
                   </td>
@@ -261,8 +366,7 @@
                     <button
                       id="md"
                       onmousedown="marsviz.mast.mastClick(0.02, 0)"
-                      onmouseup="marsviz.mast.mastStop()"
-                    >
+                      onmouseup="marsviz.mast.mastStop()">
                       <i class="material-icons md-18">south</i>
                     </button>
                   </td>
@@ -270,8 +374,7 @@
                     <button
                       id="mr"
                       onmousedown="marsviz.mast.mastClick(0, -0.02)"
-                      onmouseup="marsviz.mast.mastStop()"
-                    >
+                      onmouseup="marsviz.mast.mastStop()">
                       <i class="material-icons md-18">east</i>
                     </button>
                   </td>
@@ -282,7 +385,9 @@
               <tbody>
                 <tr>
                   <td>
-                    <button id="panorama_button" onclick="marsviz.mast.panorama()">
+                    <button
+                      id="panorama_button"
+                      onclick="marsviz.mast.panorama()">
                       <span id="panorama_button_text">Take Panorama</span>
                     </button>
                   </td>
@@ -298,7 +403,11 @@
             <table>
               <tbody>
                 <tr>
-                  <td><button onclick="marsviz.arm.armToggle()">Open/Close Arm</button></td>
+                  <td>
+                    <button onclick="marsviz.arm.armToggle()">
+                      Open/Close Arm
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -314,8 +423,7 @@
                       value="1"
                       class="slider"
                       id="joint1"
-                      oninput="marsviz.arm.armSet(this.id, this.value)"
-                    />
+                      oninput="marsviz.arm.armSet(this.id, this.value)" />
                   </td>
                 </tr>
                 <tr>
@@ -328,8 +436,7 @@
                       value="1"
                       class="slider"
                       id="joint2"
-                      oninput="marsviz.arm.armSet(this.id, this.value)"
-                    />
+                      oninput="marsviz.arm.armSet(this.id, this.value)" />
                   </td>
                 </tr>
                 <tr>
@@ -342,8 +449,7 @@
                       value="0"
                       class="slider"
                       id="joint3"
-                      oninput="marsviz.arm.armSet(this.id, this.value)"
-                    />
+                      oninput="marsviz.arm.armSet(this.id, this.value)" />
                   </td>
                 </tr>
                 <tr>
@@ -356,8 +462,7 @@
                       value="0"
                       class="slider"
                       id="joint4"
-                      oninput="marsviz.arm.armSet(this.id, this.value)"
-                    />
+                      oninput="marsviz.arm.armSet(this.id, this.value)" />
                   </td>
                 </tr>
                 <tr>
@@ -370,8 +475,7 @@
                       value="0"
                       class="slider"
                       id="effector"
-                      oninput="marsviz.arm.armSet(this.id, this.value)"
-                    />
+                      oninput="marsviz.arm.armSet(this.id, this.value)" />
                   </td>
                 </tr>
               </tbody>
@@ -380,5 +484,59 @@
         </div>
       </div>
     </div>
+    <a-scene
+      gazebo-world
+      id="main"
+      fog="type: linear; color: #C49452; near: 10; far: 100;">
+      <a-assets>
+        <a-asset-item id="arrow" src="models/arrow.obj"></a-asset-item>
+        <a-asset-item
+          id="terrain"
+          src="models/terrain_export_1.gltf"></a-asset-item>
+        <a-asset-item id="path" src="models/curiosity_path.gltf"></a-asset-item>
+        <a-asset-item
+          id="photo"
+          src="models/photogrammetry.gltf"></a-asset-item>
+      </a-assets>
+
+      <a-sky color="#CCC299" scale="1 1 1"></a-sky>
+      <a-entity light="type: ambient; color: #CCC299"></a-entity>
+      <a-entity
+        light="type: directional; color: #FFF; intensity: 1"
+        position="-0.5 1 1"></a-entity>
+
+      <a-entity id="rig" position="0 -0.5 5.1">
+        <a-entity
+          id="camera"
+          camera="far: 4000;"
+          look-controls
+          wasd-controls="acceleration:100; fly:true"
+          position="0 0 0"
+          raycaster="objects: .cantap"
+          cursor="
+            fuse: false;
+            rayOrigin: mouse;"
+          collider-check
+          cursor-listener>
+        </a-entity>
+        <a-entity
+          id="leftHand"
+          navigation-controls="type: line; cameraRig: #rig; hitCylinderColor: #7DF9FF; curveHitColor: #7DF9FF; robotNav: true;
+                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #world; maxLength: 50;"
+          raycaster="objects: [gui-interactable]"
+          laser-controls="hand: left;">
+        </a-entity>
+        <a-entity
+          id="rightHand"
+          navigation-controls="type: line; cameraRig: #rig;
+                startEvents: navigationstart; endEvents: navigationend; collisionEntities: #world; maxLength: 50;"
+          raycaster="objects: [gui-interactable]"
+          laser-controls="hand: right;">
+        </a-entity>
+      </a-entity>
+
+      <a-entity position="0 0 0" rotation="-90 0 0" id="robot-element-parent">
+      </a-entity>
+    </a-scene>
   </body>
 </html>

@@ -4,8 +4,8 @@ class MarsViz {
     this.scene = document.querySelector("a-scene");
 
     this.teleop = new Teleop(this.ros, this.scene);
-    this.mast = new Mast(this.ros, this.scene)
-    this.arm = new Arm(this.ros, this.scene)
+    this.mast = new Mast(this.ros, this.scene);
+    this.arm = new Arm(this.ros, this.scene);
 
     this.navigation; // Initialised after world loaded
 
@@ -14,6 +14,7 @@ class MarsViz {
       name: "/gazebo/get_world_properties",
       serviceType: "gazebo_msgs/GetWorldProperties",
     });
+
     this.init_after_seconds(secsToWait);
   }
 
@@ -96,15 +97,45 @@ class MarsViz {
 
 // Main code - A-Frame input mapping/events are defined outside of the class scopes
 
-let marsviz = new MarsViz(1);
+function initialiseMarsviz() {
+  AFRAME.registerInputMappings(Controls.mappings);
+  AFRAME.registerInputActions(Controls.inputActions, "default");
 
-AFRAME.registerInputMappings(Controls.mappings);
-AFRAME.registerInputActions(Controls.inputActions, "default");
-AFRAME.registerComponent("gazebo-world", {
-  schema: {},
-  init() {
-    marsviz.gazeboWorld.callService(new ROSLIB.Message({}), function (result) {
-      marsviz.loadWorldModel(result);
-    });
-  },
-});
+  AFRAME.registerComponent("cursor-listener", {
+    init: function () {
+      this.el.addEventListener("raycaster-intersected", (evt) => {
+        this.raycaster = evt.detail.el;
+      });
+      this.el.addEventListener("raycaster-intersected-cleared", (evt) => {
+        this.raycaster = null;
+      });
+    },
+    tick: function () {
+      if (!this.raycaster) {
+        return; // Not intersecting
+      }
+      let intersection = this.raycaster.components.raycaster.getIntersection(
+        this.el
+      );
+      if (!intersection) {
+        return; // Not intersecting
+      }
+      // Intersecting
+      marsviz.navigation.updateArrow(intersection);
+    },
+  });
+
+  AFRAME.registerComponent("gazebo-world", {
+    schema: {},
+    init() {
+      marsviz.gazeboWorld.callService(
+        new ROSLIB.Message({}),
+        function (result) {
+          marsviz.loadWorldModel(result);
+        }
+      );
+    },
+  });
+
+  return new MarsViz(2);
+}

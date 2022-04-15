@@ -40,33 +40,29 @@ class Mast {
     });
 
     this.mastListener.subscribe(this.mastCallback.bind(this));
-
-    this.mastClient.callService(
-        new ROSLIB.ServiceRequest({ mode: "ping" }),
-        function (result ) {
-          document.getElementById("status").innerHTML = "Connected to rover";
-          document.getElementById("status").style.color = "rgb(17, 207, 0)";
-        },
-        function (error) {
-          document.getElementById("status").innerHTML = "Couldn't connect.";
-          document.getElementById("status").style.color = "rgb(255, 47, 47)";
-        }
-      );  
-
     this.panoramaFeedback.subscribe(this.panoramaCallback.bind(this));
 
-    scene.addEventListener("mastToggle", this.mastToggle.bind(this));
+    this.mastClient.callService(
+      new ROSLIB.ServiceRequest({ mode: "ping" }),
+      function (result) {
+        document.getElementById("status").innerHTML = "Connected to rover";
+        document.getElementById("status").style.color = "rgb(17, 207, 0)";
+      },
+      function (error) {
+        document.getElementById("status").innerHTML = "Couldn't connect.";
+        document.getElementById("status").style.color = "rgb(255, 47, 47)";
+      }
+    );
 
+    scene.addEventListener("mastToggle", this.mastToggle.bind(this));
     scene.addEventListener("mastUp", this.mastMove.bind(this, -0.02, 0));
-    scene.addEventListener("mastDown",  this.mastMove.bind(this, 0.02, 0));
+    scene.addEventListener("mastDown", this.mastMove.bind(this, 0.02, 0));
     scene.addEventListener("mastLeft", this.mastMove.bind(this, 0, 0.02));
     scene.addEventListener("mastRight", this.mastMove.bind(this, 0, -0.02));
   }
 
   mastCallback(result) {
-    console.error(result)
-    document.getElementById("mast_state").innerHTML =
-      result.data.slice(17);
+    document.getElementById("mast_state").innerHTML = result.data.slice(17);
     this.updateMastButtons(result.data.slice(17));
   }
 
@@ -95,8 +91,6 @@ class Mast {
     });
     this.mastClient.callService(request);
   }
-
-  // Need changes below here
 
   mastClick(x, y) {
     this.keepPublishingMast = setInterval(this.mastMove.bind(this, x, y), 16);
