@@ -60,7 +60,7 @@ class Arm {
       default:
         break;
     }
-    armClient.callService(req);
+    this.armClient.callService(req);
   }
 
   updateArmButtons(result) {

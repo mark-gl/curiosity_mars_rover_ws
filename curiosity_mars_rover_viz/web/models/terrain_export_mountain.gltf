@@ -15,7 +15,7 @@
     "nodes" : [
         {
             "mesh" : 0,
-            "name" : "M2E",
+            "name" : "M2E.001",
             "translation" : [
                 184.64340209960938,
                 3928.959228515625,
@@ -26,7 +26,7 @@
     "materials" : [
         {
             "doubleSided" : true,
-            "name" : "Material.001",
+            "name" : "Material.003",
             "pbrMetallicRoughness" : {
                 "baseColorTexture" : {
                     "index" : 0
@@ -38,7 +38,7 @@
     ],
     "meshes" : [
         {
-            "name" : "M2E",
+            "name" : "M2E.002",
             "primitives" : [
                 {
                     "attributes" : {
@@ -52,24 +52,28 @@
             ]
         }
     ],
-    "materials" : [ {
-        "pbrMetallicRoughness" : {
-        "baseColorTexture" : {
-            "index" : 0
-        },
-        "metallicFactor" : 0.0,
-        "roughnessFactor" : 1.0
+    "materials": [
+        {
+        "pbrMetallicRoughness": {
+            "baseColorTexture": {
+            "index": 0
+            },
+            "metallicFactor": 0.0,
+            "roughnessFactor": 1.0
         }
-    } ],
+        }
+    ],
 
-    "textures" : [ {
-        "sampler" : 0,
-        "source" : 0
-    } ],
+    "textures": [
+        {
+        "sampler": 0,
+        "source": 0
+        }
+    ],
     "images" : [
         {
             "mimeType" : "image/png",
-            "name" : "Texture",
+            "name" : "terrain_export_mountain",
             "uri" : "terrain_export_mountain.png"
         }
     ],
@@ -77,58 +81,58 @@
         {
             "bufferView" : 0,
             "componentType" : 5126,
-            "count" : 96233,
+            "count" : 24799,
             "max" : [
-                -0.3634527027606964,
-                -3872.849853515625,
-                298.8135986328125
+                -0.3861638009548187,
+                -3879.037109375,
+                265.0538024902344
             ],
             "min" : [
-                -361.6720886230469,
-                -3949.059814453125,
-                -31.42051887512207
+                -303.9170227050781,
+                -3947.30712890625,
+                -28.005720138549805
             ],
             "type" : "VEC3"
         },
         {
             "bufferView" : 1,
             "componentType" : 5126,
-            "count" : 96233,
+            "count" : 24799,
             "type" : "VEC3"
         },
         {
             "bufferView" : 2,
             "componentType" : 5126,
-            "count" : 96233,
+            "count" : 24799,
             "type" : "VEC2"
         },
         {
             "bufferView" : 3,
-            "componentType" : 5125,
-            "count" : 573834,
+            "componentType" : 5123,
+            "count" : 145992,
             "type" : "SCALAR"
         }
     ],
     "bufferViews" : [
         {
             "buffer" : 0,
-            "byteLength" : 1154796,
+            "byteLength" : 297588,
             "byteOffset" : 0
         },
         {
             "buffer" : 0,
-            "byteLength" : 1154796,
-            "byteOffset" : 1154796
+            "byteLength" : 297588,
+            "byteOffset" : 297588
         },
         {
             "buffer" : 0,
-            "byteLength" : 769864,
-            "byteOffset" : 2309592
+            "byteLength" : 198392,
+            "byteOffset" : 595176
         },
         {
             "buffer" : 0,
-            "byteLength" : 2295336,
-            "byteOffset" : 3079456
+            "byteLength" : 291984,
+            "byteOffset" : 793568
         }
     ],
     "samplers" : [
@@ -139,7 +143,7 @@
     ],
     "buffers" : [
         {
-            "byteLength" : 5374792,
+            "byteLength" : 1085552,
             "uri" : "terrain_export_mountain.bin"
         }
     ]
