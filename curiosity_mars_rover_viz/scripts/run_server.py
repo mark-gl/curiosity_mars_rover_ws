@@ -8,8 +8,8 @@ import ssl
 import functools
 
 server_address = ('', 8080)
-ssl_key_file = "/etc/ssl/certs/localcerts/server1.example.com.key"
-ssl_certificate_file = "/etc/ssl/certs/localcerts/server1.example.com.pem"
+ssl_key_file = "../certs/server1.example.com.key"
+ssl_certificate_file = "../certs/server1.example.com.pem"
 
 Handler = functools.partial(
     http.server.SimpleHTTPRequestHandler, directory='../.././')
