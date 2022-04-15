@@ -7,7 +7,7 @@
         <group unless="$(arg simple_camera)">
             <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_viz)/rviz/curiosity_mars_rover.rviz" />
         </group>
-        <group if="$(arg rviz_lite)">
+        <group if="$(arg simple_camera)">
             <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_viz)/rviz/curiosity_mars_rover_lite.rviz" />
         </group>
     </group>
