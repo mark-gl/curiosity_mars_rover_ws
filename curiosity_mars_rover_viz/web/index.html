@@ -29,10 +29,11 @@
 
     <title>MarsViz</title>
 
-    <!-- Due to security features of modern browsers, a seperate CSS file does not always load on the local server -->
+    <!-- Due to security features of modern browsers, a separate CSS file does not always load on the local server -->
     <!-- To make sure it always loads, it has been provided in this file, at the expense of making the file longer -->
     <!-- An IDE with code folding features is highly recommended for navigating this file! -->
     <style>
+      /* Sidebar CSS base from https://www.w3schools.com/howto/howto_css_fixed_sidebar.asp */
       .sidenav {
         -webkit-user-select: none; /* Safari */
         -moz-user-select: none; /* Firefox */
@@ -73,6 +74,7 @@
         color: #cecece;
         display: block;
       }
+      /* Each 'toolbox' of grouped rover controls */
       .boxes {
         margin: 20px 0 20px 0px;
         padding: 0;
@@ -100,6 +102,7 @@
         color: white;
         background-color: #161616;
       }
+      /* Buttons are grouped into tables */
       table {
         border-spacing: 0;
         border-collapse: collapse;
@@ -136,7 +139,6 @@
         color: #cecece;
         display: block;
       }
-      /* The navigation menu links */
       .sidenav a {
         margin: 0px;
         padding: 0px;
@@ -145,10 +147,10 @@
         color: #818181;
         display: block;
       }
-      /* When you mouse over the navigation links, change their color */
       .sidenav a:hover {
         color: #f1f1f1;
       }
+      /* Arm slider controls */
       .slider {
         -webkit-appearance: none;
         height: 10px;
@@ -184,17 +186,16 @@
         background: #f0f0f0;
         cursor: pointer;
       }
+      /* Custom scrollbar appearance */
       ::-webkit-scrollbar {
         width: 10px;
       }
       ::-webkit-scrollbar-track {
         background: #2b2b2b;
       }
-      /* Handle */
       ::-webkit-scrollbar-thumb {
         background: rgb(59, 59, 59);
       }
-      /* Handle on hover */
       ::-webkit-scrollbar-thumb:hover {
         background: #555;
       }
@@ -202,6 +203,7 @@
   </head>
 
   <body onload="marsviz = initialiseMarsviz()">
+    <!-- Sidebar definition -->
     <div class="sidenav">
       <h1>M A R S V I Z</h1>
       <p>
@@ -484,12 +486,15 @@
         </div>
       </div>
     </div>
+
+    <!-- A-Frame scene definition -->
     <a-scene
       gazebo-world
       id="main"
       fog="type: linear; color: #C49452; near: 10; far: 100;">
       <a-assets>
         <a-asset-item id="arrow" src="models/arrow.obj"></a-asset-item>
+        <!-- Low-detail versions of each model to ensure speedy loading -->
         <a-asset-item
           id="terrain"
           src="models/terrain_export_1.gltf"></a-asset-item>
@@ -505,6 +510,7 @@
         light="type: directional; color: #FFF; intensity: 1"
         position="-0.5 1 1"></a-entity>
 
+      <!-- The 'rig' holds the camera and VR controls so that they move relative to each other -->
       <a-entity id="rig" position="0 -0.5 5.1">
         <a-entity
           id="camera"

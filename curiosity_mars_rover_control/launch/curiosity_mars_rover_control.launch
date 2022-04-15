@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <arg name="fake_depth_cameras" default="false" />
+    <arg name="fake_depth" default="false" />
     <arg name="fake_gps" default="false" />
 
     <rosparam command="load" file="$(find curiosity_mars_rover_control)/config/control_joint_state.yaml" />

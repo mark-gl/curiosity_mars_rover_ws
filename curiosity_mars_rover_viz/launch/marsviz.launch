@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <arg name="fake_depth_cameras" default="false" />
+    <arg name="fake_depth" default="false" />
     
     <include file="$(find curiosity_mars_rover_navigation)/launch/navigation.launch">
-        <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
+        <arg name="fake_depth" value="$(arg fake_depth)" />
     </include>
 
     <node name="curiosity_rover_teleop_keyboard_obstacles_node" pkg="curiosity_mars_rover_navigation" type="obstacle_service.py" respawn="false" output="screen" args="" />
@@ -16,9 +16,7 @@
         <arg name="ssl" value="true"/>
         <arg name="port" value="9090" />
         <arg name="certfile" value="/etc/ssl/certs/localcerts/server1.example.com.pem" />
-        <!-- Change! -->
         <arg name="keyfile" value="/etc/ssl/certs/localcerts/server1.example.com.key"/>
-        <!-- Change! -->
     </include>
 
     <node name="curiosity_rover_web_server" pkg="curiosity_mars_rover_viz" type="run_server.py" respawn="false" output="screen" args="" cwd="node" />

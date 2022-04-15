@@ -24,6 +24,7 @@ class Arm {
   }
 
   armSet(id, value) {
+    // HTML sliders are remapped to the joint rotations (eg, from 1 -> 100 to 0 -> -1.57)
     var req = new ROSLIB.ServiceRequest({});
     switch (id) {
       case "joint1":
@@ -78,6 +79,7 @@ class Arm {
         document.getElementById("joint3").disabled = false;
         document.getElementById("joint4").disabled = false;
         document.getElementById("effector").disabled = false;
+        // Reset sliders when arm is opened
         document.getElementById("joint1").value = 0.0;
         document.getElementById("joint2").value = 0.0;
         document.getElementById("joint3").value = 0.0;

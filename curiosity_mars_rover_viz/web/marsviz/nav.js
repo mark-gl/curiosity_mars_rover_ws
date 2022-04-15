@@ -1,5 +1,3 @@
-// Needs work
-
 class Nav {
   constructor(ros) {
     this.navigating = false;
@@ -30,8 +28,11 @@ class Nav {
       messageType: "move_base_msgs/MoveBaseActionResult",
     });
 
+    // The goal cylinder appears once the rover starts navigating and stays there until the goal is reached
     this.goalCylinder = document.createElement("a-cylinder");
+    // The goal arrow is the '3D cursor' used for picking destinations
     this.goalArrow = document.createElement("a-entity");
+    // Note: VR destination picking is handled in a different file (include/aframe-navigation-controls.js)
 
     this.goalCylinder.setAttribute("height", 500);
     this.goalCylinder.setAttribute("radius", 0.4);
@@ -52,6 +53,7 @@ class Nav {
       color: "cyan",
     });
 
+    // Add the two (hidden) objects to the world
     document.getElementById("main").appendChild(this.goalCylinder);
     document.getElementById("main").appendChild(this.goalArrow);
     document
@@ -63,6 +65,7 @@ class Nav {
   }
 
   async clickedGround(event) {
+    // Clicking happens in 2 stages - picking position and picking orientation
     if (this.pickPosition) {
       var touchPoint = event.detail.intersection.point;
       var position =
@@ -133,8 +136,10 @@ class Nav {
   }
 
   sendNavButton() {
+    // Determine what action to take when button is pressed
     if (!(this.navigating || this.pickPosition || this.pickOrientation)) {
       this.pickPosition = true;
+      // Look controls are disable so that user can click world
       document
         .getElementById("camera")
         .setAttribute("look-controls", { enabled: false });
@@ -158,6 +163,7 @@ class Nav {
 
   updateArrow(intersection) {
     if (this.pickPosition) {
+      // Update the position of the arrow in the world
       this.goalArrow.setAttribute("material", {
         opacity: 0.5,
         transparent: true,
@@ -169,7 +175,8 @@ class Nav {
         touchPoint.z
       );
     } else if (this.pickOrientation) {
-      var quaternion = new THREE.Quaternion(); // create one and reuse it
+      // Rotate the arrow
+      var quaternion = new THREE.Quaternion();
       var from = this.goalArrow.getAttribute("position");
       quaternion.setFromUnitVectors(from, intersection.point);
       this.goalArrow.object3D.lookAt(

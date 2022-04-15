@@ -77,83 +77,84 @@
             <origin xyz="0 0 0"/>
         </joint>
 
-		<xacro:camera 
-			camera_name="mardi"
-			topic_name="mardi"
-			rot="-3.141592653589793 0 0"
-			pos="0.647759 -0.673666 -0.225013"
-			parent="chassis"
-			resolution_x="1600"
-            resolution_y="1200"
-			fov="1.22173"
-            format="R8G8B8"/>
-
-        <xacro:if value="$(arg fake_depth_cameras)">
-            <xacro:fake_depth_camera 
-                camera_name="fronthazcam"
-                rot="-2.35619449018 0 3.141592653589793"
-                pos="0.086741 -0.940979 -0.176784"
-                parent="chassis"
-                resolution="1024"
-                fov="1.3962634"
-                baseline="0.1596"/>
-
-            <xacro:fake_depth_camera
-                camera_name="backhazcam"
-                rot="-2.35619449018 0 0"
-                pos="0.452052 1.06956 -0.114811"
-                parent="chassis"
-                resolution="1024"
-                fov="1.3962634"
-                baseline="0.0988"/>
-        </xacro:if>
-
-        <xacro:unless value="$(arg fake_depth_cameras)">
+        <xacro:unless value="$(arg simple_camera)">
             <xacro:camera 
-                camera_name="fronthazcam_left"
-                topic_name="fronthazcam/left"
-                rot="-2.35619449018 0 3.141592653589793"
-                pos="0.086741 -0.940979 -0.176784"
+                camera_name="mardi"
+                topic_name="mardi"
+                rot="-3.141592653589793 0 0"
+                pos="0.647759 -0.673666 -0.225013"
                 parent="chassis"
-                resolution_x="1024"
-                resolution_y="1024"
-                fov="1.3962634"
-                format="L8"/>
-            
-            <xacro:camera 
-                camera_name="fronthazcam_right"
-                topic_name="fronthazcam/right"
-                rot="-2.35619449018 0 3.141592653589793"
-                pos="-0.072925 -0.940979 -0.176784"
-                parent="chassis"
-                resolution_x="1024"
-                resolution_y="1024"
-                fov="1.3962634"
-                format="L8"/>
+                resolution_x="1600"
+                resolution_y="1200"
+                fov="1.22173"
+                format="R8G8B8"/>
 
-            <xacro:camera 
-                camera_name="backhazcam_left"
-                topic_name="backhazcam/left"
-                rot="-2.35619449018 0 0"
-                pos="0.452052 1.06956 -0.114811"
-                parent="chassis"
-                resolution_x="1024"
-                resolution_y="1024"
-                fov="1.3962634"
-                format="L8"/>
-            
-            <xacro:camera 
-                camera_name="backhazcam_right"
-                topic_name="backhazcam/right"
-                rot="-2.35619449018 0 0"
-                pos="0.550881 1.06956 -0.114811"
-                parent="chassis"
-                resolution_x="1024"
-                resolution_y="1024"
-                fov="1.3962634"
-                format="L8"/>
+            <xacro:if value="$(arg fake_depth)">
+                <xacro:fake_depth_camera 
+                    camera_name="fronthazcam"
+                    rot="-2.35619449018 0 3.141592653589793"
+                    pos="0.086741 -0.940979 -0.176784"
+                    parent="chassis"
+                    resolution="1024"
+                    fov="1.3962634"
+                    baseline="0.1596"/>
+
+                <xacro:fake_depth_camera
+                    camera_name="backhazcam"
+                    rot="-2.35619449018 0 0"
+                    pos="0.452052 1.06956 -0.114811"
+                    parent="chassis"
+                    resolution="1024"
+                    fov="1.3962634"
+                    baseline="0.0988"/>
+            </xacro:if>
+
+            <xacro:unless value="$(arg fake_depth)">
+                <xacro:camera 
+                    camera_name="fronthazcam_left"
+                    topic_name="fronthazcam/left"
+                    rot="-2.35619449018 0 3.141592653589793"
+                    pos="0.086741 -0.940979 -0.176784"
+                    parent="chassis"
+                    resolution_x="1024"
+                    resolution_y="1024"
+                    fov="1.3962634"
+                    format="L8"/>
+                
+                <xacro:camera 
+                    camera_name="fronthazcam_right"
+                    topic_name="fronthazcam/right"
+                    rot="-2.35619449018 0 3.141592653589793"
+                    pos="-0.072925 -0.940979 -0.176784"
+                    parent="chassis"
+                    resolution_x="1024"
+                    resolution_y="1024"
+                    fov="1.3962634"
+                    format="L8"/>
+
+                <xacro:camera 
+                    camera_name="backhazcam_left"
+                    topic_name="backhazcam/left"
+                    rot="-2.35619449018 0 0"
+                    pos="0.452052 1.06956 -0.114811"
+                    parent="chassis"
+                    resolution_x="1024"
+                    resolution_y="1024"
+                    fov="1.3962634"
+                    format="L8"/>
+                
+                <xacro:camera 
+                    camera_name="backhazcam_right"
+                    topic_name="backhazcam/right"
+                    rot="-2.35619449018 0 0"
+                    pos="0.550881 1.06956 -0.114811"
+                    parent="chassis"
+                    resolution_x="1024"
+                    resolution_y="1024"
+                    fov="1.3962634"
+                    format="L8"/>
+            </xacro:unless>
         </xacro:unless>
-
 	</xacro:macro>
 
 </robot>

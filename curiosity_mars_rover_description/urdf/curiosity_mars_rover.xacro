@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <robot name="curiosity_mars_rover" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:arg name="fake_depth_cameras" default="false" />
-    <!-- Inertia matrices -->
+	<xacro:arg name="simple_camera" default="false" />
+	<xacro:arg name="fake_depth" default="false" />
+	<!-- Inertia matrices -->
 	<xacro:include filename="$(find curiosity_mars_rover_description)/urdf/macros.xacro"/>
 	<!-- Robot constants and properties -->
 	<xacro:include filename="$(find curiosity_mars_rover_description)/urdf/curiosity_mars_rover_properties.xacro"/>

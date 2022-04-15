@@ -208,63 +208,74 @@
         </transmission>
 
         <xacro:camera
-            camera_name="mastcam_left"
-            topic_name="mastcam/left"
+            camera_name="chemcam"
+            topic_name="chemcam"
             rot="-1.57079632679 0 3.141592653589793"
-            pos="0.145434 -0.138683 0.069"
+            pos="0.13642 -0.138683 0.222314"
             parent="mast_cameras"
-			resolution_x="1600"
-            resolution_y="1200"
-            fov="0.261799"
+			resolution_x="1024"
+            resolution_y="1024"
+            fov="1.3962634"
             format="R8G8B8"/>
 
-        <xacro:camera
-            camera_name="mastcam_right"
-            topic_name="mastcam/right"
-            rot="-1.57079632679 0 3.141592653589793"
-            pos="-0.099257 -0.138683 0.069"
-            parent="mast_cameras"
-			resolution_x="1600"
-            resolution_y="1200"
-            fov="0.0890118"
-            format="R8G8B8"/>
-
-        <xacro:if value="$(arg fake_depth_cameras)">
-           <xacro:fake_depth_camera 
-                camera_name="navcam"
-                rot="-1.57079632679 0 3.141592653589793"
-                pos="0.232895 -0.138683 0.08503"
-                parent="mast_cameras"
-                resolution="1024"
-                fov="1.3962634"
-                baseline="0.419309"/>
-        </xacro:if>
-
-        <xacro:unless value="$(arg fake_depth_cameras)">
+        <xacro:unless value="$(arg simple_camera)">
             <xacro:camera
-                camera_name="navcam_left"
-                topic_name="navcam/left"
+                camera_name="mastcam_left"
+                topic_name="mastcam/left"
                 rot="-1.57079632679 0 3.141592653589793"
-                pos="0.232895 -0.138683 0.08503"
+                pos="0.145434 -0.138683 0.069"
                 parent="mast_cameras"
-                resolution_x="1024"
-                resolution_y="1024"
-                fov="1.3962634"
-                format="L8"/>
+                resolution_x="1600"
+                resolution_y="1200"
+                fov="0.261799"
+                format="R8G8B8"/>
 
             <xacro:camera
-                camera_name="navcam_right"
-                topic_name="navcam/right"
+                camera_name="mastcam_right"
+                topic_name="mastcam/right"
                 rot="-1.57079632679 0 3.141592653589793"
-                pos="-0.186414 -0.138683 0.08503"
+                pos="-0.099257 -0.138683 0.069"
                 parent="mast_cameras"
-                resolution_x="1024"
-                resolution_y="1024"
-                fov="1.3962634"
-                format="L8"/>
+                resolution_x="1600"
+                resolution_y="1200"
+                fov="0.0890118"
+                format="R8G8B8"/>
+
+            <xacro:if value="$(arg fake_depth)">
+                <xacro:fake_depth_camera 
+                        camera_name="navcam"
+                        rot="-1.57079632679 0 3.141592653589793"
+                        pos="0.232895 -0.138683 0.08503"
+                        parent="mast_cameras"
+                        resolution="1024"
+                        fov="1.3962634"
+                        baseline="0.419309"/>
+            </xacro:if>
+
+            <xacro:unless value="$(arg fake_depth)">
+                <xacro:camera
+                    camera_name="navcam_left"
+                    topic_name="navcam/left"
+                    rot="-1.57079632679 0 3.141592653589793"
+                    pos="0.232895 -0.138683 0.08503"
+                    parent="mast_cameras"
+                    resolution_x="1024"
+                    resolution_y="1024"
+                    fov="1.3962634"
+                    format="L8"/>
+
+                <xacro:camera
+                    camera_name="navcam_right"
+                    topic_name="navcam/right"
+                    rot="-1.57079632679 0 3.141592653589793"
+                    pos="-0.186414 -0.138683 0.08503"
+                    parent="mast_cameras"
+                    resolution_x="1024"
+                    resolution_y="1024"
+                    fov="1.3962634"
+                    format="L8"/>
+            </xacro:unless>
         </xacro:unless>
-
-
 
     </xacro:macro>
 

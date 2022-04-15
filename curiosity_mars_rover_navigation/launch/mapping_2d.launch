@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <arg name="fake_depth_cameras" default="false" />
+    <arg name="fake_depth" default="false" />
 
     <include file="$(find curiosity_mars_rover_navigation)/launch/include/lasers.launch">
-        <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)"/>
+        <arg name="fake_depth" value="$(arg fake_depth)"/>
     </include>
 
     <node pkg="gmapping" type="slam_gmapping" name="gmapping" output="screen">
         <param name="odom_frame" value="odom" />
         <param name="base_frame" value="base_link" />
-        <remap from="scan" to="/curiosity_mars_rover/camera_backhazcam/scan" unless="$(arg fake_depth_cameras)" />
-        <remap from="scan" to="/curiosity_mars_rover/camera_navcam/scan" if="$(arg fake_depth_cameras)" />
+        <remap from="scan" to="/curiosity_mars_rover/camera_backhazcam/scan" unless="$(arg fake_depth)" />
+        <remap from="scan" to="/curiosity_mars_rover/camera_navcam/scan" if="$(arg fake_depth)" />
     </node>
 </launch>

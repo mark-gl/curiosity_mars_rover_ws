@@ -1,8 +1,6 @@
-/**
- *   for info https://aframe.io/docs/1.0.0/components/vive-controls.html#events
- *  this file contains our mappings for the controls
- *   https://blog.mozvr.com/input-mapping/ - read this to understand whats happening here
- **/
+// Static definitions of input keys/buttons for VR.
+// Information about this mapping format can be found at https://blog.mozvr.com/input-mapping/
+// and https://aframe.io/docs/1.0.0/components/oculus-touch-controls.html
 class Controls {
   static mappings = {
     mappings: {

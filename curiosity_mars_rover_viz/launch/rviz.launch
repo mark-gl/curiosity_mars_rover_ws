@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-    <arg name="fake_depth_cameras" default="false" />
+    <arg name="fake_depth" default="false" />
     <arg name="fake_gps" default="false" />
-    <arg name="rviz_lite" default="false"/>
-    <group unless="$(arg fake_depth_cameras)">
-        <group unless="$(arg rviz_lite)">
+    <arg name="simple_camera" default="false"/>
+    <group unless="$(arg fake_depth)">
+        <group unless="$(arg simple_camera)">
             <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_viz)/rviz/curiosity_mars_rover.rviz" />
         </group>
         <group if="$(arg rviz_lite)">
@@ -12,7 +12,7 @@
         </group>
     </group>
 
-    <group if="$(arg fake_depth_cameras)">
+    <group if="$(arg fake_depth)">
         <node name="rviz" pkg="rviz" type="rviz" args="-d $(find curiosity_mars_rover_viz)/rviz/curiosity_mars_rover_fake_depth.rviz" />
     </group>
 </launch>

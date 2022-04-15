@@ -1,5 +1,6 @@
 class Mast {
   constructor(ros, scene) {
+    // keepPublishingMast is used with setInterval to repeat function calls
     this.keepPublishingMast;
     this.stitching = false;
 
@@ -42,6 +43,7 @@ class Mast {
     this.mastListener.subscribe(this.mastCallback.bind(this));
     this.panoramaFeedback.subscribe(this.panoramaCallback.bind(this));
 
+    // 'Ping' the mastClient with a dummy request, to initialise the user interface.
     this.mastClient.callService(
       new ROSLIB.ServiceRequest({ mode: "ping" }),
       function (result) {
@@ -53,7 +55,8 @@ class Mast {
         document.getElementById("status").style.color = "rgb(255, 47, 47)";
       }
     );
-
+    
+    // Register event listeners for class functions.
     scene.addEventListener("mastToggle", this.mastToggle.bind(this));
     scene.addEventListener("mastUp", this.mastMove.bind(this, -0.02, 0));
     scene.addEventListener("mastDown", this.mastMove.bind(this, 0.02, 0));
@@ -62,6 +65,8 @@ class Mast {
   }
 
   mastCallback(result) {
+    // The first 17 characters ('Done! Mast Mode: ') are ignored
+    // This isn't very robust, but it works fine
     document.getElementById("mast_state").innerHTML = result.data.slice(17);
     this.updateMastButtons(result.data.slice(17));
   }
@@ -93,6 +98,7 @@ class Mast {
   }
 
   mastClick(x, y) {
+    // Start sending mast movement messages
     this.keepPublishingMast = setInterval(this.mastMove.bind(this, x, y), 16);
   }
 

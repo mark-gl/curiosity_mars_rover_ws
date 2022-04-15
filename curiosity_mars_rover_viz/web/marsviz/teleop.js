@@ -1,7 +1,9 @@
 class Teleop {
   constructor(ros, scene) {
+    // keepPublishingTeleop is used with setInterval to repeat function calls
     this.keepPublishingTeleop;
     this.speed = 1.0;
+    // Whether an obstacle is blocking teleoperation
     this.obstacle = false;
 
     this.cmdVelService = new ROSLIB.Service({
@@ -18,6 +20,7 @@ class Teleop {
       "stopRobot",
     ];
 
+    // Register movement events to class functions
     scene.addEventListener("moveJoy", this.moveJoy.bind(this));
     scene.addEventListener("speedUp", this.speedUp.bind(this));
     scene.addEventListener("slowDown", this.slowDown.bind(this));
@@ -29,23 +32,6 @@ class Teleop {
     }
   }
 
-  speedUp() {
-    this.speed = this.speed * 1.1;
-    document.getElementById("speed_state").innerHTML =
-      Math.round(this.speed * 100) / 100;
-  }
-
-  slowDown() {
-    this.speed = this.speed * 0.9;
-    document.getElementById("speed_state").innerHTML =
-      Math.round(this.speed * 100) / 100;
-  }
-
-  moveJoy(click) {
-    var controls = [-click.detail.y, 0, 0, 0, 0, -click.detail.x];
-    this.moveRobot(controls);
-  }
-
   bindControl(event) {
     var type = event.type;
     var currentMappingActions = AFRAME.inputActions[AFRAME.currentInputMapping];
@@ -53,6 +39,12 @@ class Teleop {
       ? currentMappingActions[type].params
       : [0, 0, 0, 0, 0, 0];
     this.moveRobot(parameters);
+  }
+
+  moveJoy(click) {
+    // Format moveRobot call for VR joysticks
+    var controls = [-click.detail.y, 0, 0, 0, 0, -click.detail.x];
+    this.moveRobot(controls);
   }
 
   moveRobot(arr) {
@@ -73,7 +65,20 @@ class Teleop {
     this.cmdVelService.callService(twist, this.updateButtons.bind(this));
   }
 
+  speedUp() {
+    this.speed = this.speed * 1.1;
+    document.getElementById("speed_state").innerHTML =
+      Math.round(this.speed * 100) / 100;
+  }
+
+  slowDown() {
+    this.speed = this.speed * 0.9;
+    document.getElementById("speed_state").innerHTML =
+      Math.round(this.speed * 100) / 100;
+  }
+
   teleopStart(params) {
+    // Start the teleoperation message publishing loop
     this.keepPublishingTeleop = setInterval(
       this.moveRobot.bind(this, params),
       16
@@ -81,6 +86,7 @@ class Teleop {
   }
 
   teleopStop() {
+    // Stop loop when key is lifted
     clearInterval(this.keepPublishingTeleop);
   }
 
@@ -103,7 +109,9 @@ class Teleop {
         this.obstacle = true;
         break;
       default:
-        if (this.obstacle == true) {
+        // Obstacle flag variable means that the changes below only occur once after an obstacle is cleared.
+        // Without it, the interface would behave the same, but unnecessary document.getElementById calls would be made
+        if (this.obstacle) {
           document.getElementById("tele_state").innerHTML = "OK";
           document.getElementById("n").disabled = false;
           document.getElementById("ne").disabled = false;
@@ -111,6 +119,7 @@ class Teleop {
           document.getElementById("s").disabled = false;
           document.getElementById("se").disabled = false;
           document.getElementById("sw").disabled = false;
+          this.obstacle = false;
         }
         break;
     }

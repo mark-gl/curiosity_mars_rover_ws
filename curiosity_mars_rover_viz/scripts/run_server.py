@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Simple Python web server for the entire repository.
+# Requires SSL certificates to be configured.
+
 import http.server
 import ssl
 import functools

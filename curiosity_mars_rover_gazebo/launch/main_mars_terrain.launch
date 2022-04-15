@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
     <arg name="rviz" default="true" />
-    <arg name="fake_depth_cameras" default="false" />
+    <arg name="fake_depth" default="false" />
     <arg name="fake_gps" default="false" />
+    <arg name="simple_camera" default="false" />
     <include file="$(find curiosity_mars_rover_gazebo)/launch/main_simple.launch">
         <arg name="world" value="$(find curiosity_mars_rover_gazebo)/worlds/mars_terrain.world"/>
-         <arg name="rviz" default="$(arg rviz)" />
-        <arg name="fake_depth_cameras" value="$(arg fake_depth_cameras)" />
+        <arg name="rviz" default="$(arg rviz)" />
+        <arg name="fake_depth" value="$(arg fake_depth)" />
         <arg name="fake_gps" value="$(arg fake_gps)" />
+        <arg name="simple_camera" default="$(arg simple_camera)" />
     </include>
 </launch>

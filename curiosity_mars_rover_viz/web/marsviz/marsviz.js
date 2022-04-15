@@ -1,27 +1,29 @@
 class MarsViz {
   constructor(secsToWait) {
+    // ROS is accessible through a web socket on port 9090
     this.ros = new ROSLIB.Ros({ url: "wss://127.0.0.1:9090" });
     this.scene = document.querySelector("a-scene");
 
     this.teleop = new Teleop(this.ros, this.scene);
     this.mast = new Mast(this.ros, this.scene);
     this.arm = new Arm(this.ros, this.scene);
+    this.navigation; // Initialised after world is loaded
 
-    this.navigation; // Initialised after world loaded
-
+    // gazeboWorld is needed to tell us the current models in the Gazebo world
     this.gazeboWorld = new ROSLIB.Service({
       ros: this.ros,
       name: "/gazebo/get_world_properties",
       serviceType: "gazebo_msgs/GetWorldProperties",
     });
 
+    // Wait a bit before spawning in the rover
     this.init_after_seconds(secsToWait);
   }
 
   async init_after_seconds(secs) {
     await new Promise((r) => setTimeout(r, secs * 1000));
 
-    // Setup a client to listen to TFs.
+    // Setup a client to listen to rover transform changes
     var tfClient = new ROSLIB.TFClient({
       ros: this.ros,
       angularThres: 0.01,
@@ -59,6 +61,8 @@ class MarsViz {
     newElement.setAttribute("shadow", { receive: false });
     newElement.setAttribute("class", "cantap");
     newElement.setAttribute("cursor-listener", "");
+    // Set the model attribute depending on the first model in the world
+    // (In each Gazebo worlds, these are the names of empty models at the start of each file)
     switch (gazeboMessage.model_names[0]) {
       case "world_mars_path":
         newElement.setAttribute("gltf-model", "#path");
@@ -79,6 +83,7 @@ class MarsViz {
         newElement.setAttribute("scale", "1 1 1");
         break;
       default:
+        // Make a flat, empty world otherwise
         newElement.setAttribute("geometry", {
           primitive: "plane",
           width: 80,
@@ -95,12 +100,13 @@ class MarsViz {
   }
 }
 
-// Main code - A-Frame input mapping/events are defined outside of the class scopes
-
+// Main code - A-Frame components/input mappings are registered outside of the class scopes
+// MarsViz class is instantiated in ./index.html using this function
 function initialiseMarsviz() {
   AFRAME.registerInputMappings(Controls.mappings);
   AFRAME.registerInputActions(Controls.inputActions, "default");
 
+  // This component listens for mouse movement on the world model for sending navigation goals
   AFRAME.registerComponent("cursor-listener", {
     init: function () {
       this.el.addEventListener("raycaster-intersected", (evt) => {
@@ -117,14 +123,14 @@ function initialiseMarsviz() {
       let intersection = this.raycaster.components.raycaster.getIntersection(
         this.el
       );
-      if (!intersection) {
-        return; // Not intersecting
+      if (intersection) {
+        // Update the position of the navigation goal picker!
+        marsviz.navigation.updateArrow(intersection);
       }
-      // Intersecting
-      marsviz.navigation.updateArrow(intersection);
     },
   });
 
+  // Runs the world model loading once the A-Frame scene has loaded
   AFRAME.registerComponent("gazebo-world", {
     schema: {},
     init() {
