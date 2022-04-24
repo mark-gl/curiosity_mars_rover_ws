@@ -97,7 +97,7 @@ class PublishThread(threading.Thread):
                 self.inactive = True
 
 
-def toggleMast(pub_thread):
+def toggle_mast(pub_thread):
     mast_request = MastRequest()
     mast_request.mode = "toggle"
     result = mast_service(mast_request)
@@ -109,7 +109,7 @@ def toggleMast(pub_thread):
         pub_thread.inactive = False
 
 
-def getKey(key_timeout):
+def get_key(key_timeout):
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], key_timeout)
     if rlist:
@@ -147,7 +147,7 @@ if __name__ == "__main__":
         print(msg)
         print(vels(speed, turn))
         while(1):
-            key = getKey(None)
+            key = get_key(None)
             if (key in moveBindings.keys() or key in speedBindings.keys()) and pub_thread.inactive:
                 print(
                     "Can't teleoperate mast as it is not raised. Press 'n' to raise the mast.")
@@ -162,7 +162,7 @@ if __name__ == "__main__":
                     print(msg)
                 status = (status + 1) % 15
             elif key == 'n':
-                toggleMast(pub_thread)
+                toggle_mast(pub_thread)
             else:
                 # Skip updating cmd_vel if key timeout and robot already
                 # stopped.

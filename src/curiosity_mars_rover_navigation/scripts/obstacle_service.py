@@ -10,8 +10,8 @@ class ObstacleService(object):
         self.cmd_vel_service = rospy.Service("/curiosity_mars_rover/cmd_vel_obstacle", Teleop, self.teleop_obstacle)
         self.publisher = rospy.Publisher('/curiosity_mars_rover/ackermann_drive_controller/cmd_vel', Twist, queue_size = 1)
         # Same topics are used for fake depth cameras and normal stereo cameras
-        self.front = rospy.Subscriber("/curiosity_mars_rover/camera_fronthazcam/scan", LaserScan, self.frontScan)
-        self.back = rospy.Subscriber("/curiosity_mars_rover/camera_backhazcam/scan", LaserScan, self.backScan)
+        self.front = rospy.Subscriber("/curiosity_mars_rover/camera_fronthazcam/scan", LaserScan, self.front_scan)
+        self.back = rospy.Subscriber("/curiosity_mars_rover/camera_backhazcam/scan", LaserScan, self.back_scan)
         self.frontBlocked = False
         self.backBlocked = False
         self.wait_publishers_to_be_ready()
@@ -38,13 +38,13 @@ class ObstacleService(object):
             rate_wait.sleep()
         rospy.loginfo("Ready to send teleoperation messages!")
     
-    def frontScan(self, msg):
+    def front_scan(self, msg):
         if any(t < 2.5 for t in msg.ranges):
             self.frontBlocked = True
         elif self.frontBlocked == True:
             self.frontBlocked = False
 
-    def backScan(self, msg):
+    def back_scan(self, msg):
         if any(t < 2.5 for t in msg.ranges):
             self.backBlocked = True
         elif self.backBlocked == True:

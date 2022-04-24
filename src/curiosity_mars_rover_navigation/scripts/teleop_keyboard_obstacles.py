@@ -136,7 +136,7 @@ class PublishThread(threading.Thread):
         teleop.twist = twist
         self.feedback = self.cmd_vel_obstacle(twist).feedback
 
-def getKey(key_timeout):
+def get_key(key_timeout):
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], key_timeout)
     if rlist:
@@ -177,7 +177,7 @@ if __name__=="__main__":
         print(msg)
         print(vels(speed,turn))
         while(1):
-            key = getKey(key_timeout)
+            key = get_key(key_timeout)
             if key in moveBindings.keys():
                 x = moveBindings[key][0]
                 y = moveBindings[key][1]
