@@ -1,5 +1,5 @@
 #! /bin/bash
-default_ws='catkin_ws'
+default_ws='curiosity_mars_rover_ws'
 CATKIN_WORKSPACE=${1:-$default_ws}
 
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
