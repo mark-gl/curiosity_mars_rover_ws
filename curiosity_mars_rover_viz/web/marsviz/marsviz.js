@@ -1,3 +1,6 @@
+// Main class for rover controls (either via the keyboard or UI panel)
+// Contains Arm, Mast, Nav and Teleop instances
+// Instantiated in main function below class definition
 class MarsViz {
   constructor(secsToWait) {
     // ROS is accessible through a web socket on port 9090
