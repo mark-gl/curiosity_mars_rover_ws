@@ -91,8 +91,8 @@ class NavigationUnitTest(unittest.TestCase):
                         random_x + 0.5, "Rover X position ({0}) is > 0.5m from goal ({1})".format(random_x, self.tester.final_pos[0]))
         self.assertTrue(random_y - 0.5 <= self.tester.final_pos[1] <=
                         random_y + 0.5, "Rover Y position ({0}) is > 0.5m from goal ({1})".format(random_y, self.tester.final_pos[1]))
-        self.assertTrue(random_rot - 0.5 <= self.tester.final_rot[2] <=
-                        random_rot + 0.5, "Rover rotation ({0}) is > 0.5 radians from goal ({1})".format(random_rot, self.tester.final_rot[2]))
+        self.assertTrue(random_rot - 0.75 <= self.tester.final_rot[2] <=
+                        random_rot + 0.75, "Rover rotation ({0}) is > 0.5 radians from goal ({1})".format(random_rot, self.tester.final_rot[2]))
 
     @async_test
     async def test_move_home(self):

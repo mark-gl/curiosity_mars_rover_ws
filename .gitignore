@@ -1,3 +1,4 @@
+.pytest_cache/
 .vscode/browse.vc.db*
 build/
 devel/

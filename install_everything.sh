@@ -7,7 +7,7 @@ sudo apt install curl
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 sudo apt update
 sudo apt install -y python3 ros-noetic-desktop-full
-sudo apt install -y python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+sudo apt install -y python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool python3-pytest build-essential
 sudo apt install -y ros-noetic-ros-control ros-noetic-ros-controllers ros-noetic-amcl ros-noetic-gmapping ros-noetic-map-server ros-noetic-move-base ros-noetic-rtabmap ros-noetic-rtabmap-ros ros-noetic-ira-laser-tools ros-noetic-pointcloud-to-laserscan ros-noetic-rosbridge-server
 sudo apt install -y hugin-tools imagemagick-6.q16 enblend
 
@@ -26,7 +26,10 @@ sudo chmod 777 /etc/ssl/certs/localcerts/server1.example.com.pem
 sudo ufw allow 9090
 sudo ufw allow 8080
 
-source /opt/ros/noetic/setup.bash
+bash /opt/ros/noetic/setup.bash
 cd ~/$CATKIN_WORKSPACE/
 catkin_make
-source devel/setup.bash
+bash devel/setup.bash
+
+echo "---"
+echo "All done! Open a new terminal to start using ROS, Gazebo and the Curiosity rover simulation."
