@@ -88,11 +88,11 @@ class NavigationUnitTest(unittest.TestCase):
         # Ensure that the final positions are within 0.5 of the random values generated
         # 0.5 is used as it is the goal tolerance specified in base_local_params.yaml
         self.assertTrue(random_x - 0.5 <= self.tester.final_pos[0] <=
-                        random_x + 0.5, "Rover X position ({0}) is > 0.5m from goal ({1})".format(random_x, self.tester.final_pos[0]))
+                        random_x + 0.5, "Rover X position ({0}) is > 0.5m from goal ({1})".format(self.tester.final_pos[0], random_x))
         self.assertTrue(random_y - 0.5 <= self.tester.final_pos[1] <=
-                        random_y + 0.5, "Rover Y position ({0}) is > 0.5m from goal ({1})".format(random_y, self.tester.final_pos[1]))
-        self.assertTrue(random_rot - 0.75 <= self.tester.final_rot[2] <=
-                        random_rot + 0.75, "Rover rotation ({0}) is > 0.5 radians from goal ({1})".format(random_rot, self.tester.final_rot[2]))
+                        random_y + 0.5, "Rover Y position ({0}) is > 0.5m from goal ({1})".format(self.tester.final_pos[1], random_y))
+        self.assertTrue(abs(random_rot) - 0.8 <= abs(self.tester.final_rot[2]) <=
+                        abs(random_rot) + 0.8, "Rover rotation ({0}) is > 0.8 radians from goal ({1})".format(abs(self.tester.final_rot[2]), abs(random_rot)))
 
     @async_test
     async def test_move_home(self):
@@ -102,8 +102,8 @@ class NavigationUnitTest(unittest.TestCase):
                         0.5, "Rover X position ({0}) is > 0.5m from goal (0.0)".format(self.tester.final_pos[0]))
         self.assertTrue(-0.5 <= self.tester.final_pos[1] <=
                         0.5, "Rover Y position ({0}) is > 0.5m from goal (0.0)".format(self.tester.final_pos[1]))
-        self.assertTrue(-0.5 <= self.tester.final_rot[2] <=
-                        0.5, "Rover rotation ({0}) is > 0.5 radians from goal (0.0)".format(self.tester.final_rot[2]))
+        self.assertTrue(-0.8 <= self.tester.final_rot[2] <=
+                        0.8, "Rover rotation ({0}) is > 0.8 radians from goal (0.0)".format(self.tester.final_rot[2]))
 
 
 if __name__ == '__main__':
