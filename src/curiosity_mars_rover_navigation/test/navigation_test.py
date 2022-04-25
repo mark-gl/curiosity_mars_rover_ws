@@ -1,6 +1,11 @@
-import unittest
+#!/usr/bin/env python3
+
+# Navigation tester that sends random goals, waits for a result message and
+# compares the final rover position with the goal position originally sent.
+
 import asyncio
 import random
+import unittest
 import rospy
 import tf
 from geometry_msgs.msg import PoseStamped
@@ -32,11 +37,13 @@ class NavigationPublishAndWait:
         self.listener = tf.TransformListener()
         self.rate = rospy.Rate(10)
         self.result = False
+        # Initialise recorded positions as unlikely results (1km from origin)
         self.final_x = 1000
         self.final_y = 1000
         self.final_rot = 10
 
     def send_goal(self, x, y, rot):
+        # Send a simple navigation goal to the action server
         pose = PoseStamped()
         pose.header.frame_id = "odom"
         pose.header.stamp = rospy.Time.now()
@@ -45,14 +52,17 @@ class NavigationPublishAndWait:
         pose.pose.position.z = 0
         pose.pose.orientation.x = 0
         pose.pose.orientation.y = 0
+        # Convert random rotation in radians to quaternion
         quaternion = quaternion_from_euler(0, 0, rot)
         pose.pose.orientation.z = quaternion[2]
         pose.pose.orientation.w = quaternion[3]
         self.pub.publish(pose)
 
     async def wait_for_result(self):
+        # Wait for callback_result to be called
         while not self.result and not rospy.is_shutdown():
             self.rate.sleep()
+        # Set the final recorded position of the rover after action server sends result
         self.final_pos, self.final_rot = self.listener.lookupTransform(
             'odom', 'base_link', rospy.Time(0))
         self.final_rot = euler_from_quaternion(self.final_rot)
@@ -75,6 +85,8 @@ class NavigationUnitTest(unittest.TestCase):
         random_rot = round(random.uniform(-3.14, 3.14), 2)
         self.tester.send_goal(random_x, random_y, random_rot)
         await self.tester.wait_for_result()
+        # Ensure that the final positions are within 0.5 of the random values generated
+        # 0.5 is used as it is the goal tolerance specified in base_local_params.yaml
         self.assertTrue(random_x - 0.5 <= self.tester.final_pos[0] <=
                         random_x + 0.5, "Rover X position ({0}) is > 0.5m from goal ({1})".format(random_x, self.tester.final_pos[0]))
         self.assertTrue(random_y - 0.5 <= self.tester.final_pos[1] <=
