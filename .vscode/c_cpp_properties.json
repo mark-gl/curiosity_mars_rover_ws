@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/mark/curiosity_mars_rover_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/mark/curiosity_mars_rover_ws/src/dependencies/ackermann_drive_controller/include/**",
+        "/home/mark/curiosity_mars_rover_ws/src/dependencies/tf2_web_republisher/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
