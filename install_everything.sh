@@ -27,10 +27,10 @@ sudo chmod 777 /etc/ssl/certs/localcerts/server1.example.com.pem
 sudo ufw allow 9090
 sudo ufw allow 8080
 
-bash /opt/ros/noetic/setup.bash
+. /opt/ros/noetic/setup.bash
 cd ~/$CATKIN_WORKSPACE/
 catkin_make
-bash devel/setup.bash
+. devel/setup.bash
 
 echo "---"
 echo "All done! Open a new terminal to start using ROS, Gazebo and the Curiosity rover simulation."
