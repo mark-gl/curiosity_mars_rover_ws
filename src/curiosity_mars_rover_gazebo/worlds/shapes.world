@@ -32,7 +32,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://ground.material</uri>
+                            <uri>model://shapes/ground.material</uri>
                             <name>GroundFlat/Image</name>
                         </script>
                     </material>
@@ -61,7 +61,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://rock.material</uri>
+                            <uri>model://shapes/rock.material</uri>
                             <name>RockFlat/Image</name>
                         </script>
                     </material>
@@ -91,7 +91,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://rock.material</uri>
+                            <uri>model://shapes/rock.material</uri>
                             <name>RockFlat/Image</name>
                         </script>
                     </material>
@@ -121,7 +121,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://rock.material</uri>
+                            <uri>model://shapes/rock.material</uri>
                             <name>RockFlat/Image</name>
                         </script>
                     </material>
@@ -147,7 +147,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://rock.material</uri>
+                            <uri>model://shapes/rock.material</uri>
                             <name>RockFlat/Image</name>
                         </script>
                     </material>
@@ -174,7 +174,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://rock.material</uri>
+                            <uri>model://shapes/rock.material</uri>
                             <name>RockFlat/Image</name>
                         </script>
                     </material>
@@ -201,7 +201,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://rock.material</uri>
+                            <uri>model://shapes/rock.material</uri>
                             <name>RockFlat/Image</name>
                         </script>
                     </material>
@@ -228,7 +228,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://rock.material</uri>
+                            <uri>model://shapes/rock.material</uri>
                             <name>RockFlat/Image</name>
                         </script>
                     </material>
@@ -255,7 +255,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://rock.material</uri>
+                            <uri>model://shapes/rock.material</uri>
                             <name>RockFlat/Image</name>
                         </script>
                     </material>
@@ -282,7 +282,7 @@
                     </geometry>
                     <material>
                         <script>
-                            <uri>model://rock.material</uri>
+                            <uri>model://shapes/rock.material</uri>
                             <name>RockFlat/Image</name>
                         </script>
                     </material>

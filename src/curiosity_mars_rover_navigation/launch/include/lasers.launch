@@ -39,7 +39,7 @@
             <remap from="cloud_in" to="/curiosity_mars_rover/camera_backhazcam/depth/points" />
             <remap from="scan" to="/curiosity_mars_rover/camera_backhazcam/scan" />
             <param name="target_frame" value="base_link" />
-            <param name="min_height" value="-0.5" />
+            <param name="min_height" value="-0.7" />
             <param name="max_height" value="5" />
             <param name="range_min" value="0.1" />
             <param name="range_max" value="40" />
@@ -49,7 +49,7 @@
             <remap from="cloud_in" to="/curiosity_mars_rover/camera_fronthazcam/depth/points" />
             <remap from="scan" to="/curiosity_mars_rover/camera_fronthazcam/scan" />
             <param name="target_frame" value="base_link" />
-            <param name="min_height" value="-0.3" />
+            <param name="min_height" value="-0.5" />
             <param name="max_height" value="5" />
             <param name="range_min" value="0.1" />
             <param name="range_max" value="40" />
@@ -59,7 +59,7 @@
             <remap from="cloud_in" to="/curiosity_mars_rover/camera_navcam/depth/points" />
             <remap from="scan" to="/curiosity_mars_rover/camera_navcam/scan" />
             <param name="target_frame" value="base_link" />
-            <param name="min_height" value="0.6" />
+            <param name="min_height" value="0.4" />
             <param name="max_height" value="5" />
             <param name="range_min" value="5" />
             <param name="range_max" value="40" />
@@ -79,7 +79,7 @@
         <param name="angle_max" value="3.14"/>
         <param name="angle_increment" value="0.0058"/>
         <param name="scan_time" value="0.0333333"/>
-        <param name="range_min" value="0.30"/>
+        <param name="range_min" value="0.10"/>
         <param name="range_max" value="50.0"/>
     </node>
 
