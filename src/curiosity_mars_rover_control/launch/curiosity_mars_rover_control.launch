@@ -35,5 +35,5 @@
         <remap from="/joint_states" to="/curiosity_mars_rover/joint_states" />
     </node>
 
-    <node name="curiosity_rover_arms_and_mast_node" pkg="curiosity_mars_rover_control" type="arm_and_mast.py" respawn="false" output="screen" args=""/>
+    <node name="curiosity_rover_arm_and_mast_node" pkg="curiosity_mars_rover_control" type="arm_and_mast.py" respawn="false" output="screen" args=""/>
 </launch>
