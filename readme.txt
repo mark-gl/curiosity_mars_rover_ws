@@ -12,7 +12,7 @@ This folder (curiosity_mars_rover_ws) is a Catkin workspace. The src/ folder con
 
 -------------------------------------------------------------------------------
 
-To install everything automatically:
+To install everything automatically (including ROS and Gazebo):
 Make sure this folder (not just its contents) is in your /home/username/ folder (where 'username' is your Linux user name). 
 In a terminal, navigate to this folder and type:
 
