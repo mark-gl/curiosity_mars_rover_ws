@@ -18,7 +18,7 @@ In a terminal, navigate to this folder and type:
 
   bash install_everything.sh
 
-The installation will take roughly 10 minutes and use 4.8GB of disk space.
+You will be prompted for your password. After typing it in, the installation will take roughly 10 minutes and use 4.8GB of disk space.
 Afterwards, to reload your current terminal window run:
 
   exec bash
