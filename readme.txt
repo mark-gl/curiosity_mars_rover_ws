@@ -1,13 +1,20 @@
 -------------------------------------------------------------------------------
 
-curiosity_mars_rover_ws package
+curiosity_mars_rover_ws software package
 Uses ROS Noetic & Python 3, tested on Ubuntu 20.04
+This folder (curiosity_mars_rover_ws) is a Catkin workspace. The src/ folder contains the five ROS packages developed as part of my project.
+
+  curiosity_mars_rover_gazebo:              Launches the Curiosity simulation with Mars environments in Gazebo
+  curiosity_mars_rover_description:         Describes the simulated rover using URDF
+  curiosity_mars_rover_control:             Enables teleoperation of the rover
+  curiosity_mars_rover_navigation:          Enables autonomous navigation using move_base
+  curiosity_mars_rover_viz:                 Includes a web application for visualisation of the rover in VR
 
 -------------------------------------------------------------------------------
 
 To install everything automatically:
-Make sure this folder (curiosity_mars_rover_ws) is in your /home/username/ folder (where 'username' is your Linux user name).
-In a terminal, navigate to this folder (curiosity_mars_rover_ws) and type:
+Make sure this folder (not just its contents) is in your /home/username/ folder (where 'username' is your Linux user name). 
+In a terminal, navigate to this folder and type:
 
   bash install_everything.sh
 
@@ -22,14 +29,15 @@ You will now be able to run 'roslaunch' commands, for example:
 
 
 
+
 -------------------------------------------------------------------------------
 
 Additional notes
 
 -------------------------------------------------------------------------------
 
-The install_everything.sh script can also take an alternative workspace folder name as a parameter.
-For instance, if you have renamed this 'curiosity_mars_rover_ws' folder to 'catkin_ws' (the typical ROS workspace name):
+The install_everything.sh script can also take an alternative Catkin workspace folder name as a parameter.
+For instance, if you have renamed this 'curiosity_mars_rover_ws' folder to 'catkin_ws' (the typical workspace name):
 
   bash install_everything.sh catkin_ws
 
@@ -51,3 +59,5 @@ Finally, the permissions of the files should be set:
 
   sudo chmod 777 /etc/ssl/certs/localcerts/server1.example.com.key
   sudo chmod 777 /etc/ssl/certs/localcerts/server1.example.com.pem
+
+-------------------------------------------------------------------------------
