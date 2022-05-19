@@ -1,5 +1,4 @@
 #! /usr/bin/env python3
-
 import rospy
 import actionlib
 from curiosity_mars_rover_control.msg import PanoramaAction, PanoramaFeedback, PanoramaResult
@@ -87,8 +86,6 @@ class PanoramaActionServer():
             self._feedback.state = "Stitched!"
             rospy.loginfo(self._feedback.state)
             self._as.publish_feedback(self._feedback)
-
-
 
 
 if __name__ == '__main__':

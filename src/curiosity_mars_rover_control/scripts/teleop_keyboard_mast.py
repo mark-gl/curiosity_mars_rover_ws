@@ -6,11 +6,11 @@
 
 from __future__ import print_function
 import threading
-import rospy
 import sys
 import select
 import termios
 import tty
+import rospy
 from curiosity_mars_rover_control.srv import Mast, MastRequest
 
 msg = """
