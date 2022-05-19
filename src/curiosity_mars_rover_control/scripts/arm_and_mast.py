@@ -4,7 +4,7 @@ from std_msgs.msg import Float64
 from std_msgs.msg import String
 from curiosity_mars_rover_control.srv import Mast, Arm, MastResponse, ArmResponse
 
-
+# This code has been modified from the original Curiosity ROS simulation.
 class CuriosityMarsRoverArmAndMast(object):
     def __init__(self):
         rospy.loginfo("Curiosity Arm And Mast Initialising...")
