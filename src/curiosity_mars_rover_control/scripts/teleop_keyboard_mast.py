@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+
+# This file has been modified from the original teleop_twist_keyboard.py file.
+# It can be found here on GitHub:
+# https://github.com/ros-teleop/teleop_twist_keyboard
+
 from __future__ import print_function
 import threading
 import rospy
@@ -7,8 +12,6 @@ import select
 import termios
 import tty
 from curiosity_mars_rover_control.srv import Mast, MastRequest
-
-# This code has been modified from the teleop_twist_keyboard.py file of the teleop_twist_keyboard package
 
 msg = """
 Reading from the keyboard and publishing to the mast!
