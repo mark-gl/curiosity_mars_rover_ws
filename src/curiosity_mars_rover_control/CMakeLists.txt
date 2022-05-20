@@ -10,7 +10,6 @@ project(curiosity_mars_rover_control)
 find_package(catkin REQUIRED COMPONENTS
   ackermann_drive_controller
   controller_manager
-  curiosity_mars_rover_description
   joint_state_controller
   robot_state_publisher
   message_generation
@@ -113,7 +112,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES curiosity_mars_rover_control
-#  CATKIN_DEPENDS ackermann_drive_controller controller_manager curiosity_mars_rover_description joint_state_controller robot_state_publisher
+#  CATKIN_DEPENDS ackermann_drive_controller controller_manager joint_state_controller robot_state_publisher
 #  DEPENDS system_lib
 )
 

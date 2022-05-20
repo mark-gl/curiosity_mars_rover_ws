@@ -8,8 +8,7 @@ project(curiosity_mars_rover_viz)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  curiosity_mars_rover_control
-  curiosity_mars_rover_description
+  curiosity_mars_rover_navigation
   curiosity_mars_rover_gazebo
   tf2_web_republisher
 )
@@ -106,7 +105,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES curiosity_mars_rover_viz
-#  CATKIN_DEPENDS curiosity_mars_rover_control curiosity_mars_rover_description curiosity_mars_rover_gazebo tf2_web_republisher
+#  CATKIN_DEPENDS curiosity_mars_rover_navigation curiosity_mars_rover_gazebo tf2_web_republisher
 #  DEPENDS system_lib
 )
 

@@ -52,19 +52,16 @@
   <build_depend>message_generation</build_depend>
   <build_depend>ackermann_drive_controller</build_depend>
   <build_depend>controller_manager</build_depend>
-  <build_depend>curiosity_mars_rover_description</build_depend>
   <build_depend>joint_state_controller</build_depend>
   <build_depend>robot_state_publisher</build_depend>
   <build_depend>actionlib_msgs</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_export_depend>ackermann_drive_controller</build_export_depend>
   <build_export_depend>controller_manager</build_export_depend>
-  <build_export_depend>curiosity_mars_rover_description</build_export_depend>
   <build_export_depend>joint_state_controller</build_export_depend>
   <build_export_depend>robot_state_publisher</build_export_depend>
   <exec_depend>ackermann_drive_controller</exec_depend>
   <exec_depend>controller_manager</exec_depend>
-  <exec_depend>curiosity_mars_rover_description</exec_depend>
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>actionlib_msgs</exec_depend>
