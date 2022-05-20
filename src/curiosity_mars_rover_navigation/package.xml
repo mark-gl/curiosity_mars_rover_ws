@@ -60,7 +60,7 @@
   <build_export_depend>map_server</build_export_depend>
   <build_export_depend>move_base</build_export_depend>
   <build_export_depend>rtabmap_ros</build_export_depend>
-  <exec_depend>curiosity_mars_rover_gazebo</exec_depend>
+  <exec_depend>control</exec_depend>
   <exec_depend>amcl</exec_depend>
   <exec_depend>gmapping</exec_depend>
   <exec_depend>map_server</exec_depend>
