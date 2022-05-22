@@ -12,6 +12,7 @@ sudo apt install -y python3-rosdep python3-rosinstall python3-rosinstall-generat
 sudo apt install -y ros-noetic-ros-control ros-noetic-ros-controllers ros-noetic-amcl ros-noetic-gmapping ros-noetic-map-server ros-noetic-move-base ros-noetic-rtabmap ros-noetic-rtabmap-ros ros-noetic-ira-laser-tools ros-noetic-pointcloud-to-laserscan ros-noetic-rosbridge-server
 sudo apt install -y hugin-tools imagemagick-6.q16 enblend
 
+echo "" >> ~/.bashrc
 echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 echo "source ~/$CATKIN_WORKSPACE/devel/setup.bash" >> ~/.bashrc
 chmod +x ~/$CATKIN_WORKSPACE/src/curiosity_mars_rover_control/scripts/*
