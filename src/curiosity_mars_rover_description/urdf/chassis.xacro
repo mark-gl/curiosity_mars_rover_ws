@@ -119,7 +119,7 @@
                     resolution_x="1024"
                     resolution_y="1024"
                     fov="1.3962634"
-                    format="L8"/>
+                    format="R8G8B8"/>
                 
                 <xacro:camera 
                     camera_name="fronthazcam_right"
@@ -130,7 +130,7 @@
                     resolution_x="1024"
                     resolution_y="1024"
                     fov="1.3962634"
-                    format="L8"/>
+                    format="R8G8B8"/>
 
                 <xacro:camera 
                     camera_name="backhazcam_left"
@@ -141,7 +141,7 @@
                     resolution_x="1024"
                     resolution_y="1024"
                     fov="1.3962634"
-                    format="L8"/>
+                    format="R8G8B8"/>
                 
                 <xacro:camera 
                     camera_name="backhazcam_right"
@@ -152,7 +152,7 @@
                     resolution_x="1024"
                     resolution_y="1024"
                     fov="1.3962634"
-                    format="L8"/>
+                    format="R8G8B8"/>
             </xacro:unless>
         </xacro:unless>
 	</xacro:macro>
