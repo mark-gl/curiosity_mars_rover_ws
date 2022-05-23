@@ -33,7 +33,6 @@
     <group if="$(arg rviz)">
         <include file="$(find curiosity_mars_rover_viz)/launch/rviz.launch">
             <arg name="fake_depth" value="$(arg fake_depth)" />
-            <arg name="fake_gps" value="$(arg fake_gps)" />
             <arg name="simple_camera" default="$(arg simple_camera)" />
         </include>
     </group>
