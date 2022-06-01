@@ -26,6 +26,7 @@ This folder, `curiosity_mars_rover_ws`, is a Catkin workspace. The `src/` folder
 
 ## Additional notes
 **Installing to an existing Catkin workspace**
+
 The `install_everything.sh` script can also take an alternative Catkin workspace folder name as a parameter.
 For instance, if you have renamed this `curiosity_mars_rover_ws` folder to `catkin_ws` (the typical Catkin workspace name) you can run:
 
@@ -34,6 +35,7 @@ For instance, if you have renamed this `curiosity_mars_rover_ws` folder to `catk
 This will install everything using the workspace 'catkin_ws'.
 
 **Web application security**
+
 The web application requires a security certificate in order to run. An example has been provided and will be installed as part of the installation script, however this certificate will expire at some point in the future. If you have discovered this repository amid the ruins of civilisation, new certificates can be created using the following command:
 
 `openssl req -x509 -newkey rsa:4096 -keyout server1.example.com.key -out server1.example.com.pem -days 365 -nodes`
