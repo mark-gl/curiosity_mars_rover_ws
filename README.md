@@ -1,5 +1,6 @@
 # curiosity_mars_rover_ws software package
 Uses ROS Noetic & Python 3, tested on Ubuntu 20.04
+
 This folder (`curiosity_mars_rover_ws`) is a Catkin workspace. The `src/` folder contains the five ROS packages developed as part of my University dissertation:
 
  - curiosity_mars_rover_gazebo:              Launches the Curiosity    simulation with Mars environments in Gazebo      
