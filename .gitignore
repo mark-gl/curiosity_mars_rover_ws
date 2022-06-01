@@ -1,5 +1,5 @@
 .pytest_cache/
-.vscode/browse.vc.db*
+.vscode/
 build/
 devel/
 *.pyc
