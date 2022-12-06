@@ -34,7 +34,7 @@ More commands and available launch parameters are provided in the user manual PD
 **Installing to an existing Catkin workspace**
 
 The `install_everything.sh` script can also take an alternative Catkin workspace folder name as a parameter.
-For instance, if you have renamed this `curiosity_mars_rover_ws` folder to `catkin_ws` (the typical Catkin workspace name) you can run:
+For instance, if you want to install this project into an existing workspace called `catkin_ws` (the typical Catkin workspace name), you can copy the contents of this folder into your workspace and run:
 
 `bash install_everything.sh catkin_ws`
 
