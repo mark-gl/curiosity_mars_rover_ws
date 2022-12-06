@@ -1,7 +1,9 @@
 # curiosity_mars_rover_ws software package
-ROS simulation of the Mars rover Curiosity with a web-based user interface - Uses ROS Noetic & Python 3, tested on Ubuntu 20.04
+ROS simulation of the Mars rover Curiosity with a web-based user interface
 
 ![Screenshot of MarsViz interface](https://i.imgur.com/sSvI0MY.png)
+
+Uses ROS Noetic & Python 3, tested on Ubuntu 20.04 and Windows 11 via WSL2
 
 This folder, `curiosity_mars_rover_ws`, is a Catkin workspace. The `src/` folder contains the five ROS packages developed as part of my University dissertation. They are based on the original `curiosity_mars_rover_description` package available from [The Construct](https://bitbucket.org/theconstructcore/curiosity_mars_rover/src/master/):
 
