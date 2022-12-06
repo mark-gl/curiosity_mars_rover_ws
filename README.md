@@ -1,5 +1,7 @@
 # curiosity_mars_rover_ws software package
-Uses ROS Noetic & Python 3, tested on Ubuntu 20.04
+ROS simulation of the Mars rover Curiosity with a web-based user interface - Uses ROS Noetic & Python 3, tested on Ubuntu 20.04
+
+![Screenshot of MarsViz interface](https://i.imgur.com/sSvI0MY.png)
 
 This folder, `curiosity_mars_rover_ws`, is a Catkin workspace. The `src/` folder contains the five ROS packages developed as part of my University dissertation. They are based on the original `curiosity_mars_rover_description` package available from [The Construct](https://bitbucket.org/theconstructcore/curiosity_mars_rover/src/master/):
 
@@ -16,13 +18,15 @@ This folder, `curiosity_mars_rover_ws`, is a Catkin workspace. The `src/` folder
 `bash install_everything.sh`
 
  3. You will be prompted for your password. After typing it in, the installation will take roughly 10 minutes and use 4.8GB of disk space. 
- 4. Afterwards, to you'll need to start a new terminal in order to access the simulation. Reload your current terminal window by typing:
+ 4. Afterwards, you'll need to start a new terminal in order to access the simulation. Reload your current terminal window by typing:
  
  `exec bash`
  
  Once these steps are completed, you will be able to run 'roslaunch' commands, for example:
 
 `roslaunch curiosity_mars_rover_gazebo main_mars_terrain.launch`
+
+More commands and available launch parameters are provided in the user manual PDF.
 
 ## Additional notes
 **Installing to an existing Catkin workspace**
