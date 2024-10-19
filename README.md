@@ -1,7 +1,7 @@
 # curiosity_mars_rover_ws software package
 ROS simulation of the Mars rover Curiosity with a web-based user interface
 
-![Screenshot of MarsViz interface](https://i.imgur.com/sSvI0MY.png)
+![Screenshot of MarsViz interface](image.png)
 
 Uses ROS Noetic & Python 3, tested on Ubuntu 20.04 and Windows 11 via WSL2
 
